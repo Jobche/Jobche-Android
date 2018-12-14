@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="When is your birthday?"
-            android:textSize="32sp"
+            android:textSize="30sp"
             android:layout_marginTop="100dp"
             android:textColor="#111"/>
 
@@ -52,7 +52,7 @@
             android:background="#111"/>
 
     <Button
-            android:id="@+id/next_name_btn"
+            android:id="@+id/next_birth_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Next"
