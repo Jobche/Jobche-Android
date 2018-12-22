@@ -1,10 +1,9 @@
 package com.example.user.jobche.Model
 
-import android.databinding.BaseObservable
 import android.text.TextUtils
 import android.util.Patterns
 
-class User(private var email: String, private var password: String): BaseObservable() {
+class User(private var email: String, private var password: String) {
 
     val isDataValid: Boolean
         get() = (!TextUtils.isEmpty(getEmail()))

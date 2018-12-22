@@ -1,9 +1,9 @@
 package com.example.user.jobche.ViewModel
 
-import android.arch.lifecycle.ViewModel
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.lifecycle.ViewModel
 import com.example.user.jobche.Interface.LoginResultCallBacks
 import com.example.user.jobche.Model.User
 

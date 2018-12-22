@@ -6,7 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:theme="@style/MyCustomTheme"
-        android:minHeight="?attr/actionBarSize">
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
 
     <TextView
             android:layout_width="wrap_content"

@@ -1,9 +1,9 @@
 package com.example.user.jobche
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.toolbar.*
 
 class AddTaskActivity : AppCompatActivity() {
