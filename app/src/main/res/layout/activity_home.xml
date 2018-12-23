@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.drawerlayout.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".HomeActivity">
+        android:layout_height="match_parent">
 
-    <include
-            android:id="@+id/custom_toolbar"
-            layout="@layout/toolbar"
-    />
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".HomeActivity">
 
+        <include
+                android:id="@+id/custom_toolbar"
+                layout="@layout/toolbar"
+        />
 
-    <!--<com.google.android.material.navigation.NavigationView-->
-            <!--android:id="@+id/navigation"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_gravity="start"-->
-             <!--/>-->
-
-
-    <LinearLayout
-          android:id="@+id/tasks"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginTop="?attr/actionBarSize"
-          android:orientation="vertical">
-            <ListView
-                android:id="@+id/home_tasks_list"
+        <LinearLayout
+                android:id="@+id/tasks"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:orientation="vertical">
+            <ListView
+                    android:id="@+id/home_tasks_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
             </ListView>
-    </LinearLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fab"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="32dp"
+                android:layout_marginEnd="32dp"
+                app:fabSize="normal"
+        />
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fab"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="32dp"
-            android:layout_marginEnd="32dp"
-            app:fabSize="normal"
-    />
-</RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_gravity="start|start"/>
+</androidx.drawerlayout.widget.DrawerLayout>
