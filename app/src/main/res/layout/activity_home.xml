@@ -26,7 +26,7 @@
             <ListView
                     android:id="@+id/home_tasks_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content">
             </ListView>
         </LinearLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,7 +43,10 @@
 
     <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation"
+            app:headerLayout="@layout/header"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="start|start"/>
+            android:layout_gravity="start"
+            app:itemIconTint="@android:color/darker_gray"
+            app:menu="@menu/drawer_view"/>
 </androidx.drawerlayout.widget.DrawerLayout>

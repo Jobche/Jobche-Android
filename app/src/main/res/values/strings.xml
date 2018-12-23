@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Jobche</string>
+    <string name="add_task">Add task</string>
+    <string name="profile">Profile</string>
+    <string name="messages">Messages</string>
+    <string name="applied">Applied</string>
+    <string name="my_tasks">My Tasks</string>
+    <string name="saved">Saved</string>
+    <string name="firstname_lastname">Firstname LastName</string>
 </resources>
