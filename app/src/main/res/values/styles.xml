@@ -8,11 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="MyCustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--<style name="MyCustomTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
 
-        <item name="colorPrimary">#4CAF50</item>
-        <item name="colorPrimaryDark">#087f23</item>
-        <item name="colorAccent">#80e27e</item>
-    </style>
+        <!--<item name="colorPrimary">#4CAF50</item>-->
+        <!--<item name="colorPrimaryDark">#087f23</item>-->
+        <!--<item name="colorAccent">#80e27e</item>-->
+    <!--</style>-->
 
 </resources>
