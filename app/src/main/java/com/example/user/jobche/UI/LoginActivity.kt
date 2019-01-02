@@ -23,19 +23,6 @@ class LoginActivity : AppCompatActivity(), LoginResultCallBacks {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val loginViewModel = ViewModelProviders.of(this)
-            .get(LoginViewModel::class.java)
-
-        DataBindingUtil.setContentView<ActivityLoginBinding>(
-            this, R.layout.activity_login
-        ).apply { this.setLifecycleOwner(this@LoginActivity)
-            this.viewModel = loginViewModel
-        }
-
-//        val activityLoginBinding = DataBindingUtil.setContentView<ActivityLoginBinding>(this,
-//            R.layout.activity_login
-//        )
-//        activityLoginBinding.viewModel = ViewModelProviders.of(this, LoginViewModelFactory(this))
-//            .get(LoginViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
     }
 }

@@ -5,14 +5,10 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.user.jobche.Interface.LoginResultCallBacks
-import com.example.user.jobche.Model.User
+import com.example.user.jobche.Model.LoginUser
 
-class LoginViewModel (private val listener: LoginResultCallBacks): ViewModel() {
-    private val user: User
-
-    init {
-        this.user = User("", "")
-    }
+class LoginViewModel: ViewModel() {
+    private val loginUser: LoginUser = LoginUser()
 
     val emailTextWatcher: TextWatcher
         get() = object: TextWatcher{
@@ -23,7 +19,7 @@ class LoginViewModel (private val listener: LoginResultCallBacks): ViewModel() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                user.setEmail(s.toString())
+                loginUser.setEmail(s.toString())
             }
 
         }
@@ -37,18 +33,18 @@ class LoginViewModel (private val listener: LoginResultCallBacks): ViewModel() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                user.setPassoword(s.toString())
+                loginUser.setPassword(s.toString())
             }
 
         }
 
-    fun onLoginClicked(v: View) {
-        if(user.isDataValid) {
-            listener.onSuccess("Login Success")
-        }
-        else {
-            listener.onError("Login Failed")
-        }
-
-    }
+//    fun onLoginClicked(v: View) {
+//        if(loginUser.isDataValid) {
+//            listener.onSuccess("Login Success")
+//        }
+//        else {
+//            listener.onError("Login Failed")
+//        }
+//
+//    }
 }

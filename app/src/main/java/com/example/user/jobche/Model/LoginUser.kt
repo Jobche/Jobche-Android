@@ -3,26 +3,29 @@ package com.example.user.jobche.Model
 import android.text.TextUtils
 import android.util.Patterns
 
-class User(private var email: String, private var password: String) {
+class LoginUser() {
+
+    private var email: String = ""
+    private var password: String = ""
 
     val isDataValid: Boolean
         get() = (!TextUtils.isEmpty(getEmail()))
                 && Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches()
                 && getPassword().length > 6
 
-    public fun getEmail(): String {
+    fun getEmail(): String {
         return email
     }
 
-    public fun getPassword(): String {
+    fun getPassword(): String {
         return password
     }
 
-    public fun setEmail(email: String) {
+    fun setEmail(email: String) {
         this.email = email
     }
 
-    public fun setPassoword(password: String) {
+    fun setPassword(password: String) {
         this.password = password
     }
 }
