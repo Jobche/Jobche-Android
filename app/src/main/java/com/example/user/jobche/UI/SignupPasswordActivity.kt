@@ -1,10 +1,11 @@
-package com.example.user.jobche
+package com.example.user.jobche.UI
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.user.jobche.Model.RegisterUser
+import com.example.user.jobche.R
 import kotlinx.android.synthetic.main.activity_signup_password.*
 
 class SignupPasswordActivity : AppCompatActivity() {
@@ -15,10 +16,10 @@ class SignupPasswordActivity : AppCompatActivity() {
 
         val mNext = findViewById<Button>(R.id.next_pass_btn)
         mNext.setOnClickListener {
-//            val registerUser: RegisterUser = intent.getParcelableExtra("RegisterUser")
-            val password = signup_password.text.toString()
+            val registerUser: RegisterUser = intent.getParcelableExtra("RegisterUser")
+            registerUser.password = signup_password.text.toString()
             val intent = Intent(this, SignupBirthActivity::class.java)
-            intent.putExtra("password", password)
+            intent.putExtra("RegisterUser", registerUser)
             startActivity(intent)
         }
     }

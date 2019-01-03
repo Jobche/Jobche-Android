@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
           package="com.example.user.jobche">
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -8,27 +9,32 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity">
+        <activity android:name=".UI.HomeActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
 
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".AddTaskActivity">
-        </activity>
         <activity android:name=".UI.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".UI.AddTaskActivity">
+        </activity>
+        <activity android:name=".UI.SignupNameActivity">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SignupNameActivity">
+        <activity android:name=".UI.SignupPasswordActivity">
         </activity>
-        <activity android:name=".SignupPasswordActivity">
-        </activity>
-        <activity android:name=".SignupBirthActivity">
+        <activity android:name=".UI.SignupBirthActivity">
         </activity>
     </application>
 
