@@ -18,7 +18,7 @@ class SignupNameActivity : AppCompatActivity() {
 
         val mNext = findViewById<Button>(R.id.next_name_btn)
         mNext.setOnClickListener {
-            val registerUser: RegisterUser = RegisterUser()
+            val registerUser = RegisterUser()
             registerUser.firstName = signup_firstname.text.toString()
             registerUser.lastName = signup_lastname.text.toString()
             val intent = Intent(this, SignupPasswordActivity::class.java)

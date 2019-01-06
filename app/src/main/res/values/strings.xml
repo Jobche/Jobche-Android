@@ -7,4 +7,7 @@
     <string name="my_tasks">My Tasks</string>
     <string name="saved">Saved</string>
     <string name="firstname_lastname">Firstname Lastname</string>
+    <string name="email">Email</string>
+    <string name="new_user">New user?</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
