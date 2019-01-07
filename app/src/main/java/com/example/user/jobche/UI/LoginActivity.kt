@@ -23,12 +23,5 @@ class LoginActivity: AppCompatActivity() {
         val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         val loginViewModel = LoginViewModel()
         binding.viewModel = loginViewModel
-
-        val mSignup = findViewById<Button>(R.id.signup_btn)
-        mSignup.setOnClickListener {
-            val intent = Intent(this, SignupNameActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 }

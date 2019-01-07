@@ -1,9 +1,11 @@
 package com.example.user.jobche
 
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.Bindable
@@ -13,6 +15,7 @@ import com.example.user.jobche.Model.LoginUser
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.os.HandlerCompat.postDelayed
 import com.example.user.jobche.Model.RegisterUser
+import com.example.user.jobche.UI.SignupNameActivity
 import com.example.user.jobche.UI.SignupPasswordActivity
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -62,9 +65,18 @@ class LoginViewModel: BaseObservable() {
                 val res:String = response.body().toString()
                 Log.d("Login user Success:", res)
 
+
             }
 
         })
     }
+
+   fun onClick(view: View) {
+       val context = view.context
+       val intent = Intent(context, SignupNameActivity::class.java)
+       context.startActivity(intent)
+
+   }
+
 
 }
