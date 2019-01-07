@@ -1,6 +1,5 @@
 package com.example.user.jobche
 
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.*
@@ -17,15 +16,7 @@ class RetrofitClient {
 
     val logging: HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(Level.BODY)
 
-// set your desired log level
-
     val httpClient:OkHttpClient.Builder = OkHttpClient.Builder().addInterceptor(logging)
-//    OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-// add your other interceptors …
-
-// add logging as last interceptor
-//    httpClient.addInterceptor(logging);  // <-- this is the important line!
-
 
     fun getApi() : RegisterApi {
         return getClient()!!.create(RegisterApi::class.java)
