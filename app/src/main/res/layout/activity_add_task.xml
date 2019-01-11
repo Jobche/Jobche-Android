@@ -1,74 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".UI.AddTaskActivity">
-    <include
-            android:id="@+id/custom_toolbar"
-            layout="@layout/toolbar"/>
-    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.example.user.jobche.AddTaskViewModel"/>
+    </data>
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".UI.AddTaskActivity"
             android:orientation="vertical"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp">
+            tools:context=".UI.AddTaskActivity">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Title"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Location"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Price"/>
-
-        <Spinner
-            android:id="@+id/spinner_price_type"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Workers"/>
+        <include
+                android:id="@+id/custom_toolbar"
+                layout="@layout/toolbar"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".UI.AddTaskActivity"
+                android:orientation="vertical"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
 
-            <Button
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="20dp"
-                android:text="Date"/>
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:hint="Title"/>
 
-            <Button
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="20dp"
-                android:text="Time"/>
-        </LinearLayout>
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:hint="Location"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:hint="Price"/>
+
+            <Spinner
+                android:id="@+id/spinner_price_type"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:hint="Workers"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/date_edttxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:hint="Date"
+                    android:text="@={viewModel.date}"
+                    android:onClick="@{() -> viewModel.onClickDate()}"
+                />
+                <EditText
+                        android:id="@+id/time_edttxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:focusable="false"
+                        android:hint="Time"
+                        android:text="@={viewModel.time}"
+                        android:onClick="@{() -> viewModel.onClickTime()}"/>
+
+
+            </LinearLayout>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Description"
+            android:padding="10dp"
             android:inputType="textMultiLine"/>
 
         <Button
@@ -81,5 +106,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"/>
 
-    </LinearLayout>
-</RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>
