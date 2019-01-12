@@ -6,10 +6,14 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.user.jobche.Model.RegisterUser
 import com.example.user.jobche.R
 import com.example.user.jobche.RegisterApi
 import com.example.user.jobche.RetrofitClient
+import com.example.user.jobche.SignupBirthViewModel
+import com.example.user.jobche.databinding.ActivitySignupBirthBinding
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_signup_birth.*
 import kotlinx.android.synthetic.main.activity_signup_password.*
@@ -24,36 +28,16 @@ class SignupBirthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup_birth)
-        val mNext = findViewById<Button>(R.id.next_birth_btn)
-        mNext.setOnClickListener {
 
-            val registerUser: RegisterUser = intent.getParcelableExtra("RegisterUser")
-            registerUser.email = signup_email.text.toString()
+        val binding: ActivitySignupBirthBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup_name)
+        val signupBirthViewModel = SignupBirthViewModel()
+        binding.viewModel = signupBirthViewModel
+        signupBirthViewModel.setRegisterUser(intent.getParcelableExtra("RegisterUser"))
 
-            val paramObject = JsonObject()
-            paramObject.addProperty("firstName", registerUser.firstName)
-            paramObject.addProperty("lastName", registerUser.lastName)
-            paramObject.addProperty("email", registerUser.email)
-            paramObject.addProperty("password", registerUser.password)
-
-            val call: Call<RegisterUser> = RetrofitClient().getApi()
-                .createUser(paramObject)
-
-            call.enqueue(object: Callback<RegisterUser>{
-                override fun onFailure(call: Call<RegisterUser>, t: Throwable) {
-                    Toast.makeText(this@SignupBirthActivity, t.message.toString(), Toast.LENGTH_LONG).show()
-                }
-
-                override fun onResponse(call: Call<RegisterUser>, response: Response<RegisterUser>) {
-                    val res:String = response.body().toString()
-                    Toast.makeText(this@SignupBirthActivity, res, Toast.LENGTH_LONG).show()
-                }
-
-            })
-
+        signupBirthViewModel.nextEventLiveData.observe(this, Observer {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-        }
+        })
     }
 }
 
