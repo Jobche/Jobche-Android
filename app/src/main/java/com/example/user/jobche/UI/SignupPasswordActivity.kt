@@ -2,6 +2,7 @@ package com.example.user.jobche.UI
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -25,7 +26,11 @@ class SignupPasswordActivity : AppCompatActivity() {
         signupPasswordViewModel.nextEventLiveData.observe(this, Observer {
             val intent = Intent(this, SignupBirthActivity::class.java)
             intent.putExtra("RegisterUser", signupPasswordViewModel.getRegisterUser())
+            Log.d("AAAAAAAAAAAAAAAAAAAAAAA", "LUDNICATAAAAAAAAAAAAAAAA")
             startActivity(intent)
+        })
+        signupPasswordViewModel.toastEventLiveData.observe(this, Observer {
+            Toast.makeText(this, signupPasswordViewModel.getToastMsg(), Toast.LENGTH_SHORT).show()
         })
 
 

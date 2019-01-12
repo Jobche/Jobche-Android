@@ -13,10 +13,16 @@ import com.example.user.jobche.UI.SignupPasswordActivity
 class SignupPasswordViewModel: BaseObservable() {
     private var password:String = ""
     private var confPassword:String = ""
-
+    private var toastMsg:String = ""
     private var registerUser = RegisterUser()
 
     private val _nextEventLiveData = SingleLiveData<Any>()
+
+    private val _toastEventLiveData = SingleLiveData<Any>()
+
+    val toastEventLiveData : LiveData<Any>
+        get() = _toastEventLiveData
+
 
     val nextEventLiveData : LiveData<Any>
         get() = _nextEventLiveData
@@ -50,8 +56,25 @@ class SignupPasswordViewModel: BaseObservable() {
         notifyPropertyChanged(BR.confPassword)
     }
 
+    fun getToastMsg(): String {
+        return toastMsg
+    }
+
     fun onClick() {
-        registerUser.password = getPassword()
-        _nextEventLiveData.call()
+        if(getPassword() == getConfPassword() && getPassword().length >= 6) {
+            registerUser.password = getPassword()
+            _nextEventLiveData.call()
+        } else {
+            if (getPassword().length < 6) {
+                toastMsg = "Password must be at least 6 characters"
+            } else if (getPassword() != getConfPassword()) {
+                toastMsg = "Password does not match the confirm password."
+            }
+            _toastEventLiveData.call()
+            setPassword("")
+            setConfPassword("")
+        }
+
+
     }
 }
