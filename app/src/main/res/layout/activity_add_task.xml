@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
-                android:hint="Title"/>
+                android:hint="Title"
+                android:text="@={viewModel.title}"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -46,19 +47,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
-                android:hint="Price"/>
+                android:hint="Payment"
+                android:inputType="number"
+                android:text="@={viewModel.payment}"/>
 
-            <Spinner
-                android:id="@+id/spinner_price_type"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"/>
+            <!--<Spinner-->
+                <!--android:id="@+id/spinner_price_type"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_marginTop="10dp"/>-->
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:hint="Workers"/>
+                android:hint="Workers"
+                android:inputType="number"
+                android:text="@={viewModel.numOfWorkers}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,7 +99,8 @@
             android:layout_height="wrap_content"
             android:hint="Description"
             android:padding="10dp"
-            android:inputType="textMultiLine"/>
+            android:inputType="textMultiLine"
+            android:text="@{viewModel.description}"/>
 
         <Button
             android:id="@+id/add_task_btn"
@@ -104,7 +110,8 @@
             android:layout_gravity="center"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:onClick="@{() -> viewModel.onClickAddTask()}"/>
 
         </LinearLayout>
     </RelativeLayout>

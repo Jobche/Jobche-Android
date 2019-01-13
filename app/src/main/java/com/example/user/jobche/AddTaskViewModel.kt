@@ -7,6 +7,14 @@ import androidx.lifecycle.LiveData
 
 class AddTaskViewModel: BaseObservable() {
 
+    private var title:String = ""
+
+    private var payment:String = ""
+
+    private var numOfWorkers:String = ""
+
+    private var description: String = ""
+
     private var date:String = ""
 
     private var time:String = ""
@@ -16,6 +24,36 @@ class AddTaskViewModel: BaseObservable() {
     private val _timeEventLiveData = SingleLiveData<Any>()
 
     private val _addTaskEventLiveData = SingleLiveData<Any>()
+
+    @Bindable
+    fun getTitle(): String {
+        return this.title
+    }
+
+    fun setTitle(title:String) {
+        this.title = title
+        notifyPropertyChanged(BR.title)
+    }
+
+    @Bindable
+    fun getPayment(): String {
+        return this.payment
+    }
+
+    fun setPayment(payment: String) {
+        this.payment = payment
+        notifyPropertyChanged(BR.payment)
+    }
+
+    @Bindable
+    fun getNumOfWorkers(): String {
+        return this.numOfWorkers
+    }
+
+    fun setNumOfWorkers(numOfWorkers: String) {
+        this.numOfWorkers = numOfWorkers
+        notifyPropertyChanged(BR.numOfWorkers)
+    }
 
     @Bindable
     fun getDate(): String {
@@ -37,6 +75,16 @@ class AddTaskViewModel: BaseObservable() {
         notifyPropertyChanged(BR.time)
     }
 
+    @Bindable
+    fun getDescription(): String {
+        return this.description
+    }
+
+    fun setDescription(description:String) {
+        this.description = description
+        notifyPropertyChanged(BR.description)
+    }
+
     val dateEventLiveData : LiveData<Any>
         get() = _dateEventLiveData
 
@@ -55,6 +103,7 @@ class AddTaskViewModel: BaseObservable() {
     }
 
     fun onClickAddTask() {
+
         _addTaskEventLiveData.call()
     }
 
