@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.user.jobche.BR.viewModel
 import com.example.user.jobche.LoginViewModel
@@ -23,5 +24,16 @@ class LoginActivity: AppCompatActivity() {
         val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         val loginViewModel = LoginViewModel()
         binding.viewModel = loginViewModel
+
+        loginViewModel.signupEventLiveData.observe(this, Observer {
+            startActivity(Intent(this, SignupNameActivity::class.java))
+        })
+
+        loginViewModel.loginEventLiveData.observe(this, Observer {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra("Email", loginViewModel.getEmail())
+            intent.putExtra("Password", loginViewModel.getPassword())
+            startActivity(intent)
+        })
     }
 }

@@ -1,11 +1,25 @@
 package com.example.user.jobche
 
-import android.app.DatePickerDialog
+import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
+import com.example.user.jobche.Model.RegisterUser
+import com.example.user.jobche.Model.Task
+import com.google.gson.JsonObject
+import okhttp3.Credentials
+import okhttp3.ResponseBody
+import org.joda.time.LocalDateTime
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AddTaskViewModel: BaseObservable() {
+
+    private var email:String = ""
+
+    private var password:String = ""
 
     private var title:String = ""
 
@@ -13,17 +27,35 @@ class AddTaskViewModel: BaseObservable() {
 
     private var numOfWorkers:String = ""
 
-    private var description: String = ""
+    private var description:String = ""
 
     private var date:String = ""
 
     private var time:String = ""
+
+    private var dateTime: LocalDateTime = LocalDateTime.now()
 
     private val _dateEventLiveData = SingleLiveData<Any>()
 
     private val _timeEventLiveData = SingleLiveData<Any>()
 
     private val _addTaskEventLiveData = SingleLiveData<Any>()
+
+    fun getEmail(): String {
+       return this.email
+    }
+
+    fun setEmail(email: String) {
+        this.email = email
+    }
+
+    fun getPassword(): String {
+        return this.password
+    }
+
+    fun setPassword(password: String) {
+        this.password = password
+    }
 
     @Bindable
     fun getTitle(): String {
@@ -75,6 +107,15 @@ class AddTaskViewModel: BaseObservable() {
         notifyPropertyChanged(BR.time)
     }
 
+    fun getDateTime(): LocalDateTime {
+        return this.dateTime
+    }
+
+    fun setDateTime(dateTime: LocalDateTime) {
+        this.dateTime = dateTime
+    }
+
+
     @Bindable
     fun getDescription(): String {
         return this.description
@@ -104,7 +145,34 @@ class AddTaskViewModel: BaseObservable() {
 
     fun onClickAddTask() {
 
-        _addTaskEventLiveData.call()
+        val paramObject = JsonObject()
+        paramObject.addProperty("title", getTitle())
+        paramObject.addProperty("payment", getPayment().toInt())
+        paramObject.addProperty("numberOfWorkers", getNumOfWorkers().toInt())
+        paramObject.addProperty("description", getDescription())
+        paramObject.addProperty("dateTime", getDateTime().toString())
+
+
+        val base = "juli:123456"
+        val authToken = Credentials.basic("juli", "123456")
+
+
+        val call: Call<ResponseBody> = RetrofitClient().getApi()
+            .createTask(authToken, paramObject)
+
+        call.enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.d("Add Task onFailure: ", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.d("Add Task onSuccess:", response.body().toString())
+                _addTaskEventLiveData.call()
+            }
+
+        })
+
     }
 
 }
+

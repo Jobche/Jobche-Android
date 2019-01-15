@@ -1,22 +1,13 @@
 package com.example.user.jobche
 
-
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.Bindable
 import androidx.databinding.BaseObservable
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
 import com.example.user.jobche.Model.LoginUser
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.os.HandlerCompat.postDelayed
-import com.example.user.jobche.Model.RegisterUser
 import com.example.user.jobche.UI.SignupNameActivity
-import com.example.user.jobche.UI.SignupPasswordActivity
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +19,21 @@ class LoginViewModel: BaseObservable() {
     private var email:String = ""
     private var password:String = ""
 
+    private val _signupEventLiveData = SingleLiveData<Any>()
+
+    private val _loginEventLiveData = SingleLiveData<Any>()
+
+    val loginEventLiveData : LiveData<Any>
+        get() = _loginEventLiveData
+
+
+    val signupEventLiveData : LiveData<Any>
+        get() = _signupEventLiveData
+
+
+    fun onSignup() {
+        _signupEventLiveData.call()
+    }
     @Bindable
     fun getEmail(): String {
         return this.email
@@ -62,21 +68,14 @@ class LoginViewModel: BaseObservable() {
             }
 
             override fun onResponse(call: Call<LoginUser>, response: Response<LoginUser>) {
-                val res:String = response.body().toString()
-                Log.d("Login user Success:", res)
+                Log.d("Login user Success:", response.body().toString())
 
 
             }
 
         })
+        _loginEventLiveData.call()
+
     }
-
-   fun onClick(view: View) {
-       val context = view.context
-       val intent = Intent(context, SignupNameActivity::class.java)
-       context.startActivity(intent)
-
-   }
-
 
 }

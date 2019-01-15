@@ -29,7 +29,7 @@ class SignupBirthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup_birth)
 
-        val binding: ActivitySignupBirthBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup_name)
+        val binding: ActivitySignupBirthBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup_birth)
         val signupBirthViewModel = SignupBirthViewModel()
         binding.viewModel = signupBirthViewModel
         signupBirthViewModel.setRegisterUser(intent.getParcelableExtra("RegisterUser"))

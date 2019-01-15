@@ -118,7 +118,8 @@
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
                         android:background="@color/colorPrimary"
-                        android:textAlignment="viewStart"/>
+                        android:textAlignment="viewStart"
+                        android:onClick="@{() -> viewModel.onSignup()}"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

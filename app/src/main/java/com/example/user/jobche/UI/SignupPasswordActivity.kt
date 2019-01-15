@@ -26,7 +26,6 @@ class SignupPasswordActivity : AppCompatActivity() {
         signupPasswordViewModel.nextEventLiveData.observe(this, Observer {
             val intent = Intent(this, SignupBirthActivity::class.java)
             intent.putExtra("RegisterUser", signupPasswordViewModel.getRegisterUser())
-            Log.d("AAAAAAAAAAAAAAAAAAAAAAA", "LUDNICATAAAAAAAAAAAAAAAA")
             startActivity(intent)
         })
         signupPasswordViewModel.toastEventLiveData.observe(this, Observer {

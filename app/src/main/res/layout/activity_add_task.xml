@@ -100,7 +100,7 @@
             android:hint="Description"
             android:padding="10dp"
             android:inputType="textMultiLine"
-            android:text="@{viewModel.description}"/>
+            android:text="@={viewModel.description}"/>
 
         <Button
             android:id="@+id/add_task_btn"

@@ -55,11 +55,11 @@ class SignupBirthViewModel: BaseObservable() {
 
         call.enqueue(object: Callback<RegisterUser> {
             override fun onFailure(call: Call<RegisterUser>, t: Throwable) {
-                Log.d("Call nnFailure: ", t.message.toString())
+                Log.d("Sign up onFailure: ", t.message.toString())
             }
 
             override fun onResponse(call: Call<RegisterUser>, response: Response<RegisterUser>) {
-                Log.d("Call onSuccess:", response.body().toString())
+                Log.d("Sign up onSuccess:", response.body().toString())
                 _nextEventLiveData.call()
             }
 
