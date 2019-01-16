@@ -1,22 +1,50 @@
 package com.example.user.jobche
 
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.io.IOException
+import okhttp3.OkHttpClient
+
+
 
 const val BASE_URL: String = "http://84.238.140.141:8080/"
 
 
 class RetrofitClient {
 
-    var retrofit: Retrofit? = null
+    private var email: String = ""
 
-    val logging: HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(Level.BODY)
+    private var password: String = ""
 
-    val httpClient:OkHttpClient.Builder = OkHttpClient.Builder().addInterceptor(logging)
+    private var retrofit: Retrofit? = null
+
+    private val logging: HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(Level.BODY)
+
+    private val httpClient:OkHttpClient.Builder = OkHttpClient.Builder().addInterceptor(logging)
+
+    private var client = OkHttpClient.Builder()
+        .addInterceptor(BasicAuthInterceptor(getEmail(), getPassword()))
+        .build()
+
+    fun getEmail(): String {
+        return this.email
+    }
+
+    fun setEmail(email: String) {
+        this.email = email
+    }
+
+    fun setPassword(password: String) {
+        this.password = password
+    }
+
+    fun getPassword(): String {
+        return this.password
+    }
 
     fun getApi() : RegisterApi {
         return getClient()!!.create(RegisterApi::class.java)

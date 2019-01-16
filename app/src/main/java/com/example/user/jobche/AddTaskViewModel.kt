@@ -152,9 +152,7 @@ class AddTaskViewModel: BaseObservable() {
         paramObject.addProperty("description", getDescription())
         paramObject.addProperty("dateTime", getDateTime().toString())
 
-
-        val base = "juli:123456"
-        val authToken = Credentials.basic("juli", "123456")
+        val authToken = Credentials.basic("string", "string")
 
 
         val call: Call<ResponseBody> = RetrofitClient().getApi()

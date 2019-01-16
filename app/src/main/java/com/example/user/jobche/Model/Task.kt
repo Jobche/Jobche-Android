@@ -4,8 +4,14 @@ import java.text.DateFormat
 import java.time.LocalDateTime
 import java.util.*
 
-data class Task(private var title: String,
-                private var payment: Int,
-                private var numOfWorkers: Int,
-                private var description: String,
-                private var dateTime: LocalDateTime)
+data class Task(val id: Int,
+                val title: String,
+                val location: Location,
+                val payment: Int,
+                val numOfWorkers: Int,
+                val description: String,
+                val dateTime: String)
+
+data class Location(val county: String,
+                    val city: String,
+                    val neighborhood: String)

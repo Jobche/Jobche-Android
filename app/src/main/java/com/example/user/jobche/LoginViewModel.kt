@@ -70,7 +70,6 @@ class LoginViewModel: BaseObservable() {
             override fun onResponse(call: Call<LoginUser>, response: Response<LoginUser>) {
                 Log.d("Login user Success:", response.body().toString())
 
-
             }
 
         })

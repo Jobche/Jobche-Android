@@ -8,6 +8,9 @@ import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
+import retrofit2.http.GET
+
+
 
 interface RegisterApi {
     @Headers("Content-Type: application/json")
@@ -20,4 +23,11 @@ interface RegisterApi {
 
     @POST("tasks")
     fun createTask(@Header("Authorization") auth:String ,@Body body:JsonObject): Call<ResponseBody>
+
+    @GET("tasks")
+    fun getTasks(
+        @Header("Authorization") auth:String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Call<Task>
 }

@@ -30,11 +30,11 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="?attr/actionBarSize"
                     android:orientation="vertical">
-                <ListView
-                        android:id="@+id/home_tasks_list"
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/listOfTasks"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                </ListView>
+                        android:layout_height="wrap_content"/>
             </LinearLayout>
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:layout_width="wrap_content"
