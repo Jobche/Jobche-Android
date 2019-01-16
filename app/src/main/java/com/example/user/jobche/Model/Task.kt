@@ -1,17 +1,15 @@
 package com.example.user.jobche.Model
 
-import java.text.DateFormat
-import java.time.LocalDateTime
-import java.util.*
+data class Tasks(var tasks: List<Task>)
 
 data class Task(val id: Int,
                 val title: String,
                 val location: Location,
                 val payment: Int,
-                val numOfWorkers: Int,
+                val numberOfWorkers: Int,
                 val description: String,
                 val dateTime: String)
 
-data class Location(val county: String,
+data class Location(val country: String,
                     val city: String,
                     val neighborhood: String)

@@ -6,11 +6,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.example.user.jobche.HomeViewModel
-import com.example.user.jobche.LoginViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.user.jobche.*
 import com.example.user.jobche.Model.Task
-import com.example.user.jobche.R
-import com.example.user.jobche.RetrofitClient
 import com.example.user.jobche.databinding.ActivityHomeBinding
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -27,8 +26,20 @@ class HomeActivity : AppCompatActivity() {
         val binding: ActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         val homeViewModel = HomeViewModel()
         binding.viewModel = homeViewModel
+        val recyclerView = findViewById<RecyclerView>(R.id.listOfTasks)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         homeViewModel.generateTasks()
+
+        homeViewModel.adapterEventData.observe(this, Observer {
+        recyclerView.adapter = RecyclerViewAdapter(homeViewModel.getTitles(),
+                                                    homeViewModel.getLocations(),
+                                                    homeViewModel.getDate(),
+                                                    homeViewModel.getTime(),
+                                                    homeViewModel.getPayments(),
+                                                    homeViewModel.getNumberOfWorkers())
+        })
+
 
         homeViewModel.fabEventLiveData.observe(this, Observer {
             val intent = Intent(this, AddTaskActivity::class.java)

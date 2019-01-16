@@ -1,8 +1,7 @@
 package com.example.user.jobche
 
-import com.example.user.jobche.Model.LoginUser
-import com.example.user.jobche.Model.RegisterUser
-import com.example.user.jobche.Model.Task
+import com.example.user.jobche.Model.*
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -29,5 +28,10 @@ interface RegisterApi {
         @Header("Authorization") auth:String,
         @Query("page") page: Int,
         @Query("size") size: Int
-    ): Call<Task>
+    ): Call<Tasks>
+
+    @GET("tasks/1")
+    fun getTask(
+        @Header("Authorization") auth:String
+    ): Call<Tasks>
 }

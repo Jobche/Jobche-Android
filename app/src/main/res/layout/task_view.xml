@@ -139,7 +139,7 @@
                 android:layout_marginTop="5dp">
 
             <TextView
-                    android:id="@+id/task_accepted"
+                    android:id="@+id/task_numberOfWorkers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3/4"
@@ -149,7 +149,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Accepted"
+                        android:text=" Workers"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"/>
             </LinearLayout>
