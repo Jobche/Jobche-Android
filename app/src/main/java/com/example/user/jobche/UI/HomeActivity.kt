@@ -27,7 +27,10 @@ class HomeActivity : AppCompatActivity() {
         val homeViewModel = HomeViewModel()
         binding.viewModel = homeViewModel
         val recyclerView = findViewById<RecyclerView>(R.id.listOfTasks)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
+        recyclerView.layoutManager = layoutManager
 
         homeViewModel.generateTasks()
 
