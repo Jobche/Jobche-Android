@@ -40,7 +40,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
-                android:hint="Location"/>
+                android:hint="Country"
+                android:text="@={viewModel.country}"/>
+
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:hint="City"
+                    android:text="@={viewModel.city}"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -51,11 +61,6 @@
                 android:inputType="number"
                 android:text="@={viewModel.payment}"/>
 
-            <!--<Spinner-->
-                <!--android:id="@+id/spinner_price_type"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:layout_marginTop="10dp"/>-->
 
             <EditText
                 android:layout_width="match_parent"

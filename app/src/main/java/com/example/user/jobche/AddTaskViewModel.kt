@@ -4,8 +4,10 @@ import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
+import com.example.user.jobche.Model.Location
 import com.example.user.jobche.Model.RegisterUser
 import com.example.user.jobche.Model.Task
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.Credentials
 import okhttp3.ResponseBody
@@ -17,11 +19,11 @@ import retrofit2.Response
 
 class AddTaskViewModel: BaseObservable() {
 
-    private var email:String = ""
-
-    private var password:String = ""
-
     private var title:String = ""
+
+    private var country:String = ""
+
+    private var city: String = ""
 
     private var payment:String = ""
 
@@ -41,20 +43,23 @@ class AddTaskViewModel: BaseObservable() {
 
     private val _addTaskEventLiveData = SingleLiveData<Any>()
 
-    fun getEmail(): String {
-       return this.email
+    @Bindable
+    fun getCountry(): String {
+       return this.country
     }
 
-    fun setEmail(email: String) {
-        this.email = email
+    fun setCountry(country: String) {
+        this.country = country
+        notifyPropertyChanged(BR.country)
+    }
+    @Bindable
+    fun getCity(): String {
+        return this.city
     }
 
-    fun getPassword(): String {
-        return this.password
-    }
-
-    fun setPassword(password: String) {
-        this.password = password
+    fun setCity(city: String) {
+        this.city = city
+        notifyPropertyChanged(BR.city)
     }
 
     @Bindable
@@ -151,6 +156,7 @@ class AddTaskViewModel: BaseObservable() {
         paramObject.addProperty("numberOfWorkers", getNumOfWorkers().toInt())
         paramObject.addProperty("description", getDescription())
         paramObject.addProperty("dateTime", getDateTime().toString())
+        paramObject.add("location", Gson().toJsonTree(Location(getCountry(), getCity(), "")))
 
         val authToken = Credentials.basic("string", "string")
 
