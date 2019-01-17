@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,4 +7,280 @@
         android:layout_height="match_parent"
         tools:context=".OpenedTaskActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@mipmap/ic_launcher"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp">
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FirstName"
+                            android:layout_marginStart="7dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="LastName"
+                            android:layout_marginStart="7dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sofia"
+                            android:layout_marginStart="7dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=","
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bulgaria"
+                            android:layout_marginStart="7dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="43"
+                            android:layout_marginStart="7dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="years old"
+                            android:layout_marginStart="7dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="5dp">
+                    <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_star_border_black_24dp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No Ratings"
+                            android:layout_marginStart="7dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/black"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date:"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13/01"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start at:"
+                    android:layout_marginStart="100dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10:00"
+                    android:layout_marginStart="7dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="am"
+                    android:layout_marginStart="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/black"/>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sofia"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=","
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bulgaria"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Money:"
+                    android:layout_marginStart="100dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="50"
+                    android:layout_marginStart="7dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="leva"
+                    android:layout_marginStart="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/black"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:layout_marginStart="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blah blah blah blah blah blah blah blah blahl blahblah blah blah blah blah blah blah blahl blahblah blah blah blah blah blah blah blahl blahblah blah blah blah blah blah blah blahl blahblah blah blah blah blah blah blah blahl blahblah blah blah blah blah blah blah blahl blahblah blah blah blah blah blah blah blahl blah"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"/>
+
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/black"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Workers: 0/1 Accepted"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"/>
+    </LinearLayout>
+</RelativeLayout>
