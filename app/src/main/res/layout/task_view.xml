@@ -94,7 +94,7 @@
                         android:text="Price"
                         android:textSize="13sp"
                         android:textColor="@android:color/black"/>
-                <TextView
+                  <TextView
                         android:id="@+id/task_payment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -103,6 +103,7 @@
                         android:textSize="15sp"
                         android:textColor="@android:color/black"/>
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

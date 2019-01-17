@@ -2,7 +2,7 @@ package com.example.user.jobche
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.example.user.jobche.Model.Task
+import com.example.user.jobche.Model.Location
 import com.example.user.jobche.Model.Tasks
 import okhttp3.Credentials
 import retrofit2.Call
@@ -10,53 +10,34 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel {
-    private var email: String = ""
-
-    private var password: String = ""
-
     private var page: Int = 0
 
     private val size: Int = 10
 
     private val titles = ArrayList<String>()
 
-    private val locations = ArrayList<String>()
+    private val locations = ArrayList<Location>()
 
     private val dates = ArrayList<String>()
 
     private val time = ArrayList<String>()
 
-    private val payments = ArrayList<String>()
+    private val payments = ArrayList<Int>()
 
-    private val numberOfWorkers = ArrayList<String>()
+    private val numberOfWorkers = ArrayList<Int>()
 
-
+    private val descriptions = ArrayList<String>()
 
     private val _fabEventLiveData = SingleLiveData<Any>()
 
     private val _adapterEventLiveData = SingleLiveData<Any>()
 
-    fun getEmail(): String {
-        return this.email
-    }
-
-    fun setEmail(email: String) {
-        this.email = email
-    }
-
-    fun getPassword(): String {
-        return this.password
-    }
-
-    fun setPassword(password: String) {
-        this.password = password
-    }
 
     fun getTitles(): ArrayList<String> {
         return this.titles
     }
 
-    fun getLocations(): ArrayList<String> {
+    fun getLocations(): ArrayList<Location> {
         return this.locations
     }
 
@@ -68,12 +49,17 @@ class HomeViewModel {
         return this.time
     }
 
-    fun getPayments(): ArrayList<String> {
+    fun getPayments(): ArrayList<Int> {
         return this.payments
     }
 
-    fun getNumberOfWorkers(): ArrayList<String> {
+    fun getNumberOfWorkers(): ArrayList<Int> {
         return this.numberOfWorkers
+    }
+
+
+    fun getDescriptions(): ArrayList<String> {
+        return this.descriptions
     }
 
 
@@ -104,12 +90,13 @@ class HomeViewModel {
                 if(response.body() != null) {
                     val tasks:Tasks = response.body()!!
                     for(t in tasks.tasks) {
-                        titles.add(t.title)
-                        dates.add((t.dateTime).substring(8, 10) + "." + (t.dateTime).substring(5, 7))
-                        locations.add(t.location.city)
-                        time.add((t.dateTime).substring(11, 16))
-                        payments.add(t.payment.toString())
-                        numberOfWorkers.add(t.numberOfWorkers.toString())
+                        getTitles().add(t.title)
+                        getDate().add((t.dateTime).substring(8, 10) + "." + (t.dateTime).substring(5, 7))
+                        getLocations().add(t.location)
+                        getTime().add((t.dateTime).substring(11, 16))
+                        getPayments().add(t.payment)
+                        getNumberOfWorkers().add(t.numberOfWorkers)
+                        getDescriptions().add(t.description)
                     }
                     _adapterEventLiveData.call()
                 }
