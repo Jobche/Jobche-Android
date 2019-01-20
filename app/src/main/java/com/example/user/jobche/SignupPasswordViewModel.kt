@@ -1,8 +1,8 @@
 package com.example.user.jobche
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import androidx.lifecycle.LiveData
+import android.arch.lifecycle.LiveData
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import com.example.user.jobche.BR
 import com.example.user.jobche.Model.RegisterUser
 import com.example.user.jobche.SingleLiveData

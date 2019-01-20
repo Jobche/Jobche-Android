@@ -1,10 +1,8 @@
 package com.example.user.jobche
 
 import com.example.user.jobche.Model.*
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.GET

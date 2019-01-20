@@ -1,8 +1,8 @@
 package com.example.user.jobche.UI
 
-import androidx.appcompat.app.AppCompatActivity
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
+import android.support.v7.app.AppCompatActivity
 import com.example.user.jobche.Model.Task
 import com.example.user.jobche.R
 import com.example.user.jobche.OpenedTaskViewModel

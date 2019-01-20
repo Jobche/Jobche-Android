@@ -1,9 +1,9 @@
 package com.example.user.jobche
 
+import android.arch.lifecycle.LiveData
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import android.util.Log
-import androidx.databinding.Bindable
-import androidx.databinding.BaseObservable
-import androidx.lifecycle.LiveData
 import com.example.user.jobche.Model.LoginUser
 import com.google.gson.JsonObject
 import retrofit2.Call

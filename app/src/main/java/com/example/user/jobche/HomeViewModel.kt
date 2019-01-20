@@ -1,7 +1,7 @@
 package com.example.user.jobche
 
+import android.arch.lifecycle.LiveData
 import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.user.jobche.Model.Location
 import com.example.user.jobche.Model.Tasks
 import okhttp3.Credentials

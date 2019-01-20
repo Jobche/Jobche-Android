@@ -1,15 +1,15 @@
 package com.example.user.jobche.UI
 
+import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import com.example.user.jobche.*
 import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.databinding.ActivityHomeBinding
@@ -52,6 +52,7 @@ class HomeActivity : AppCompatActivity() {
                                                     homeViewModel.getNumberOfWorkers(),
                                                     homeViewModel.getDescriptions())
         })
+
 
 
         homeViewModel.fabEventLiveData.observe(this, Observer {

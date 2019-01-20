@@ -8,7 +8,7 @@
                 name="viewModel"
                 type="com.example.user.jobche.HomeViewModel"/>
     </data>
-    <androidx.drawerlayout.widget.DrawerLayout
+    <android.support.v4.widget.DrawerLayout
             android:id="@+id/nav_drawer"
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
@@ -32,12 +32,12 @@
                     android:layout_marginTop="?attr/actionBarSize"
                     android:orientation="vertical">
 
-                <androidx.recyclerview.widget.RecyclerView
+                <android.support.v7.widget.RecyclerView
                         android:id="@+id/listOfTasks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <android.support.design.widget.FloatingActionButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/fab"
@@ -49,7 +49,7 @@
                     android:onClick="@{() -> viewModel.onClickFab()}"/>
         </RelativeLayout>
 
-        <com.google.android.material.navigation.NavigationView
+        <android.support.design.widget.NavigationView
                 android:id="@+id/navigation"
                 app:headerLayout="@layout/header"
                 android:layout_width="wrap_content"
@@ -59,5 +59,5 @@
                 app:itemIconTint="@android:color/darker_gray"
                 app:itemIconPadding="10dp"
                 app:menu="@menu/drawer_view"/>
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </android.support.v4.widget.DrawerLayout>
 </layout>
