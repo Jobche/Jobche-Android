@@ -22,7 +22,6 @@ class AddTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         JodaTimeAndroid.init(this)
         setContentView(R.layout.activity_add_task)
-        toolbar_title.text="Add Task"
 
         val binding: ActivityAddTaskBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
         val addTaskViewModel = AddTaskViewModel()

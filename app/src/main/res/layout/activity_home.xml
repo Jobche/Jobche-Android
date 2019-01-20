@@ -9,7 +9,7 @@
                 type="com.example.user.jobche.HomeViewModel"/>
     </data>
     <android.support.v4.widget.DrawerLayout
-            android:id="@+id/nav_drawer"
+            android:id="@+id/drawer_layout"
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,24 +19,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                tools:context=".UI.HomeActivity">
+                android:layout_marginTop="?attr/actionBarSize">
 
             <include
-                    android:id="@+id/custom_toolbar"
+                    android:id="@+id/toolbar"
                     layout="@layout/toolbar"/>
 
-            <LinearLayout
-                    android:id="@+id/tasks"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="?attr/actionBarSize"
-                    android:orientation="vertical">
-
-                <android.support.v7.widget.RecyclerView
-                        android:id="@+id/listOfTasks"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
             <android.support.design.widget.FloatingActionButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,17 +35,19 @@
                     android:layout_marginEnd="32dp"
                     app:fabSize="normal"
                     android:onClick="@{() -> viewModel.onClickFab()}"/>
-        </RelativeLayout>
 
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/listOfTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
         <android.support.design.widget.NavigationView
-                android:id="@+id/navigation"
-                app:headerLayout="@layout/header"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:fitsSystemWindows="true"
-                app:itemIconTint="@android:color/darker_gray"
-                app:itemIconPadding="10dp"
+                android:id="@+id/nav_view"
+                app:headerLayout="@layout/header"
                 app:menu="@menu/drawer_view"/>
     </android.support.v4.widget.DrawerLayout>
 </layout>

@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginStart="15dp"

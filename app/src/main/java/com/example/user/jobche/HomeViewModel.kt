@@ -1,6 +1,7 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.ViewModel
 import android.util.Log
 import com.example.user.jobche.Model.Location
 import com.example.user.jobche.Model.Tasks
@@ -9,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel {
+class HomeViewModel: ViewModel() {
     private var page: Int = 0
 
     private val size: Int = 10

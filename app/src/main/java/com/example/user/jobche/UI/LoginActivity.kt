@@ -5,7 +5,6 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-
 import com.example.user.jobche.LoginViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.databinding.ActivityLoginBinding
