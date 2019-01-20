@@ -1,13 +1,11 @@
 package com.example.user.jobche
 
-import android.content.Intent
-import android.view.View
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
+import com.example.user.jobche.BR
 import com.example.user.jobche.Model.RegisterUser
-import com.example.user.jobche.UI.SignupNameActivity
-import com.example.user.jobche.UI.SignupPasswordActivity
+import com.example.user.jobche.SingleLiveData
 
 class SignupNameViewModel: BaseObservable() {
 

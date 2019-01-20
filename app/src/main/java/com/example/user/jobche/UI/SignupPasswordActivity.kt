@@ -2,12 +2,10 @@ package com.example.user.jobche.UI
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.example.user.jobche.Model.RegisterUser
 import com.example.user.jobche.R
 import com.example.user.jobche.SignupPasswordViewModel
 import com.example.user.jobche.databinding.ActivitySignupPasswordBinding

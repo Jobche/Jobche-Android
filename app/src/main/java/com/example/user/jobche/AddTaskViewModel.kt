@@ -5,14 +5,11 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import com.example.user.jobche.Model.Location
-import com.example.user.jobche.Model.RegisterUser
-import com.example.user.jobche.Model.Task
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.Credentials
 import okhttp3.ResponseBody
 import org.joda.time.LocalDateTime
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

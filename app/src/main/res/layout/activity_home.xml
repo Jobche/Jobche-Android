@@ -9,9 +9,11 @@
                 type="com.example.user.jobche.HomeViewModel"/>
     </data>
     <androidx.drawerlayout.widget.DrawerLayout
-
+            android:id="@+id/nav_drawer"
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:openDrawer="start">
 
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -21,8 +23,7 @@
 
             <include
                     android:id="@+id/custom_toolbar"
-                    layout="@layout/toolbar"
-            />
+                    layout="@layout/toolbar"/>
 
             <LinearLayout
                     android:id="@+id/tasks"
@@ -54,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
+                android:fitsSystemWindows="true"
                 app:itemIconTint="@android:color/darker_gray"
                 app:itemIconPadding="10dp"
                 app:menu="@menu/drawer_view"/>

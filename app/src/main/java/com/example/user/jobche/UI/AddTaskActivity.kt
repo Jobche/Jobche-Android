@@ -14,7 +14,6 @@ import com.example.user.jobche.R
 import com.example.user.jobche.databinding.ActivityAddTaskBinding
 import kotlinx.android.synthetic.main.toolbar.*
 import net.danlew.android.joda.JodaTimeAndroid
-import java.time.LocalDateTime
 import java.util.*
 
 class AddTaskActivity : AppCompatActivity() {

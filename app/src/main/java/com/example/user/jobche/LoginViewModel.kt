@@ -1,13 +1,10 @@
 package com.example.user.jobche
 
-import android.content.Intent
 import android.util.Log
-import android.view.View
 import androidx.databinding.Bindable
 import androidx.databinding.BaseObservable
 import androidx.lifecycle.LiveData
 import com.example.user.jobche.Model.LoginUser
-import com.example.user.jobche.UI.SignupNameActivity
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback

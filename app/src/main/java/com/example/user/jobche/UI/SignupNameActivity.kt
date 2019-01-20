@@ -2,18 +2,12 @@ package com.example.user.jobche.UI
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.example.user.jobche.LoginViewModel
-import com.example.user.jobche.Model.RegisterUser
 import com.example.user.jobche.R
 import com.example.user.jobche.SignupNameViewModel
-import com.example.user.jobche.databinding.ActivityLoginBinding
 import com.example.user.jobche.databinding.ActivitySignupNameBinding
-import kotlinx.android.synthetic.main.activity_signup_name.*
 
 
 class SignupNameActivity : AppCompatActivity() {
