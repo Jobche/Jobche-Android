@@ -15,6 +15,8 @@ class HomeViewModel: ViewModel() {
 
     private val size: Int = 10
 
+    private val ids = ArrayList<Int>()
+
     private val titles = ArrayList<String>()
 
     private val locations = ArrayList<Location>()
@@ -28,6 +30,8 @@ class HomeViewModel: ViewModel() {
     private val numberOfWorkers = ArrayList<Int>()
 
     private val descriptions = ArrayList<String>()
+
+    private val creatorIds = ArrayList<Int>()
 
     private val _fabEventLiveData = SingleLiveData<Any>()
 
@@ -63,6 +67,13 @@ class HomeViewModel: ViewModel() {
         return this.descriptions
     }
 
+    fun getCreatorIds(): ArrayList<Int> {
+        return this.creatorIds
+    }
+
+    fun getIds(): ArrayList<Int> {
+        return this.ids
+    }
 
     val fabEventLiveData: LiveData<Any>
         get() = _fabEventLiveData
@@ -73,6 +84,7 @@ class HomeViewModel: ViewModel() {
     fun onClickFab() {
         _fabEventLiveData.call()
     }
+
 
     fun generateTasks() {
         val authToken = Credentials.basic("string", "string")
@@ -98,6 +110,8 @@ class HomeViewModel: ViewModel() {
                         getPayments().add(t.payment)
                         getNumberOfWorkers().add(t.numberOfWorkers)
                         getDescriptions().add(t.description)
+                        getCreatorIds().add(t.creatorId)
+                        getIds().add(t.id)
                     }
                     _adapterEventLiveData.call()
                 }

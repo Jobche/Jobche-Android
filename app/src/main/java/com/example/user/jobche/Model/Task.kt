@@ -6,12 +6,14 @@ import kotlinx.android.parcel.Parcelize
 data class Tasks(var tasks: List<Task>)
 
 @Parcelize
-data class Task(val title: String,
+data class Task(val id: Int,
+                val title: String,
                 val location: Location,
                 val payment: Int,
                 val numberOfWorkers: Int,
                 val description: String,
-                val dateTime: String)  : Parcelable
+                val dateTime: String,
+                val creatorId: Int)  : Parcelable
 @Parcelize
 data class Location(val country: String,
                     val city: String,

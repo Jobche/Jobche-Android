@@ -25,8 +25,7 @@ interface RegisterApi {
     fun getTasks(
         @Header("Authorization") auth:String,
         @Query("page") page: Int,
-        @Query("size") size: Int
-    ): Call<Tasks>
+        @Query("size") size: Int): Call<Tasks>
 
     @GET("tasks/1")
     fun getTask(

@@ -15,33 +15,33 @@
             android:layout_height="match_parent"
             tools:openDrawer="start">
 
-        <RelativeLayout
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="?attr/actionBarSize">
+                android:orientation="vertical">
 
             <include
                     android:id="@+id/toolbar"
                     layout="@layout/toolbar"/>
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <android.support.design.widget.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fab"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="32dp"
+                        android:layout_marginEnd="32dp"
+                        app:fabSize="normal"
+                        android:onClick="@{() -> viewModel.onClickFab()}"/>
 
-            <android.support.design.widget.FloatingActionButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fab"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="32dp"
-                    android:layout_marginEnd="32dp"
-                    app:fabSize="normal"
-                    android:onClick="@{() -> viewModel.onClickFab()}"/>
-
-            <android.support.v7.widget.RecyclerView
-                    android:id="@+id/listOfTasks"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-        </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/listOfTasks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </LinearLayout>
         <android.support.design.widget.NavigationView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -17,13 +17,15 @@ import com.example.user.jobche.UI.OpenedTaskActivity
 
 class RecyclerViewAdapter(
     private val context: Context,
+    private val ids: ArrayList<Int>,
     private val titles: ArrayList<String>,
     private val locations: ArrayList<Location>,
     private val dates: ArrayList<String>,
     private val time: ArrayList<String>,
     private val payments: ArrayList<Int>,
     private val numbersOfWorkers: ArrayList<Int>,
-    private val descriptions: ArrayList<String>
+    private val descriptions: ArrayList<String>,
+    private val creatorIds: ArrayList<Int>
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
 
@@ -49,7 +51,11 @@ class RecyclerViewAdapter(
         holder.itemView.setOnClickListener {
             Toast.makeText(context,"clicked" + position.toString(),Toast.LENGTH_SHORT).show()
             val intent = Intent(context, OpenedTaskActivity::class.java)
-            intent.putExtra("Task", Task(titles[position], locations[position], payments[position], numbersOfWorkers[position], descriptions[position], dates[position] + time[position]))
+            intent.putExtra("Task", Task(ids[position], titles[position],
+                                                locations[position], payments[position],
+                                                numbersOfWorkers[position], descriptions[position],
+                                        dates[position] + time[position],
+                                                creatorIds[position]))
             context.startActivity(intent)
         }
 
