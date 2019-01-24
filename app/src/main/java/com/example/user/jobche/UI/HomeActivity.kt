@@ -15,6 +15,7 @@ import com.example.user.jobche.HomeViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.util.Log
+import android.widget.Toast
 import com.example.user.jobche.databinding.ActivityHomeBinding
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.toolbar.view.*
@@ -22,13 +23,15 @@ import kotlinx.android.synthetic.main.toolbar.view.*
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var drawer:DrawerLayout
+    private lateinit var drawer: DrawerLayout
+    private lateinit var recyclerView: RecyclerView
+    private var page = 0
+    private val size = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-//       val homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val binding: ActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         val homeViewModel = HomeViewModel()
         binding.viewModel = homeViewModel
@@ -40,42 +43,64 @@ class HomeActivity : AppCompatActivity() {
         drawer = binding.drawerLayout
 
 
-        val toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawer,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
-        val recyclerView = findViewById<RecyclerView>(R.id.listOfTasks)
+        recyclerView = binding.listOfTasks
         val layoutManager = LinearLayoutManager(this)
-        layoutManager.reverseLayout = true
-        layoutManager.stackFromEnd = true
+//        layoutManager.reverseLayout = true
+//        layoutManager.stackFromEnd = true
         recyclerView.layoutManager = layoutManager
 
-        homeViewModel.generateTasks()
+
+        homeViewModel.generateTasks(page, size)
 
         homeViewModel.adapterEventData.observe(this, Observer {
-        recyclerView.adapter = RecyclerViewAdapter(this,
-                                                    homeViewModel.getIds(),
-                                                    homeViewModel.getTitles(),
-                                                    homeViewModel.getLocations(),
-                                                    homeViewModel.getDate(),
-                                                    homeViewModel.getTime(),
-                                                    homeViewModel.getPayments(),
-                                                    homeViewModel.getNumberOfWorkers(),
-                                                    homeViewModel.getDescriptions(),
-                                                    homeViewModel.getCreatorIds())
+            recyclerView.adapter = RecyclerViewAdapter(
+                this,
+                homeViewModel.getIds(),
+                homeViewModel.getTitles(),
+                homeViewModel.getLocations(),
+                homeViewModel.getDate(),
+                homeViewModel.getTime(),
+                homeViewModel.getPayments(),
+                homeViewModel.getNumberOfWorkers(),
+                homeViewModel.getDescriptions(),
+                homeViewModel.getCreatorIds()
+            )
         })
 
         homeViewModel.fabEventLiveData.observe(this, Observer {
-            Log.d("CACACACACA", "IMAIMAIMAIMAIMAIMAIMA")
             val intent = Intent(this, AddTaskActivity::class.java)
             startActivity(intent)
         })
 
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    Toast.makeText(this@HomeActivity, "LOAD NEW LIST", Toast.LENGTH_SHORT).show()
+                    page =+ 1
+                    homeViewModel.generateTasks(page, size)
+
+                }
+            }
+        })
+
     }
+
     override fun onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
-        }else{
+        } else {
             super.onBackPressed()
         }
     }

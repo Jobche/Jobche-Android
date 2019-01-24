@@ -11,9 +11,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel: ViewModel() {
-    private var page: Int = 0
-
-    private val size: Int = 10
 
     private val ids = ArrayList<Int>()
 
@@ -86,7 +83,7 @@ class HomeViewModel: ViewModel() {
     }
 
 
-    fun generateTasks() {
+    fun generateTasks(page:Int, size:Int) {
         val authToken = Credentials.basic("string", "string")
 
         val call: Call<Tasks> = RetrofitClient().getApi()
@@ -120,5 +117,9 @@ class HomeViewModel: ViewModel() {
             }
 
         })
+
+        fun performPagination() {
+
+        }
     }
 }
