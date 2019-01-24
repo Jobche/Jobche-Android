@@ -12,13 +12,11 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.example.user.jobche.*
 import com.example.user.jobche.HomeViewModel
-import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
-import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.example.user.jobche.databinding.ActivityHomeBinding
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.toolbar.view.*
+
 
 
 class HomeActivity : AppCompatActivity() {
@@ -42,7 +40,6 @@ class HomeActivity : AppCompatActivity() {
 
         drawer = binding.drawerLayout
 
-
         val toggle = ActionBarDrawerToggle(
             this,
             drawer,
@@ -62,19 +59,25 @@ class HomeActivity : AppCompatActivity() {
 
         homeViewModel.generateTasks(page, size)
 
+        val recyclerViewAdapter = RecyclerViewAdapter(this,
+                                                        homeViewModel.getIds(),
+                                                        homeViewModel.getTitles(),
+                                                        homeViewModel.getLocations(),
+                                                        homeViewModel.getDate(),
+                                                        homeViewModel.getTime(),
+                                                        homeViewModel.getPayments(),
+                                                        homeViewModel.getNumberOfWorkers(),
+                                                        homeViewModel.getDescriptions(),
+                                                        homeViewModel.getCreatorIds())
+
         homeViewModel.adapterEventData.observe(this, Observer {
-            recyclerView.adapter = RecyclerViewAdapter(
-                this,
-                homeViewModel.getIds(),
-                homeViewModel.getTitles(),
-                homeViewModel.getLocations(),
-                homeViewModel.getDate(),
-                homeViewModel.getTime(),
-                homeViewModel.getPayments(),
-                homeViewModel.getNumberOfWorkers(),
-                homeViewModel.getDescriptions(),
-                homeViewModel.getCreatorIds()
-            )
+            recyclerView.adapter = recyclerViewAdapter
+        })
+
+
+        homeViewModel.updateAdapterEventLiveData.observe(this, Observer {
+            recyclerViewAdapter.notifyDataSetChanged()
+
         })
 
         homeViewModel.fabEventLiveData.observe(this, Observer {
@@ -85,12 +88,9 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
                 if (!recyclerView.canScrollVertically(1)) {
-                    Toast.makeText(this@HomeActivity, "LOAD NEW LIST", Toast.LENGTH_SHORT).show()
-                    page =+ 1
+                    page += 1
                     homeViewModel.generateTasks(page, size)
-
                 }
             }
         })

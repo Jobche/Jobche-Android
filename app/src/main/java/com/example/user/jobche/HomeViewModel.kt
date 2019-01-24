@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel: ViewModel() {
+class HomeViewModel : ViewModel() {
 
     private val ids = ArrayList<Int>()
 
@@ -33,6 +33,8 @@ class HomeViewModel: ViewModel() {
     private val _fabEventLiveData = SingleLiveData<Any>()
 
     private val _adapterEventLiveData = SingleLiveData<Any>()
+
+    private val _updateAdapterEventLiveData = SingleLiveData<Any>()
 
 
     fun getTitles(): ArrayList<String> {
@@ -78,12 +80,15 @@ class HomeViewModel: ViewModel() {
     val adapterEventData: LiveData<Any>
         get() = _adapterEventLiveData
 
+    val updateAdapterEventLiveData: LiveData<Any>
+        get() = _updateAdapterEventLiveData
+
     fun onClickFab() {
         _fabEventLiveData.call()
     }
 
 
-    fun generateTasks(page:Int, size:Int) {
+    fun generateTasks(page: Int, size: Int) {
         val authToken = Credentials.basic("string", "string")
 
         val call: Call<Tasks> = RetrofitClient().getApi()
@@ -97,29 +102,33 @@ class HomeViewModel: ViewModel() {
             override fun onResponse(call: Call<Tasks>, response: Response<Tasks>) {
                 Log.d("Add Task onSuccess:", response.body().toString())
 
-                if(response.body() != null) {
-                    val tasks:Tasks = response.body()!!
-                    for(t in tasks.tasks) {
-                        getTitles().add(t.title)
-                        getDate().add((t.dateTime).substring(8, 10) + "." + (t.dateTime).substring(5, 7))
-                        getLocations().add(t.location)
-                        getTime().add((t.dateTime).substring(11, 16))
-                        getPayments().add(t.payment)
-                        getNumberOfWorkers().add(t.numberOfWorkers)
-                        getDescriptions().add(t.description)
-                        getCreatorIds().add(t.creatorId)
-                        getIds().add(t.id)
+                if (response.body() != null) {
+                    val tasks: Tasks = response.body()!!
+                    if (!tasks.tasks.isEmpty()) {
+
+                        for (t in tasks.tasks) {
+                            getTitles().add(t.title)
+                            getDate().add((t.dateTime).substring(8, 10) + "." + (t.dateTime).substring(5, 7))
+                            getLocations().add(t.location)
+                            getTime().add((t.dateTime).substring(11, 16))
+                            getPayments().add(t.payment)
+                            getNumberOfWorkers().add(t.numberOfWorkers)
+                            getDescriptions().add(t.description)
+                            getCreatorIds().add(t.creatorId)
+                            getIds().add(t.id)
+                        }
+                        if (page == 0) {
+                            _adapterEventLiveData.call()
+                        } else {
+                            _updateAdapterEventLiveData.call()
+                        }
+                    } else {
+                        Log.d("RecylerView", "No more tasks to show!")
                     }
-                    _adapterEventLiveData.call()
                 }
-
-
             }
 
         })
 
-        fun performPagination() {
-
-        }
     }
 }
