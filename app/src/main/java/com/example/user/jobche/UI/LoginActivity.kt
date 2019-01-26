@@ -14,12 +14,10 @@ import com.example.user.jobche.databinding.ActivityLoginBinding
 
 class LoginActivity: AppCompatActivity() {
 
-    val SHARED_PREFS:String = "sharedPrefs"
-    val EMAIL:String = "EMAIL"
-    val PASSWORD:String = "PASSWORD"
+
+    var isLogged:Boolean = false
 
     private lateinit var loginViewModel:LoginViewModel
-    private lateinit var email:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,18 +32,19 @@ class LoginActivity: AppCompatActivity() {
         })
 
         loginViewModel.loginEventLiveData.observe(this, Observer {
+            isLogged = true
             saveData()
             startActivity(Intent(this, HomeActivity::class.java))
         })
     }
 
     fun saveData() {
-        val sharedPreferences: SharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
-        editor.putString(EMAIL, loginViewModel.getEmail())
-        editor.putString(PASSWORD, loginViewModel.getPassword())
-
+        editor.putString("EMAIL", loginViewModel.getEmail())
+        editor.putString("PASSWORD", loginViewModel.getPassword())
+        editor.putBoolean("IS_LOGGED", isLogged)
         editor.apply()
     }
 }

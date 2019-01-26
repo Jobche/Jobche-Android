@@ -1,7 +1,9 @@
 package com.example.user.jobche.UI
 
 import android.arch.lifecycle.Observer
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
@@ -23,12 +25,17 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var recyclerView: RecyclerView
+    private lateinit var email:String
+    private lateinit var password:String
+    private var isLoaded: Boolean = false
     private var page = 0
     private val size = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        loadData()
 
         val binding: ActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         val homeViewModel = HomeViewModel()
@@ -52,8 +59,6 @@ class HomeActivity : AppCompatActivity() {
 
         recyclerView = binding.listOfTasks
         val layoutManager = LinearLayoutManager(this)
-//        layoutManager.reverseLayout = true
-//        layoutManager.stackFromEnd = true
         recyclerView.layoutManager = layoutManager
 
 
@@ -97,6 +102,17 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    fun loadData() {
+        val sharedPreferences : SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
+        isLoaded = sharedPreferences.getBoolean("IS_LOGGED", false)
+         if(isLoaded) {
+            email = sharedPreferences.getString("EMAIL", "")!!
+             password = sharedPreferences.getString("PASSWORD", "")!!
+         }else {
+             startActivity(Intent(this, LoginActivity::class.java))
+             Toast.makeText(this, isLoaded.toString(), Toast.LENGTH_SHORT).show()
+         }
+    }
     override fun onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
