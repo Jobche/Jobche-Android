@@ -3,9 +3,8 @@ package com.example.user.jobche
 import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
-import com.example.user.jobche.BR
+import android.util.Log
 import com.example.user.jobche.Model.RegisterUser
-import com.example.user.jobche.SingleLiveData
 
 class SignupPasswordViewModel: BaseObservable() {
     private var password:String = ""
@@ -60,6 +59,7 @@ class SignupPasswordViewModel: BaseObservable() {
     fun onClick() {
         if(getPassword() == getConfPassword() && getPassword().length >= 6) {
             registerUser.password = getPassword()
+            Log.d("PASSSOWRODOWDR", registerUser.password)
             _nextEventLiveData.call()
         } else {
             if (getPassword().length < 6) {

@@ -19,7 +19,7 @@ interface RegisterApi {
     fun loginUser(@Body body:JsonObject): Call<LoginUser>
 
     @POST("tasks")
-    fun createTask(@Header("Authorization") auth:String ,@Body body:JsonObject): Call<ResponseBody>
+    fun createTask(@Header("Authorization") auth:String ,@Body body:JsonObject): Call<Task>
 
     @GET("tasks")
     fun getTasks(

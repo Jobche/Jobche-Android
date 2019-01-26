@@ -4,7 +4,9 @@ import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
+import com.example.user.jobche.Model.DateOfBirth
 import com.example.user.jobche.Model.RegisterUser
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,12 +14,40 @@ import retrofit2.Response
 
 class SignupBirthViewModel: BaseObservable() {
 
-//    private var birthDate:String = ""
+    private lateinit var birthDate:DateOfBirth
+
+    private var formattedBirthDate: String = ""
+
     private var email:String = ""
 
     private var registerUser = RegisterUser()
 
+    private val _birthDateEventLiveData = SingleLiveData<Any>()
+
     private val _nextEventLiveData = SingleLiveData<Any>()
+
+    fun getBirthDate(): DateOfBirth {
+        return this.birthDate
+    }
+
+    fun setBirthDate(birthDate:DateOfBirth) {
+        this.birthDate = birthDate
+        setFormattedBirthDate(birthDate.toString())
+    }
+
+    @Bindable
+    fun getFormattedBirthDate(): String {
+        return this.formattedBirthDate
+    }
+
+    fun setFormattedBirthDate(birthDate: String) {
+//        this.formattedBirthDate = birthDate.day.toString() + "/" +
+//                                    birthDate.month.toString() + "/" +
+//                                    birthDate.year.toString()
+        this.formattedBirthDate = birthDate
+        notifyPropertyChanged(BR.formattedBirthDate)
+
+    }
 
     @Bindable
     fun getEmail(): String {
@@ -29,26 +59,33 @@ class SignupBirthViewModel: BaseObservable() {
         notifyPropertyChanged(BR.email)
     }
 
-    fun getRegisterUser(): RegisterUser {
-        return registerUser
-    }
-
     fun setRegisterUser(registerUser: RegisterUser){
         this.registerUser = registerUser
+    }
+
+    val birthDateEventLiveData: LiveData<Any>
+        get() = _birthDateEventLiveData
+
+    fun onClickBirthDate() {
+        _birthDateEventLiveData.call()
     }
 
     val nextEventLiveData : LiveData<Any>
         get() = _nextEventLiveData
 
 
+
     fun onClick() {
         registerUser.email = getEmail()
+        registerUser.dateOfBirth = getBirthDate()
 
         val paramObject = JsonObject()
         paramObject.addProperty("firstName", registerUser.firstName)
         paramObject.addProperty("lastName", registerUser.lastName)
         paramObject.addProperty("email", registerUser.email)
         paramObject.addProperty("password", registerUser.password)
+        paramObject.add("dateOfBirth", Gson().toJsonTree(DateOfBirth(birthDate.day, birthDate.month, birthDate.month)))
+
 
         val call: Call<RegisterUser> = RetrofitClient().getApi()
             .createUser(paramObject)
