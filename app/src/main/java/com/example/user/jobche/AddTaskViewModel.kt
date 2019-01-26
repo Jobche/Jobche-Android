@@ -54,7 +54,7 @@ class AddTaskViewModel: BaseObservable() {
     }
 
 
-    fun getPassoword(): String {
+    fun getPassword(): String {
         return this.password
     }
 
@@ -177,7 +177,7 @@ class AddTaskViewModel: BaseObservable() {
         paramObject.addProperty("dateTime", getDateTime().toString())
         paramObject.add("location", Gson().toJsonTree(Location(getCountry(), getCity(), "")))
 
-        val authToken = Credentials.basic(getEmail(), getPassoword())
+        val authToken = Credentials.basic(getEmail(), getPassword())
 
 
         val call: Call<Task> = RetrofitClient().getApi()

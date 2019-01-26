@@ -11,32 +11,37 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class LoginViewModel: BaseObservable() {
+class LoginViewModel : BaseObservable() {
 
-    private var email:String = ""
-    private var password:String = ""
+    private var email: String = ""
+    private var password: String = ""
 
     private val _signupEventLiveData = SingleLiveData<Any>()
 
     private val _loginEventLiveData = SingleLiveData<Any>()
 
-    val loginEventLiveData : LiveData<Any>
+    private val _failEventLiveData = SingleLiveData<Any>()
+
+    val loginEventLiveData: LiveData<Any>
         get() = _loginEventLiveData
 
 
-    val signupEventLiveData : LiveData<Any>
+    val signupEventLiveData: LiveData<Any>
         get() = _signupEventLiveData
 
+    val failEventLiveData: LiveData<Any>
+        get() = _failEventLiveData
 
     fun onSignup() {
         _signupEventLiveData.call()
     }
+
     @Bindable
     fun getEmail(): String {
         return this.email
     }
 
-    fun setEmail(email:String) {
+    fun setEmail(email: String) {
         this.email = email
         notifyPropertyChanged(BR.email)
     }
@@ -46,7 +51,7 @@ class LoginViewModel: BaseObservable() {
         return this.password
     }
 
-    fun setPassword(password:String) {
+    fun setPassword(password: String) {
         this.password = password
         notifyPropertyChanged(BR.password)
     }
@@ -59,18 +64,22 @@ class LoginViewModel: BaseObservable() {
         val call: Call<LoginUser> = RetrofitClient().getApi()
             .loginUser(paramObject)
 
-        call.enqueue(object: Callback<LoginUser> {
+        call.enqueue(object : Callback<LoginUser> {
             override fun onFailure(call: Call<LoginUser>, t: Throwable) {
                 Log.d("Login user failure:", t.message.toString())
             }
 
             override fun onResponse(call: Call<LoginUser>, response: Response<LoginUser>) {
                 Log.d("Login user Success:", response.body().toString())
-
+                val loginUser: LoginUser? = response.body()
+                if (loginUser == null) {
+                    _failEventLiveData.call()
+                } else {
+                    _loginEventLiveData.call()
+                }
             }
 
         })
-        _loginEventLiveData.call()
 
     }
 

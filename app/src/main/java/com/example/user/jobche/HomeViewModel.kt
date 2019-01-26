@@ -12,6 +12,10 @@ import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
 
+    private lateinit var email:String
+
+    private lateinit var password: String
+
     private val ids = ArrayList<Int>()
 
     private val titles = ArrayList<String>()
@@ -36,6 +40,23 @@ class HomeViewModel : ViewModel() {
 
     private val _updateAdapterEventLiveData = SingleLiveData<Any>()
 
+
+    fun getEmail(): String {
+        return this.email
+    }
+
+    fun setEmail(email: String) {
+        this.email = email
+    }
+
+
+    fun getPassword(): String {
+        return this.password
+    }
+
+    fun setPassword(password: String) {
+        this.password = password
+    }
 
     fun getTitles(): ArrayList<String> {
         return this.titles
@@ -89,7 +110,7 @@ class HomeViewModel : ViewModel() {
 
 
     fun generateTasks(page: Int, size: Int) {
-        val authToken = Credentials.basic("string", "string")
+        val authToken = Credentials.basic(getEmail(), getPassword())
 
         val call: Call<Tasks> = RetrofitClient().getApi()
             .getTasks(authToken, page, size)

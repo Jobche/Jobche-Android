@@ -43,6 +43,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val homeViewModel = HomeViewModel()
         binding.viewModel = homeViewModel
 
+        homeViewModel.setEmail(email)
+        homeViewModel.setPassword(password)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)

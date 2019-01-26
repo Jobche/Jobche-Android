@@ -36,6 +36,12 @@ class LoginActivity: AppCompatActivity() {
             saveData()
             startActivity(Intent(this, HomeActivity::class.java))
         })
+
+        loginViewModel.failEventLiveData.observe(this, Observer {
+            Toast.makeText(this, "Login Incorrect! Try Again.", Toast.LENGTH_LONG).show()
+            loginViewModel.setEmail("")
+            loginViewModel.setPassword("")
+        })
     }
 
     fun saveData() {
