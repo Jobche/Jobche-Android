@@ -26,4 +26,13 @@
                 android:icon="@drawable/ic_loved_black_24dp"
                 android:title="@string/saved"/>
     </group>
+    <group
+            android:checkableBehavior="none">
+
+        <item
+                android:id="@+id/nav_log_out"
+                android:icon="@drawable/ic_log_out_black_24dp"
+                android:title="@string/log_out" >
+        </item>
+    </group>
 </menu>

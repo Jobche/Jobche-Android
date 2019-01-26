@@ -17,6 +17,10 @@ import retrofit2.Response
 
 class AddTaskViewModel: BaseObservable() {
 
+    private lateinit var email:String
+
+    private lateinit var password:String
+
     private var title:String = ""
 
     private var country:String = ""
@@ -40,6 +44,23 @@ class AddTaskViewModel: BaseObservable() {
     private val _timeEventLiveData = SingleLiveData<Any>()
 
     private val _addTaskEventLiveData = SingleLiveData<Any>()
+
+    fun getEmail(): String {
+        return this.email
+    }
+
+    fun setEmail(email: String) {
+        this.email = email
+    }
+
+
+    fun getPassoword(): String {
+        return this.password
+    }
+
+    fun setPassword(password: String) {
+        this.password = password
+    }
 
     @Bindable
     fun getCountry(): String {
@@ -156,7 +177,7 @@ class AddTaskViewModel: BaseObservable() {
         paramObject.addProperty("dateTime", getDateTime().toString())
         paramObject.add("location", Gson().toJsonTree(Location(getCountry(), getCity(), "")))
 
-        val authToken = Credentials.basic("string", "string")
+        val authToken = Credentials.basic(getEmail(), getPassoword())
 
 
         val call: Call<Task> = RetrofitClient().getApi()

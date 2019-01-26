@@ -4,10 +4,12 @@ import android.arch.lifecycle.Observer
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Toast
 import com.example.user.jobche.AddTaskViewModel
 import com.example.user.jobche.Model.DateParameters
 import com.example.user.jobche.R
@@ -23,9 +25,18 @@ class AddTaskActivity : AppCompatActivity() {
         JodaTimeAndroid.init(this)
         setContentView(R.layout.activity_add_task)
 
+        val sharedPreferences : SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
+       val email = sharedPreferences.getString("EMAIL", "")!!
+        val password = sharedPreferences.getString("PASSWORD", "")!!
+
+
         val binding: ActivityAddTaskBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
         val addTaskViewModel = AddTaskViewModel()
         binding.viewModel = addTaskViewModel
+
+        addTaskViewModel.setEmail(email)
+        addTaskViewModel.setPassword(password)
+
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)

@@ -15,13 +15,15 @@ import android.support.v7.widget.Toolbar
 import com.example.user.jobche.*
 import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
+import android.support.design.widget.NavigationView
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.user.jobche.databinding.ActivityHomeBinding
 
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var recyclerView: RecyclerView
@@ -46,6 +48,9 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         drawer = binding.drawerLayout
+
+        val navigation = binding.navView
+        navigation.setNavigationItemSelectedListener(this)
 
         val toggle = ActionBarDrawerToggle(
             this,
@@ -108,11 +113,21 @@ class HomeActivity : AppCompatActivity() {
          if(isLoaded) {
             email = sharedPreferences.getString("EMAIL", "")!!
              password = sharedPreferences.getString("PASSWORD", "")!!
+             Toast.makeText(this, email, Toast.LENGTH_SHORT).show()
          }else {
              startActivity(Intent(this, LoginActivity::class.java))
              Toast.makeText(this, isLoaded.toString(), Toast.LENGTH_SHORT).show()
          }
     }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.nav_add_task -> startActivity(Intent(this, AddTaskActivity::class.java))
+            R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))
+        }
+        return true
+    }
+
     override fun onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
