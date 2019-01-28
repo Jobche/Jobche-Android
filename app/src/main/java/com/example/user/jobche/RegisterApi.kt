@@ -2,6 +2,7 @@ package com.example.user.jobche
 
 import com.example.user.jobche.Model.*
 import com.google.gson.JsonObject
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -27,8 +28,6 @@ interface RegisterApi {
         @Query("page") page: Int,
         @Query("size") size: Int): Call<Tasks>
 
-    @GET("tasks/1")
-    fun getTask(
-        @Header("Authorization") auth:String
-    ): Call<Tasks>
+    @POST("application")
+        fun applyForTask(@Header("Authorization") auth: String, @Body taskId:JsonObject): Call<Application>
 }

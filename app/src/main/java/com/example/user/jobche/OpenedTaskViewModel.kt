@@ -1,9 +1,25 @@
 package com.example.user.jobche
 
+import android.arch.lifecycle.LiveData
+import android.content.SharedPreferences
+import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils.substring
+import android.util.Log
+import com.example.user.jobche.Model.Application
 import com.example.user.jobche.Model.Task
+import com.google.gson.JsonObject
+import okhttp3.Credentials
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class OpenedTaskViewModel(val task: Task) {
+
+    private lateinit var email:String
+
+    private lateinit var password:String
 
     private val date:String = substring(task.dateTime, 0, 5)
 
@@ -12,6 +28,25 @@ class OpenedTaskViewModel(val task: Task) {
     private val payment:String = task.payment.toString()
 
     private val numberOfWorkers:String = task.numberOfWorkers.toString()
+
+    private val _onClickEventLiveData = SingleLiveData<Any>()
+
+    fun getEmail(): String {
+        return this.email
+    }
+
+    fun setEmail(email: String) {
+        this.email = email
+    }
+
+
+    fun getPassword(): String {
+        return this.password
+    }
+
+    fun setPassword(password: String) {
+        this.password = password
+    }
 
     fun getDate(): String {
         return this.date
@@ -27,6 +62,33 @@ class OpenedTaskViewModel(val task: Task) {
 
     fun getNumberOfWorkers(): String {
         return this.numberOfWorkers
+    }
+
+    val onClickEventLiveData: LiveData<Any>
+        get() = _onClickEventLiveData
+
+
+    fun onClick() {
+        val paramObject = JsonObject()
+        paramObject.addProperty("taskid", task.id)
+
+        val authToken = Credentials.basic(getEmail(), getPassword())
+
+
+        val call: Call<Application> = RetrofitClient().getApi()
+            .applyForTask(authToken, paramObject)
+
+        call.enqueue(object: Callback<Application> {
+            override fun onFailure(call: Call<Application>, t: Throwable) {
+                Log.d("Apply Task onFailure ", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Application>, response: Response<Application>) {
+                Log.d("Apply Task onSuccess", response.body().toString())
+                _onClickEventLiveData.call()
+            }
+
+        })
     }
 
 

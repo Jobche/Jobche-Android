@@ -49,7 +49,6 @@ class RecyclerViewAdapter(
         holder.numberOfWorkers.text = numbersOfWorkers[position].toString()
 
         holder.itemView.setOnClickListener {
-            Toast.makeText(context,"clicked" + position.toString(),Toast.LENGTH_SHORT).show()
             val intent = Intent(context, OpenedTaskActivity::class.java)
             intent.putExtra("Task", Task(ids[position], titles[position],
                                                 locations[position], payments[position],

@@ -115,7 +115,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
          if(isLoaded) {
             email = sharedPreferences.getString("EMAIL", "")!!
              password = sharedPreferences.getString("PASSWORD", "")!!
-             Toast.makeText(this, email, Toast.LENGTH_SHORT).show()
          }else {
              startActivity(Intent(this, LoginActivity::class.java))
              Toast.makeText(this, isLoaded.toString(), Toast.LENGTH_SHORT).show()
