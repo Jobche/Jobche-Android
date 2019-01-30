@@ -20,6 +20,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.example.user.jobche.R.id.fragment_container
 import com.example.user.jobche.databinding.ActivityHomeBinding
 
 
@@ -123,6 +124,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+                   ProfileActivity()).commit()
+
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))
         }
         drawer.closeDrawer(GravityCompat.START)

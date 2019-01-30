@@ -5,21 +5,22 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.example.user.jobche.LoginViewModel"/>
+                name="viewModel"
+                type="com.example.user.jobche.LoginViewModel"/>
     </data>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".UI.LoginActivity"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            android:isScrollContainer="true">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginEnd="40dp"
-            android:layout_marginStart="40dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp">
 
             <ImageView
                     android:layout_width="232dp"
@@ -45,7 +46,8 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:background="@android:color/transparent"
-                    android:text="@={viewModel.email}"/>
+                    android:text="@={viewModel.email}"
+                    android:layout_marginTop="10dp"/>
             <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -69,7 +71,8 @@
                     android:maxLines="1"
                     android:inputType="textPassword"
                     android:background="@android:color/transparent"
-                    android:text="@={viewModel.password}"/>
+                    android:text="@={viewModel.password}"
+                    android:layout_marginTop="10dp"/>
 
             <View
                     android:layout_width="match_parent"
@@ -93,11 +96,11 @@
             />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginStart="45dp"
-                android:layout_marginTop="10dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="10dp">
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -105,7 +108,7 @@
                         android:text="@string/new_user"
                         android:textSize="16sp"
                         android:textColor="@android:color/white"
-                        />
+                />
                 <Button
                         android:id="@+id/signup_btn"
                         android:layout_width="wrap_content"
