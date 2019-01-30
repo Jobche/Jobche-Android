@@ -115,7 +115,7 @@
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
-                        android:background="@color/colorPrimary"
+                        android:background="@android:color/transparent"
                         android:textAlignment="viewStart"
                         android:onClick="@{() -> viewModel.onSignup()}"/>
             </LinearLayout>

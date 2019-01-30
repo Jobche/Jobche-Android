@@ -15,17 +15,17 @@ import com.example.user.jobche.databinding.ActivityLoginBinding
 class LoginActivity: AppCompatActivity() {
 
 
-    var isLogged:Boolean = false
+    private var isLogged:Boolean = false
 
     private lateinit var loginViewModel:LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
         val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         loginViewModel = LoginViewModel()
         binding.viewModel = loginViewModel
+        saveData()
 
         loginViewModel.signupEventLiveData.observe(this, Observer {
             startActivity(Intent(this, SignupNameActivity::class.java))

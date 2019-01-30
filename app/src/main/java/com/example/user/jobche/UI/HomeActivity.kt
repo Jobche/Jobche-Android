@@ -16,28 +16,38 @@ import com.example.user.jobche.*
 import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
 import android.support.design.widget.NavigationView
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.user.jobche.databinding.ActivityHomeBinding
 
 
-
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var recyclerView: RecyclerView
-    private lateinit var email:String
-    private lateinit var password:String
+    private lateinit var email: String
+    private lateinit var password: String
     private var isLoaded: Boolean = false
     private var page = 0
-    private val size = 10
+    private val size = 20
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        loadData()
+        val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
+        isLoaded = sharedPreferences.getBoolean("IS_LOGGED", false)
+        if (isLoaded) {
+            email = sharedPreferences.getString("EMAIL", "")!!
+            password = sharedPreferences.getString("PASSWORD", "")!!
+        }
+        else {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
 
         val binding: ActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         val homeViewModel = HomeViewModel()
@@ -71,16 +81,18 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         homeViewModel.generateTasks(page, size)
 
-        val recyclerViewAdapter = RecyclerViewAdapter(this,
-                                                        homeViewModel.getIds(),
-                                                        homeViewModel.getTitles(),
-                                                        homeViewModel.getLocations(),
-                                                        homeViewModel.getDate(),
-                                                        homeViewModel.getTime(),
-                                                        homeViewModel.getPayments(),
-                                                        homeViewModel.getNumberOfWorkers(),
-                                                        homeViewModel.getDescriptions(),
-                                                        homeViewModel.getCreatorIds())
+        val recyclerViewAdapter = RecyclerViewAdapter(
+            this,
+            homeViewModel.getIds(),
+            homeViewModel.getTitles(),
+            homeViewModel.getLocations(),
+            homeViewModel.getDate(),
+            homeViewModel.getTime(),
+            homeViewModel.getPayments(),
+            homeViewModel.getNumberOfWorkers(),
+            homeViewModel.getDescriptions(),
+            homeViewModel.getCreatorIds()
+        )
 
         homeViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = recyclerViewAdapter
@@ -109,20 +121,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    fun loadData() {
-        val sharedPreferences : SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
-        isLoaded = sharedPreferences.getBoolean("IS_LOGGED", false)
-         if(isLoaded) {
-            email = sharedPreferences.getString("EMAIL", "")!!
-             password = sharedPreferences.getString("PASSWORD", "")!!
-         }else {
-             startActivity(Intent(this, LoginActivity::class.java))
-         }
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.nav_add_task -> startActivity(Intent(this, AddTaskActivity::class.java))
+        when (item.itemId) {
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))
         }
         drawer.closeDrawer(GravityCompat.START)
