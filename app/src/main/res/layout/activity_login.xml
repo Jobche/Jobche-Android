@@ -44,7 +44,6 @@
                     android:textColor="@android:color/white"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:padding="8dp"
                     android:background="@android:color/transparent"
                     android:text="@={viewModel.email}"/>
             <View
@@ -68,7 +67,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:maxLines="1"
-                    android:padding="8dp"
                     android:inputType="textPassword"
                     android:background="@android:color/transparent"
                     android:text="@={viewModel.password}"/>

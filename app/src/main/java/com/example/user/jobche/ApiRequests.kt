@@ -10,7 +10,7 @@ import retrofit2.http.GET
 
 
 
-interface RegisterApi {
+interface ApiRequests {
     @Headers("Content-Type: application/json")
 
     @POST("users")
@@ -30,4 +30,7 @@ interface RegisterApi {
 
     @POST("application")
         fun applyForTask(@Header("Authorization") auth: String, @Body taskId:JsonObject): Call<Application>
+
+    @GET("users/{id}")
+        fun getUser(@Header("Authorization") auth: String, @Path("id") id:Int): Call<UserProfile>
 }

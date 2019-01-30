@@ -117,7 +117,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
              password = sharedPreferences.getString("PASSWORD", "")!!
          }else {
              startActivity(Intent(this, LoginActivity::class.java))
-             Toast.makeText(this, isLoaded.toString(), Toast.LENGTH_SHORT).show()
          }
     }
 
@@ -126,6 +125,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_add_task -> startActivity(Intent(this, AddTaskActivity::class.java))
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))
         }
+        drawer.closeDrawer(GravityCompat.START)
         return true
     }
 

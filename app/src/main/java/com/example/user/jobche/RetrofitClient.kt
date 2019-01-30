@@ -44,8 +44,8 @@ class RetrofitClient {
         return this.password
     }
 
-    fun getApi() : RegisterApi {
-        return getClient()!!.create(RegisterApi::class.java)
+    fun getApi() : ApiRequests {
+        return getClient()!!.create(ApiRequests::class.java)
     }
 
     fun getClient() : Retrofit? {

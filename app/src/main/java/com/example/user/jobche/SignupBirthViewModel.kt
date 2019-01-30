@@ -32,7 +32,7 @@ class SignupBirthViewModel: BaseObservable() {
 
     fun setBirthDate(birthDate:DateOfBirth) {
         this.birthDate = birthDate
-        setFormattedBirthDate(birthDate.toString())
+        formatBirthDate(birthDate)
     }
 
     @Bindable
@@ -40,13 +40,17 @@ class SignupBirthViewModel: BaseObservable() {
         return this.formattedBirthDate
     }
 
-    fun setFormattedBirthDate(birthDate: String) {
-//        this.formattedBirthDate = birthDate.day.toString() + "/" +
-//                                    birthDate.month.toString() + "/" +
-//                                    birthDate.year.toString()
-        this.formattedBirthDate = birthDate
+    fun setFormattedBirthDate(formattedBirthDate: String) {
+        this.formattedBirthDate = formattedBirthDate
         notifyPropertyChanged(BR.formattedBirthDate)
+    }
 
+
+    fun formatBirthDate(birthDate: DateOfBirth) {
+        val formattedBirthDate = birthDate.day.toString() + "." +
+                                    birthDate.month.toString() + "." +
+                                    birthDate.year.toString()
+        setFormattedBirthDate(formattedBirthDate)
     }
 
     @Bindable
