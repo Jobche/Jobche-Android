@@ -34,6 +34,7 @@
                         android:layout_marginBottom="32dp"
                         android:layout_marginEnd="32dp"
                         app:fabSize="normal"
+                        android:src="@drawable/ic_add_white_24dp"
                         android:onClick="@{() -> viewModel.onClickFab()}"/>
 
                 <android.support.v7.widget.RecyclerView
