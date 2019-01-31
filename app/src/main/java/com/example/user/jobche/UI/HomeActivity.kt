@@ -1,5 +1,6 @@
 package com.example.user.jobche.UI
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
@@ -64,6 +65,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val navigation = binding.navView
         navigation.setNavigationItemSelectedListener(this)
+        navigation.menu.getItem(0).isChecked = true
 
         val toggle = ActionBarDrawerToggle(
             this,
@@ -122,10 +124,15 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+    @SuppressLint("CommitTransaction")
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.nav_home -> startActivity(Intent(this, HomeActivity::class.java))
+
+
             R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
                    ProfileActivity()).commit()
+
 
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))
         }
