@@ -28,7 +28,7 @@ class SignupBirthActivity : AppCompatActivity() {
         val binding: ActivitySignupBirthBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup_birth)
         val signupBirthViewModel = SignupBirthViewModel()
         binding.viewModel = signupBirthViewModel
-        signupBirthViewModel.setRegisterUser(intent.getParcelableExtra("RegisterUser"))
+        signupBirthViewModel.setRegisterUser(intent.getParcelableExtra("User"))
 
         signupBirthViewModel.birthDateEventLiveData.observe(this, Observer {
 

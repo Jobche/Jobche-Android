@@ -5,6 +5,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
 import com.example.user.jobche.Model.LoginUser
+import com.example.user.jobche.Model.User
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,6 +16,8 @@ class LoginViewModel : BaseObservable() {
 
     private var email: String = ""
     private var password: String = ""
+
+    private var id:Int = 0
 
     private val _signupEventLiveData = SingleLiveData<Any>()
 
@@ -56,25 +59,34 @@ class LoginViewModel : BaseObservable() {
         notifyPropertyChanged(BR.password)
     }
 
+    fun getId(): Int {
+        return this.id
+    }
+
+    fun setId(id: Int) {
+        this.id = id
+    }
+
     fun onClick() {
         val paramObject = JsonObject()
         paramObject.addProperty("email", this.email)
         paramObject.addProperty("password", this.password)
 
-        val call: Call<LoginUser> = RetrofitClient().getApi()
+        val call: Call<User> = RetrofitClient().getApi()
             .loginUser(paramObject)
 
-        call.enqueue(object : Callback<LoginUser> {
-            override fun onFailure(call: Call<LoginUser>, t: Throwable) {
+        call.enqueue(object : Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.d("Login user failure:", t.message.toString())
             }
 
-            override fun onResponse(call: Call<LoginUser>, response: Response<LoginUser>) {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
                 Log.d("Login user Success:", response.body().toString())
-                val loginUser: LoginUser? = response.body()
-                if (loginUser == null) {
+                val user: User? = response.body()
+                if (user == null) {
                     _failEventLiveData.call()
                 } else {
+                    setId(user.id)
                     _loginEventLiveData.call()
                 }
             }

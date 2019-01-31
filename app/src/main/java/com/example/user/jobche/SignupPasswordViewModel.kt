@@ -4,13 +4,13 @@ import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
-import com.example.user.jobche.Model.RegisterUser
+import com.example.user.jobche.Model.User
 
 class SignupPasswordViewModel: BaseObservable() {
     private var password:String = ""
     private var confPassword:String = ""
     private var toastMsg:String = ""
-    private var registerUser = RegisterUser()
+    private var registerUser = User()
 
     private val _nextEventLiveData = SingleLiveData<Any>()
 
@@ -23,12 +23,12 @@ class SignupPasswordViewModel: BaseObservable() {
     val nextEventLiveData : LiveData<Any>
         get() = _nextEventLiveData
 
-    fun getRegisterUser(): RegisterUser {
+    fun getRegisterUser(): User {
         return registerUser
     }
 
-    fun setRegisterUser(registerUser: RegisterUser){
-        this.registerUser = registerUser
+    fun setRegisterUser(user: User){
+        this.registerUser = user
     }
 
 

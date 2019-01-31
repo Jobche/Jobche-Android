@@ -22,7 +22,7 @@ class SignupNameActivity : AppCompatActivity() {
 
         signupNameViewModel.nextEventLiveData.observe(this, Observer {
             val intent = Intent(this, SignupPasswordActivity::class.java)
-            intent.putExtra("RegisterUser", signupNameViewModel.getRegisterUser())
+            intent.putExtra("User", signupNameViewModel.getRegisterUser())
             startActivity(intent)
         })
 

@@ -19,11 +19,11 @@ class SignupPasswordActivity : AppCompatActivity() {
         val binding: ActivitySignupPasswordBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup_password)
         val signupPasswordViewModel = SignupPasswordViewModel()
         binding.viewModel = signupPasswordViewModel
-        signupPasswordViewModel.setRegisterUser(intent.getParcelableExtra("RegisterUser"))
+        signupPasswordViewModel.setRegisterUser(intent.getParcelableExtra("User"))
 
         signupPasswordViewModel.nextEventLiveData.observe(this, Observer {
             val intent = Intent(this, SignupBirthActivity::class.java)
-            intent.putExtra("RegisterUser", signupPasswordViewModel.getRegisterUser())
+            intent.putExtra("User", signupPasswordViewModel.getRegisterUser())
             startActivity(intent)
         })
         signupPasswordViewModel.toastEventLiveData.observe(this, Observer {

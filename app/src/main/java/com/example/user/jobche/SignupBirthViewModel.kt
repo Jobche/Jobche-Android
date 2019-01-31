@@ -5,7 +5,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
 import com.example.user.jobche.Model.DateOfBirth
-import com.example.user.jobche.Model.RegisterUser
+import com.example.user.jobche.Model.User
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -20,7 +20,7 @@ class SignupBirthViewModel: BaseObservable() {
 
     private var email:String = ""
 
-    private var registerUser = RegisterUser()
+    private var registerUser = User()
 
     private val _birthDateEventLiveData = SingleLiveData<Any>()
 
@@ -63,8 +63,8 @@ class SignupBirthViewModel: BaseObservable() {
         notifyPropertyChanged(BR.email)
     }
 
-    fun setRegisterUser(registerUser: RegisterUser){
-        this.registerUser = registerUser
+    fun setRegisterUser(user: User){
+        this.registerUser = user
     }
 
     val birthDateEventLiveData: LiveData<Any>
@@ -91,15 +91,15 @@ class SignupBirthViewModel: BaseObservable() {
         paramObject.add("dateOfBirth", Gson().toJsonTree(DateOfBirth(birthDate.day, birthDate.month, birthDate.month)))
 
 
-        val call: Call<RegisterUser> = RetrofitClient().getApi()
+        val call: Call<User> = RetrofitClient().getApi()
             .createUser(paramObject)
 
-        call.enqueue(object: Callback<RegisterUser> {
-            override fun onFailure(call: Call<RegisterUser>, t: Throwable) {
+        call.enqueue(object: Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.d("Sign up onFailure: ", t.message.toString())
             }
 
-            override fun onResponse(call: Call<RegisterUser>, response: Response<RegisterUser>) {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
                 Log.d("Sign up onSuccess:", response.body().toString())
                 _nextEventLiveData.call()
             }
