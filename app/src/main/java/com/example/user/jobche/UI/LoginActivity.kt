@@ -26,6 +26,7 @@ class LoginActivity: AppCompatActivity() {
         val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         loginViewModel = LoginViewModel()
         binding.viewModel = loginViewModel
+        saveData()
 
         loginViewModel.signupEventLiveData.observe(this, Observer {
             startActivity(Intent(this, SignupNameActivity::class.java))
@@ -51,7 +52,6 @@ class LoginActivity: AppCompatActivity() {
         editor.putString("EMAIL", loginViewModel.getEmail())
         editor.putString("PASSWORD", loginViewModel.getPassword())
         editor.putInt("ID", loginViewModel.getId())
-        Log.d("IDTOOO", loginViewModel.getId().toString())
         editor.putBoolean("IS_LOGGED", isLogged)
         editor.apply()
     }

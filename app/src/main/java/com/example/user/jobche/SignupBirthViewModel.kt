@@ -88,7 +88,7 @@ class SignupBirthViewModel: BaseObservable() {
         paramObject.addProperty("lastName", registerUser.lastName)
         paramObject.addProperty("email", registerUser.email)
         paramObject.addProperty("password", registerUser.password)
-        paramObject.add("dateOfBirth", Gson().toJsonTree(DateOfBirth(birthDate.day, birthDate.month, birthDate.month)))
+        paramObject.add("dateOfBirth", Gson().toJsonTree(DateOfBirth(birthDate.day, birthDate.month, birthDate.year)))
 
 
         val call: Call<User> = RetrofitClient().getApi()
