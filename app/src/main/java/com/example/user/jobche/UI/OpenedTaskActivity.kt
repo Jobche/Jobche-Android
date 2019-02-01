@@ -10,6 +10,7 @@ import com.example.user.jobche.Model.Task
 import com.example.user.jobche.R
 import com.example.user.jobche.OpenedTaskViewModel
 import com.example.user.jobche.databinding.ActivityOpenedTaskBinding
+import com.example.user.jobche.databinding.OpenedTaskInformationBinding
 
 class OpenedTaskActivity : AppCompatActivity() {
 
@@ -28,8 +29,10 @@ class OpenedTaskActivity : AppCompatActivity() {
         val binding: ActivityOpenedTaskBinding = DataBindingUtil.setContentView(this,
             R.layout.activity_opened_task
         )
+
         val openedTaskViewModel = OpenedTaskViewModel(task)
         binding.viewModel = openedTaskViewModel
+        binding.frameOpenedTask.viewModel = openedTaskViewModel
 
         openedTaskViewModel.setEmail(email)
         openedTaskViewModel.setPassword(password)
@@ -37,6 +40,7 @@ class OpenedTaskActivity : AppCompatActivity() {
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {
             Toast.makeText(this, "You Applied Successfully", Toast.LENGTH_LONG).show()
         })
+
 
     }
 }

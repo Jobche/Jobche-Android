@@ -99,7 +99,7 @@ class OpenedTaskViewModel(val task: Task) {
 
     fun onClick() {
         val paramObject = JsonObject()
-        paramObject.addProperty("taskid", task.id)
+        paramObject.addProperty("taskId", task.id)
 
         val authToken = Credentials.basic(getEmail(), getPassword())
 

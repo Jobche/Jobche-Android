@@ -138,7 +138,6 @@ class HomeViewModel : ViewModel() {
 
 
     fun generateTasks(call: Call<Tasks>) {
-        Log.d("EMMMMMM", getEmail())
         call.enqueue(object : Callback<Tasks> {
             override fun onFailure(call: Call<Tasks>, t: Throwable) {
                 Log.d("Add Task onFailure: ", t.message.toString())
