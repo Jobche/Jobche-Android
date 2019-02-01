@@ -21,7 +21,8 @@ class ProfileActivity : Fragment() {
         val email = sharedPreferences.getString("EMAIL", "")!!
         val password = sharedPreferences.getString("PASSWORD", "")!!
 
-        val binding: ActivityProfileBinding = DataBindingUtil.setContentView(this.activity!!, R.layout.activity_profile)
+        val binding: ActivityProfileBinding = DataBindingUtil.inflate( inflater, R.layout.activity_profile, container, false)
+        val view:View = binding.root
         val profileViewModel = ProfileViewModel()
         binding.viewModel = profileViewModel
 
@@ -29,6 +30,6 @@ class ProfileActivity : Fragment() {
         profileViewModel.setPassword(password)
         profileViewModel.createUser(id)
 
-        return inflater.inflate(R.layout.activity_profile, container, false)
+        return view
     }
 }
