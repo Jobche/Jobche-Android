@@ -2,7 +2,6 @@ package com.example.user.jobche.UI
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -18,7 +17,11 @@ import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
 import android.support.design.widget.NavigationView
 import android.view.MenuItem
+import com.example.user.jobche.Model.Tasks
+import com.example.user.jobche.UI.Fragments.Profile
 import com.example.user.jobche.databinding.ActivityHomeBinding
+import okhttp3.Credentials
+import retrofit2.Call
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -29,7 +32,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var password: String
     private var isLoaded: Boolean = false
     private var page = 0
-    private val size = 20
+
+    private lateinit var call: Call<Tasks>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +57,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         homeViewModel.setEmail(email)
         homeViewModel.setPassword(password)
+
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -78,7 +83,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerView.layoutManager = layoutManager
 
 
-        homeViewModel.generateTasks(page, size)
+        homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
 
         val recyclerViewAdapter = RecyclerViewAdapter(
             this,
@@ -113,7 +118,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     page += 1
-                    homeViewModel.generateTasks(page, size)
+                    homeViewModel.setPage(page)
+                    homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
                 }
             }
         })
@@ -127,7 +133,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
             R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
-                   ProfileActivity()).commit()
+                Profile()
+            ).commit()
 
 
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))

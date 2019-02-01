@@ -16,6 +16,10 @@ class HomeViewModel : ViewModel() {
 
     private lateinit var password: String
 
+    private val size: Int = 20
+
+    private var page: Int = 0
+
     private val ids = ArrayList<Int>()
 
     private val titles = ArrayList<String>()
@@ -49,13 +53,38 @@ class HomeViewModel : ViewModel() {
         this.email = email
     }
 
-
     fun getPassword(): String {
         return this.password
     }
 
     fun setPassword(password: String) {
         this.password = password
+    }
+
+
+    fun getPage(): Int {
+        return this.page
+    }
+
+    fun setPage(page: Int) {
+        this.page = page
+    }
+
+
+    fun getSize(): Int {
+        return this.size
+    }
+
+    fun getAuthToken(): String {
+        return Credentials.basic(getEmail(), getPassword())
+    }
+
+    fun getCallAllTasks(): Call<Tasks> {
+        return RetrofitClient().getApi().getTasks(getAuthToken(), getPage(), getSize())
+    }
+
+    fun getCallMyTasks(): Call<Tasks> {
+        return RetrofitClient().getApi().getMyTasks(getAuthToken(), getPage(), getSize())
     }
 
     fun getTitles(): ArrayList<String> {
@@ -81,7 +110,6 @@ class HomeViewModel : ViewModel() {
     fun getNumberOfWorkers(): ArrayList<Int> {
         return this.numberOfWorkers
     }
-
 
     fun getDescriptions(): ArrayList<String> {
         return this.descriptions
@@ -109,12 +137,8 @@ class HomeViewModel : ViewModel() {
     }
 
 
-    fun generateTasks(page: Int, size: Int) {
-        val authToken = Credentials.basic(getEmail(), getPassword())
-
-        val call: Call<Tasks> = RetrofitClient().getApi()
-            .getTasks(authToken, page, size)
-
+    fun generateTasks(call: Call<Tasks>) {
+        Log.d("EMMMMMM", getEmail())
         call.enqueue(object : Callback<Tasks> {
             override fun onFailure(call: Call<Tasks>, t: Throwable) {
                 Log.d("Add Task onFailure: ", t.message.toString())
@@ -138,13 +162,14 @@ class HomeViewModel : ViewModel() {
                             getCreatorIds().add(t.creatorId)
                             getIds().add(t.id)
                         }
-                        if (page == 0) {
+                        if (getPage() == 0) {
                             _adapterEventLiveData.call()
                         } else {
                             _updateAdapterEventLiveData.call()
                         }
                     } else {
                         Log.d("RecylerView", "No more tasks to show!")
+                        setPage(getPage() - 1)
                     }
                 }
             }

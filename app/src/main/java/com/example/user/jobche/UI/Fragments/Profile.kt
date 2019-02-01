@@ -1,4 +1,4 @@
-package com.example.user.jobche.UI
+package com.example.user.jobche.UI.Fragments
 
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
@@ -12,7 +12,7 @@ import com.example.user.jobche.ProfileViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.databinding.ActivityProfileBinding
 
-class ProfileActivity : Fragment() {
+class Profile : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
