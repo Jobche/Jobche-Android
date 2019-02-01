@@ -169,6 +169,8 @@ class AddTaskViewModel: BaseObservable() {
 
     fun onClickAddTask() {
 
+
+
         val paramObject = JsonObject()
         paramObject.addProperty("title", getTitle())
         paramObject.addProperty("payment", getPayment().toInt())

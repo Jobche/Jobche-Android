@@ -6,7 +6,6 @@
     <string name="applied">Applied</string>
     <string name="my_tasks">My Tasks</string>
     <string name="saved">Saved</string>
-    <string name="firstname_lastname">Firstname Lastname</string>
     <string name="email">Email</string>
     <string name="new_user">New user?</string>
     <string name="sign_up">Sign Up</string>
@@ -16,5 +15,14 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="log_out">Log out</string>
     <string name="home">Home</string>
+    <string name="title">Title</string>
+    <string name="leva">leva</string>
+    <string name="price">Price</string>
+    <string name="start">Start</string>
+    <string name="date">Date</string>
+    <string name="no_ratings">No Ratings</string>
+    <string name="accepted">Accepted</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
 
 </resources>

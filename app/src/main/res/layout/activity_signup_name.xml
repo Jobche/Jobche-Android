@@ -33,7 +33,7 @@
             android:textColorHint="#111"
             android:maxLines="1"
             android:padding="8dp"
-            android:inputType="textWebEmailAddress"
+            android:inputType="textCapSentences"
             android:background="@android:color/transparent"
             android:layout_marginTop="50dp"
             android:text="@={viewModel.firstName}"/>
@@ -48,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Last Name"
+                android:inputType="textCapSentences"
                 android:textColor="#111"
                 android:textColorHint="#111"
                 android:maxLines="1"

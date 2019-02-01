@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
-                android:hint="Title"
+                android:hint="@string/title"
+                android:inputType="textCapSentences"
                 android:text="@={viewModel.title}"/>
 
             <EditText
@@ -40,6 +41,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="10dp"
                 android:hint="Country"
+                android:inputType="textCapSentences"
                 android:text="@={viewModel.country}"/>
 
 
@@ -49,6 +51,7 @@
                     android:layout_marginTop="20dp"
                     android:padding="10dp"
                     android:hint="City"
+                    android:inputType="textCapSentences"
                     android:text="@={viewModel.city}"/>
 
             <EditText
@@ -106,7 +109,7 @@
 
             android:hint="Description"
             android:padding="10dp"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine|textCapSentences"
             android:text="@={viewModel.description}"/>
 
         <Button

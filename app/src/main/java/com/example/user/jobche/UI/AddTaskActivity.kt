@@ -8,15 +8,20 @@ import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.widget.Toast
 import com.example.user.jobche.AddTaskViewModel
 import com.example.user.jobche.Model.DateParameters
-import com.example.user.jobche.R
 import com.example.user.jobche.databinding.ActivityAddTaskBinding
 import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar.view.*
 import net.danlew.android.joda.JodaTimeAndroid
 import java.util.*
+import android.widget.TextView
+import com.example.user.jobche.R
+import kotlinx.android.synthetic.main.activity_add_task.view.*
+
 
 class AddTaskActivity : AppCompatActivity() {
 
@@ -28,6 +33,9 @@ class AddTaskActivity : AppCompatActivity() {
         val sharedPreferences : SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
        val email = sharedPreferences.getString("EMAIL", "")!!
         val password = sharedPreferences.getString("PASSWORD", "")!!
+
+        val toolbar = findViewById<Toolbar>(R.id.custom_toolbar)
+        setSupportActionBar(toolbar)
 
 
         val binding: ActivityAddTaskBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)

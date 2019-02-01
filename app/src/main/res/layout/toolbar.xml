@@ -8,15 +8,16 @@
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        android:id="@+id/custom_toolbar">
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:id="@+id/toolbar_title"-->
-    <!--android:textStyle="bold"-->
-    <!--android:textColor="@android:color/white"-->
-    <!--android:textSize="18sp"/>-->
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
 
 </android.support.v7.widget.Toolbar>

@@ -17,11 +17,7 @@ import com.example.user.jobche.*
 import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
 import android.support.design.widget.NavigationView
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
-import com.example.user.jobche.R.id.fragment_container
 import com.example.user.jobche.databinding.ActivityHomeBinding
 
 
