@@ -14,20 +14,24 @@
             android:orientation="vertical"
             tools:context=".UI.OpenedTaskActivity">
 
-            <include
-                    android:id="@+id/custom_toolbar"
-                    layout="@layout/toolbar"/>
+        <include
+                android:id="@+id/custom_toolbar"
+                layout="@layout/toolbar"/>
 
-            <include
-                    android:id="@+id/frame_opened_task"
-                    layout="@layout/opened_task_information"/>
+        <include
+                android:id="@+id/creator_info"
+                layout="@layout/user_opened_task"/>
 
-            <Button
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:text="Apply"
-                    android:layout_marginTop="40dp"
-                    android:layout_gravity="center"
-                    android:onClick="@{() -> viewModel.onClick()}"/>
+        <include
+                android:id="@+id/frame_opened_task"
+                layout="@layout/opened_task_information"/>
+
+        <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Apply"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                android:onClick="@{() -> viewModel.onClick()}"/>
     </LinearLayout>
 </layout>

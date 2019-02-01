@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.user.jobche.Model.Task
 import com.example.user.jobche.R
 import com.example.user.jobche.OpenedTaskViewModel
+import com.example.user.jobche.ProfileViewModel
 import com.example.user.jobche.databinding.ActivityOpenedTaskBinding
 import com.example.user.jobche.databinding.OpenedTaskInformationBinding
 
@@ -31,11 +32,17 @@ class OpenedTaskActivity : AppCompatActivity() {
         )
 
         val openedTaskViewModel = OpenedTaskViewModel(task)
+        val profileViewModel = ProfileViewModel()
         binding.viewModel = openedTaskViewModel
         binding.frameOpenedTask.viewModel = openedTaskViewModel
+        binding.creatorInfo.viewModel = profileViewModel
 
         openedTaskViewModel.setEmail(email)
         openedTaskViewModel.setPassword(password)
+
+        profileViewModel.setEmail(email)
+        profileViewModel.setPassword(password)
+        profileViewModel.createUser(task.creatorId)
 
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {
             Toast.makeText(this, "You Applied Successfully", Toast.LENGTH_LONG).show()
