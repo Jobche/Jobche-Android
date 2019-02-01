@@ -18,6 +18,7 @@ import android.databinding.DataBindingUtil
 import android.support.design.widget.NavigationView
 import android.view.MenuItem
 import com.example.user.jobche.Model.Tasks
+import com.example.user.jobche.UI.Fragments.MyTasks
 import com.example.user.jobche.UI.Fragments.Profile
 import com.example.user.jobche.databinding.ActivityHomeBinding
 import okhttp3.Credentials
@@ -136,6 +137,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Profile()
             ).commit()
 
+            R.id.nav_my_tasks -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+                MyTasks()
+            ).commit()
 
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))
         }
