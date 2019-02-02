@@ -1,18 +1,17 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
 import android.util.Log
-import com.example.user.jobche.Model.Location
+import com.example.user.jobche.Model.Task
 import com.example.user.jobche.Model.Tasks
 import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel {
 
-    private lateinit var email:String
+    private lateinit var email: String
 
     private lateinit var password: String
 
@@ -20,23 +19,7 @@ class HomeViewModel : ViewModel() {
 
     private var page: Int = 0
 
-    private val ids = ArrayList<Int>()
-
-    private val titles = ArrayList<String>()
-
-    private val locations = ArrayList<Location>()
-
-    private val dates = ArrayList<String>()
-
-    private val time = ArrayList<String>()
-
-    private val payments = ArrayList<Int>()
-
-    private val numberOfWorkers = ArrayList<Int>()
-
-    private val descriptions = ArrayList<String>()
-
-    private val creatorIds = ArrayList<Int>()
+    private lateinit var tasks: List<Task>
 
     private val _fabEventLiveData = SingleLiveData<Any>()
 
@@ -87,40 +70,12 @@ class HomeViewModel : ViewModel() {
         return RetrofitClient().getApi().getMyTasks(getAuthToken(), getPage(), getSize())
     }
 
-    fun getTitles(): ArrayList<String> {
-        return this.titles
+    fun getTasks(): List<Task> {
+        return this.tasks
     }
 
-    fun getLocations(): ArrayList<Location> {
-        return this.locations
-    }
-
-    fun getDate(): ArrayList<String> {
-        return this.dates
-    }
-
-    fun getTime(): ArrayList<String> {
-        return this.time
-    }
-
-    fun getPayments(): ArrayList<Int> {
-        return this.payments
-    }
-
-    fun getNumberOfWorkers(): ArrayList<Int> {
-        return this.numberOfWorkers
-    }
-
-    fun getDescriptions(): ArrayList<String> {
-        return this.descriptions
-    }
-
-    fun getCreatorIds(): ArrayList<Int> {
-        return this.creatorIds
-    }
-
-    fun getIds(): ArrayList<Int> {
-        return this.ids
+    fun setTasks(tasks: List<Task>) {
+        this.tasks = tasks
     }
 
     val fabEventLiveData: LiveData<Any>
@@ -147,33 +102,20 @@ class HomeViewModel : ViewModel() {
                 Log.d("Add Task onSuccess:", response.body().toString())
 
                 if (response.body() != null) {
-                    val tasks: Tasks = response.body()!!
-                    if (!tasks.tasks.isEmpty()) {
-
-                        for (t in tasks.tasks) {
-                            getTitles().add(t.title)
-                            getDate().add((t.dateTime).substring(8, 10) + "." + (t.dateTime).substring(5, 7))
-                            getLocations().add(t.location)
-                            getTime().add((t.dateTime).substring(11, 16))
-                            getPayments().add(t.payment)
-                            getNumberOfWorkers().add(t.numberOfWorkers)
-                            getDescriptions().add(t.description)
-                            getCreatorIds().add(t.creatorId)
-                            getIds().add(t.id)
-                        }
-                        if (getPage() == 0) {
-                            _adapterEventLiveData.call()
-                        } else {
-                            _updateAdapterEventLiveData.call()
-                        }
+                    setTasks(response.body()!!.tasks)
+                    if (getPage() == 0) {
+                        _adapterEventLiveData.call()
                     } else {
-                        Log.d("RecylerView", "No more tasks to show!")
-                        setPage(getPage() - 1)
+                        _updateAdapterEventLiveData.call()
                     }
+                } else if (getPage() == 0) {
+                    Log.d("RecylerView", "It's Empty!")
+
+                } else {
+                    Log.d("RecylerView", "No more tasks to show!")
+                    setPage(getPage() - 1)
                 }
             }
-
         })
-
     }
 }

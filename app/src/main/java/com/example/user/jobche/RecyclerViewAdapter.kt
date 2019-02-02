@@ -14,20 +14,13 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import com.example.user.jobche.Model.Location
 import com.example.user.jobche.Model.Task
+import com.example.user.jobche.Model.Tasks
 import com.example.user.jobche.UI.OpenedTaskActivity
 
 
 class RecyclerViewAdapter(
     private val context: Context,
-    private val ids: ArrayList<Int>,
-    private val titles: ArrayList<String>,
-    private val locations: ArrayList<Location>,
-    private val dates: ArrayList<String>,
-    private val time: ArrayList<String>,
-    private val payments: ArrayList<Int>,
-    private val numbersOfWorkers: ArrayList<Int>,
-    private val descriptions: ArrayList<String>,
-    private val creatorIds: ArrayList<Int>
+    private val tasks: List<Task>
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     private val sharedPreferences: SharedPreferences =
@@ -41,32 +34,24 @@ class RecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return titles.size
+        return tasks.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: called.")
-        holder.title.text = titles[position]
-        holder.location.text = locations[position].city
-        holder.date.text = dates[position]
-        holder.time.text = time[position]
-        holder.payment.text = payments[position].toString()
-        holder.numberOfWorkers.text = numbersOfWorkers[position].toString()
+        holder.title.text = tasks[position].title
+        holder.location.text = tasks[position].location.city
+        holder.date.text = ((tasks[position].dateTime).substring(8, 10) + "." + (tasks[position].dateTime).substring(5, 7))
+        holder.time.text = (tasks[position].dateTime).substring(11, 16)
+        holder.payment.text = tasks[position].payment.toString()
+        holder.numberOfWorkers.text = tasks[position].numberOfWorkers.toString()
 
         holder.itemView.setOnClickListener {
-            if (creatorIds[position] == userId) {
+            if (tasks[position].creatorId == userId) {
                 Toast.makeText(context, "Sa che ti pokaja", Toast.LENGTH_LONG).show()
             } else {
                 val intent = Intent(context, OpenedTaskActivity::class.java)
-                intent.putExtra(
-                    "Task", Task(
-                        ids[position], titles[position],
-                        locations[position], payments[position],
-                        numbersOfWorkers[position], descriptions[position],
-                        dates[position] + time[position],
-                        creatorIds[position]
-                    )
-                )
+                intent.putExtra("Task", tasks[position])
                 context.startActivity(intent)
             }
         }
@@ -79,7 +64,5 @@ class RecyclerViewAdapter(
         var time: TextView = itemView.findViewById(R.id.task_start_time)
         var payment: TextView = itemView.findViewById(R.id.task_payment)
         var numberOfWorkers: TextView = itemView.findViewById(R.id.task_numberOfWorkers)
-
-
     }
 }

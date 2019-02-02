@@ -12,7 +12,7 @@ import com.example.user.jobche.ProfileViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.databinding.ActivityProfileBinding
 
-class Profile : Fragment() {
+class ProfileFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

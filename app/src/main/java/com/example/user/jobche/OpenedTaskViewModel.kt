@@ -22,10 +22,10 @@ class OpenedTaskViewModel(val task: Task) {
 
     private lateinit var password: String
 
-    private val date: String = substring(task.dateTime, 0, 5)
 
-    private val time: String = substring(task.dateTime, 5, task.dateTime.length)
+    private val date: String = (task.dateTime).substring(8, 10) + "." + (task.dateTime).substring(5, 7)
 
+    private val time: String = (task.dateTime).substring(11, 16)
     private val payment: String = task.payment.toString()
 
     private val numberOfWorkers: String = task.numberOfWorkers.toString()
@@ -65,33 +65,6 @@ class OpenedTaskViewModel(val task: Task) {
         return this.numberOfWorkers
     }
 
-
-//    fun createUser() : UserProfile {
-//
-//        val paramObject = JsonObject()
-//        paramObject.addProperty("id", task.creatorId)
-//
-//        val authToken = Credentials.basic(getEmail(), getPassword())
-//
-//
-//        val call: Call<UserProfile> = RetrofitClient().getApi()
-//            .getUser(authToken, task.creatorId)
-//
-//        call.enqueue(object : Callback<UserProfile> {
-//            override fun onFailure(call: Call<UserProfile>, t: Throwable) {
-//                Log.d("Get User onFailure ", t.message.toString())
-//            }
-//
-//            override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
-//                Log.d("Get User onSuccess", response.body().toString())
-//                if (response.body() != null) {
-//                   user = (response.body()!!)
-//                }
-//
-//            }
-//        })
-//        return user
-//    }
 
     val onClickEventLiveData: LiveData<Any>
         get() = _onClickEventLiveData

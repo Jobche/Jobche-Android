@@ -1,35 +1,26 @@
 package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.HomeViewModel
-import com.example.user.jobche.MyTasksViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.RecyclerViewAdapter
-import com.example.user.jobche.UI.AddTaskActivity
-import com.example.user.jobche.UI.LoginActivity
-import com.example.user.jobche.databinding.ActivityHomeBinding
 import com.example.user.jobche.databinding.MyTasksFragmentBinding
 
 
-class MyTasks : Fragment() {
+class MyTasksFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MyTasks()
+        fun newInstance() = MyTasksFragment()
     }
 
 
@@ -45,6 +36,7 @@ class MyTasks : Fragment() {
 
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
+
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
@@ -64,26 +56,16 @@ class MyTasks : Fragment() {
 
         homeViewModel.generateTasks(homeViewModel.getCallMyTasks())
 
-        val recyclerViewAdapter = RecyclerViewAdapter(
-            activity!!,
-            homeViewModel.getIds(),
-            homeViewModel.getTitles(),
-            homeViewModel.getLocations(),
-            homeViewModel.getDate(),
-            homeViewModel.getTime(),
-            homeViewModel.getPayments(),
-            homeViewModel.getNumberOfWorkers(),
-            homeViewModel.getDescriptions(),
-            homeViewModel.getCreatorIds()
-        )
-
         homeViewModel.adapterEventData.observe(this, Observer {
-            recyclerView.adapter = recyclerViewAdapter
+            recyclerView.adapter = RecyclerViewAdapter(
+                activity!!,
+                homeViewModel.getTasks()
+            )
         })
 
 
         homeViewModel.updateAdapterEventLiveData.observe(this, Observer {
-            recyclerViewAdapter.notifyDataSetChanged()
+            recyclerView.adapter!!.notifyDataSetChanged()
 
         })
 

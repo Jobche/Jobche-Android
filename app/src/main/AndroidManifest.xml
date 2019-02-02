@@ -12,7 +12,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme" tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".UI.Fragments.Profile">
+        <activity android:name=".UI.Fragments.ProfileFragment">
         </activity>
         <activity android:name=".UI.OpenedTaskActivity">
         </activity>

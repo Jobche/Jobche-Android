@@ -17,12 +17,9 @@ import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
 import android.support.design.widget.NavigationView
 import android.view.MenuItem
-import com.example.user.jobche.Model.Tasks
-import com.example.user.jobche.UI.Fragments.MyTasks
-import com.example.user.jobche.UI.Fragments.Profile
+import com.example.user.jobche.UI.Fragments.MyTasksFragment
+import com.example.user.jobche.UI.Fragments.ProfileFragment
 import com.example.user.jobche.databinding.ActivityHomeBinding
-import okhttp3.Credentials
-import retrofit2.Call
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -33,8 +30,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var password: String
     private var isLoaded: Boolean = false
     private var page = 0
-
-    private lateinit var call: Call<Tasks>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,26 +81,16 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
 
-        val recyclerViewAdapter = RecyclerViewAdapter(
-            this,
-            homeViewModel.getIds(),
-            homeViewModel.getTitles(),
-            homeViewModel.getLocations(),
-            homeViewModel.getDate(),
-            homeViewModel.getTime(),
-            homeViewModel.getPayments(),
-            homeViewModel.getNumberOfWorkers(),
-            homeViewModel.getDescriptions(),
-            homeViewModel.getCreatorIds()
-        )
 
         homeViewModel.adapterEventData.observe(this, Observer {
-            recyclerView.adapter = recyclerViewAdapter
+            recyclerView.adapter = RecyclerViewAdapter(
+                this,
+                homeViewModel.getTasks())
         })
 
 
         homeViewModel.updateAdapterEventLiveData.observe(this, Observer {
-            recyclerViewAdapter.notifyDataSetChanged()
+            recyclerView.adapter!!.notifyDataSetChanged()
 
         })
 
@@ -134,11 +119,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
             R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
-                Profile()
+                ProfileFragment()
             ).commit()
 
             R.id.nav_my_tasks -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
-                MyTasks()
+                MyTasksFragment()
             ).commit()
 
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))
