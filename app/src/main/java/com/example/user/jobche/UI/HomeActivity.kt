@@ -17,6 +17,7 @@ import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
 import android.support.design.widget.NavigationView
 import android.view.MenuItem
+import com.example.user.jobche.UI.Fragments.MyApplicationsFragment
 import com.example.user.jobche.UI.Fragments.MyTasksFragment
 import com.example.user.jobche.UI.Fragments.ProfileFragment
 import com.example.user.jobche.databinding.ActivityHomeBinding
@@ -124,6 +125,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             R.id.nav_my_tasks -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
                 MyTasksFragment()
+            ).commit()
+
+
+            R.id.nav_applied_for -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+                MyApplicationsFragment()
             ).commit()
 
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))

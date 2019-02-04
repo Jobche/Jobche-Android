@@ -20,7 +20,7 @@ import com.example.user.jobche.UI.OpenedTaskActivity
 
 class RecyclerViewAdapter(
     private val context: Context,
-    private val tasks: List<Task>
+    private val tasks: ArrayList<Task>
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     private val sharedPreferences: SharedPreferences =

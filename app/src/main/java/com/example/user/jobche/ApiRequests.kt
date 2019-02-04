@@ -33,10 +33,18 @@ interface ApiRequests {
         @Query("page") page: Int,
         @Query("size") size: Int): Call<Tasks>
 
+    @GET("tasks/{id}")
+    fun getTask(@Header("Authorization") auth: String, @Path("id") id:Int): Call<Task>
 
     @POST("application")
         fun applyForTask(@Header("Authorization") auth: String, @Body taskId:JsonObject): Call<Application>
 
     @GET("users/{id}")
         fun getUser(@Header("Authorization") auth: String, @Path("id") id:Int): Call<UserProfile>
+
+    @GET("users/me/applications")
+        fun getMyApplications(@Header("Authorization") auth: String,
+                              @Query("page") page: Int,
+                              @Query("size") size: Int): Call<Applications>
+
 }

@@ -19,7 +19,7 @@ class HomeViewModel {
 
     private var page: Int = 0
 
-    private lateinit var tasks: List<Task>
+    private lateinit var tasks: ArrayList<Task>
 
     private val _fabEventLiveData = SingleLiveData<Any>()
 
@@ -70,11 +70,11 @@ class HomeViewModel {
         return RetrofitClient().getApi().getMyTasks(getAuthToken(), getPage(), getSize())
     }
 
-    fun getTasks(): List<Task> {
+    fun getTasks(): ArrayList<Task> {
         return this.tasks
     }
 
-    fun setTasks(tasks: List<Task>) {
+    fun setTasks(tasks: ArrayList<Task>) {
         this.tasks = tasks
     }
 
