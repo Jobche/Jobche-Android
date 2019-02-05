@@ -9,7 +9,6 @@ import com.example.user.jobche.Model.Task
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.Credentials
-import okhttp3.ResponseBody
 import org.joda.time.LocalDateTime
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,6 +37,16 @@ class AddTaskViewModel: BaseObservable() {
     private var time:String = ""
 
     private var dateTime: LocalDateTime = LocalDateTime.now()
+
+    private var year: Int = 0
+
+    private var month: Int = 0
+
+    private var day: Int = 0
+
+    private var hour: Int = 0
+
+    private var minute:Int = 0
 
     private val _dateEventLiveData = SingleLiveData<Any>()
 
@@ -132,7 +141,8 @@ class AddTaskViewModel: BaseObservable() {
     }
 
     fun getDateTime(): LocalDateTime {
-        return this.dateTime
+        val datetime = org.joda.time.LocalDateTime(getYear(), getMonth(), getDay(), getHour() , getMinute())
+        return dateTime
     }
 
     fun setDateTime(dateTime: LocalDateTime) {
@@ -148,6 +158,47 @@ class AddTaskViewModel: BaseObservable() {
     fun setDescription(description:String) {
         this.description = description
         notifyPropertyChanged(BR.description)
+    }
+
+    fun getYear(): Int {
+        return this.year
+    }
+
+    fun setYear(year: Int) {
+        this.year = year
+    }
+
+    fun getMonth(): Int {
+        return this.month
+    }
+
+    fun setMonth(month: Int) {
+        this.month = month
+    }
+
+    fun getDay(): Int {
+        return this.day
+    }
+
+    fun setDay(day: Int) {
+        this.day = day
+    }
+
+
+    fun getHour(): Int {
+        return this.hour
+    }
+
+    fun setHour(hour: Int) {
+        this.hour = hour
+    }
+
+    fun getMinute(): Int {
+        return this.minute
+    }
+
+    fun setMinute(minute: Int) {
+        this.minute = minute
     }
 
     val dateEventLiveData : LiveData<Any>
@@ -168,8 +219,6 @@ class AddTaskViewModel: BaseObservable() {
     }
 
     fun onClickAddTask() {
-
-
 
         val paramObject = JsonObject()
         paramObject.addProperty("title", getTitle())

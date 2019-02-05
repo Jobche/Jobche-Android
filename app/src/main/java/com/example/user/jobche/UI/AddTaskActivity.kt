@@ -9,29 +9,29 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
-import android.widget.Toast
 import com.example.user.jobche.AddTaskViewModel
-import com.example.user.jobche.Model.DateParameters
 import com.example.user.jobche.databinding.ActivityAddTaskBinding
-import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.android.synthetic.main.toolbar.view.*
 import net.danlew.android.joda.JodaTimeAndroid
 import java.util.*
-import android.widget.TextView
 import com.example.user.jobche.R
-import kotlinx.android.synthetic.main.activity_add_task.view.*
 
 
 class AddTaskActivity : AppCompatActivity() {
+
+    private val c = Calendar.getInstance()
+    private val year = c.get(Calendar.YEAR)
+    private val month = c.get(Calendar.MONTH)
+    private val day = c.get(Calendar.DAY_OF_MONTH)
+    private val hour = c.get(Calendar.HOUR_OF_DAY)
+    private val minute = c.get(Calendar.MINUTE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         JodaTimeAndroid.init(this)
         setContentView(R.layout.activity_add_task)
 
-        val sharedPreferences : SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
-       val email = sharedPreferences.getString("EMAIL", "")!!
+        val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
+        val email = sharedPreferences.getString("EMAIL", "")!!
         val password = sharedPreferences.getString("PASSWORD", "")!!
 
         val toolbar = findViewById<Toolbar>(R.id.custom_toolbar)
@@ -45,41 +45,32 @@ class AddTaskActivity : AppCompatActivity() {
         addTaskViewModel.setEmail(email)
         addTaskViewModel.setPassword(password)
 
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        val hour = c.get(Calendar.HOUR_OF_DAY)
-        val minute = c.get(Calendar.MINUTE)
-
-        val dateParameters = DateParameters()
-
-
         addTaskViewModel.dateEventLiveData.observe(this, Observer {
 
-            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
-                // Display Selected date in textbox
-                dateParameters.yearCalendar = yearCalendar
-                dateParameters.monthOfYear = monthOfYear
-                dateParameters.dayOfMonth = dayOfMonth
-                addTaskViewModel.setDate(String.format("%02d", dayOfMonth) + "-" + String.format("%02d", (monthOfYear + 1)) + "-" + yearCalendar)
-            }, year, month, day)
+            val dpd =
+                DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
+                    // Display Selected date in textbox
+                    addTaskViewModel.setYear(yearCalendar)
+                    addTaskViewModel.setMonth(monthOfYear + 1)
+                    addTaskViewModel.setDay(dayOfMonth)
+
+                    addTaskViewModel.setDate(
+                        String.format("%02d", dayOfMonth) + "-" + String.format("%02d",(monthOfYear + 1)) + "-" + yearCalendar)
+
+                }, year, month, day)
             dpd.show()
         })
 
         addTaskViewModel.timeEventLiveData.observe(this, Observer {
             val tpd = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minuteOfHour ->
 
-                dateParameters.hour = hourOfDay
-                dateParameters.minute = minuteOfHour
-                val datetime = org.joda.time.LocalDateTime(dateParameters.yearCalendar, dateParameters.monthOfYear + 1, dateParameters.dayOfMonth, dateParameters.hour ,dateParameters.minute)
-                addTaskViewModel.setDateTime(datetime)
-                Log.d("DATATATAA KOPELE", datetime.toString())
+                addTaskViewModel.setHour(hourOfDay)
+                addTaskViewModel.setMinute(minuteOfHour)
 
-                addTaskViewModel.setTime(hourOfDay.toString() + ":" + minuteOfHour)
+                addTaskViewModel.setTime(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minuteOfHour))
             }, hour, minute, false)
             tpd.show()
-                    })
+        })
 
         addTaskViewModel.addTaskEventLiveData.observe(this, Observer {
             startActivity(Intent(this, HomeActivity::class.java))

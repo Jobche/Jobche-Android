@@ -47,9 +47,9 @@ class SignupBirthViewModel: BaseObservable() {
 
 
     fun formatBirthDate(birthDate: DateOfBirth) {
-        val formattedBirthDate = birthDate.day.toString() + "." +
-                                    birthDate.month.toString() + "." +
-                                    birthDate.year.toString()
+        val formattedBirthDate = String.format("%02d", birthDate.day) + "." +
+                                        String.format("%02d", birthDate.month) + "." +
+                                        birthDate.year.toString()
         setFormattedBirthDate(formattedBirthDate)
     }
 
