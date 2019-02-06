@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.user.jobche.Model.Application
 import com.example.user.jobche.Model.Applications
 import com.example.user.jobche.Model.Task
+import com.example.user.jobche.Model.UserProfile
 import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,7 +28,11 @@ class MyApplicationsViewModel : ViewModel() {
 
     private val creatorIds = ArrayList<Int>()
 
-    private val tasks = ArrayList<Task>()
+    private var tasks = ArrayList<Task>()
+
+    private var appliers = ArrayList<UserProfile>()
+
+    private var applications = ArrayList<Application>()
 
     private val _adapterEventLiveData = SingleLiveData<Any>()
 
@@ -67,16 +72,20 @@ class MyApplicationsViewModel : ViewModel() {
         return Credentials.basic(getEmail(), getPassword())
     }
 
-    fun getCreatorIds(): ArrayList<Int> {
-        return this.creatorIds
-    }
-
-    fun getIds(): ArrayList<Int> {
-        return this.ids
-    }
-
     fun getTasks(): ArrayList<Task> {
         return this.tasks
+    }
+
+    fun getAppliers() : ArrayList<UserProfile> {
+        return this.appliers
+    }
+
+    fun getApplications(): ArrayList<Application> {
+        return this.applications
+    }
+
+    fun setApplications(applications: ArrayList<Application> ) {
+        this.applications = applications
     }
 
     val adapterEventData: LiveData<Any>
@@ -96,14 +105,18 @@ class MyApplicationsViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<Applications>, response: Response<Applications>) {
-                Log.d("Get User onSuccess", response.body().toString())
+                Log.d("My Apply onSuccess", response.body().toString())
                 if (response.body() != null) {
-                    for (appl: Application in response.body()!!.applications) {
-                        addTask(appl.taskId)
-
+                    Log.d("ADDVAI", response.body().toString())
+                    setApplications(response.body()!!.applications)
+                    for (appl in getApplications()) {
+                        getTasks().add(appl.task)
+                        getAppliers().add(appl.applicant)
                     }
                     if (getPage() == 0) {
                         _adapterEventLiveData.call()
+                    } else {
+                        _updateAdapterEventLiveData.call()
                     }
                 } else if (getPage() == 0) {
                     Log.d("RecylerView", "It's Empty!")
@@ -111,27 +124,6 @@ class MyApplicationsViewModel : ViewModel() {
                 } else {
                     Log.d("RecylerView", "No more tasks to show!")
                     setPage(getPage() - 1)
-                }
-            }
-        })
-    }
-
-    fun addTask(taskId: Int) {
-
-        val call: Call<Task> = RetrofitClient().getApi()
-            .getTask(getAuthToken(), taskId)
-
-        call.enqueue(object : Callback<Task> {
-            override fun onFailure(call: Call<Task>, t: Throwable) {
-                Log.d("Apply Task onFailure ", t.message.toString())
-
-            }
-
-            override fun onResponse(call: Call<Task>, response: Response<Task>) {
-                Log.d("Apply Task onSuccess", response.body().toString())
-                if (response.body() != null) {
-                    getTasks().add(response.body()!!)
-                    _updateAdapterEventLiveData.call()
                 }
             }
         })

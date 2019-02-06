@@ -1,7 +1,6 @@
 package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -13,12 +12,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.MyApplicationsViewModel
 import com.example.user.jobche.R
-import com.example.user.jobche.RecyclerViewAdapter
+import com.example.user.jobche.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.MyApplicationsFragmentBinding
-import com.example.user.jobche.databinding.MyTasksFragmentBinding
 
 
 class MyApplicationsFragment : Fragment() {
@@ -64,7 +61,7 @@ class MyApplicationsFragment : Fragment() {
         myApplicationsViewModel.adapterEventData.observe(this, Observer {
             Log.d("TASK ZA APPLY", myApplicationsViewModel.getTasks().toString())
 
-            recyclerView.adapter = RecyclerViewAdapter(
+            recyclerView.adapter = TasksRecyclerViewAdapter(
                 activity!!,
                 myApplicationsViewModel.getTasks()
             )

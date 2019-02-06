@@ -1,8 +1,8 @@
 package com.example.user.jobche.Model
 
-data class Applications(var applications: List<Application>)
+data class Applications(val applications: ArrayList<Application>)
 
 data class Application(val id: Int,
-                       val applicantId: Int,
-                       val taskId: Int,
-                       val accepted: Boolean)
+                       val accepted: Boolean,
+                       val applicant: UserProfile,
+                       val task: Task)
