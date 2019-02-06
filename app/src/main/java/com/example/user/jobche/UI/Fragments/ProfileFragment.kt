@@ -28,7 +28,7 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.setEmail(email)
         profileViewModel.setPassword(password)
-        profileViewModel.createUser(id)
+        profileViewModel.getUser(id)
 
         return view
     }

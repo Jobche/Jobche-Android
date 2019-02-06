@@ -141,8 +141,7 @@ class AddTaskViewModel: BaseObservable() {
     }
 
     fun getDateTime(): LocalDateTime {
-        val datetime = org.joda.time.LocalDateTime(getYear(), getMonth(), getDay(), getHour() , getMinute())
-        return dateTime
+        return LocalDateTime(getYear(), getMonth(), getDay(), getHour() , getMinute())
     }
 
     fun setDateTime(dateTime: LocalDateTime) {

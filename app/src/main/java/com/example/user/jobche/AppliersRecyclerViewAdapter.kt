@@ -17,7 +17,6 @@ import org.joda.time.Years
 
 class AppliersRecyclerViewAdapter(
     private val context: Context,
-    private val taskId: Int,
     private val appliers: ArrayList<UserProfile>
 ) : RecyclerView.Adapter<AppliersRecyclerViewAdapter.ViewHolder>() {
 

@@ -26,7 +26,7 @@ class LoginActivity: AppCompatActivity() {
         val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         loginViewModel = LoginViewModel()
         binding.viewModel = loginViewModel
-        saveData() // to set boolean to false
+        saveData() // to set isLogged to false
 
         loginViewModel.signupEventLiveData.observe(this, Observer {
             startActivity(Intent(this, SignupNameActivity::class.java))

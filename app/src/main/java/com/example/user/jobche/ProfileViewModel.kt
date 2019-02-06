@@ -83,7 +83,7 @@ class ProfileViewModel : BaseObservable() {
         notifyPropertyChanged(BR.yearsOld)
     }
 
-    fun createUser(id: Int) {
+    fun getUser(id: Int) {
 
         val authToken = Credentials.basic(getEmail(), getPassword())
 
@@ -99,13 +99,10 @@ class ProfileViewModel : BaseObservable() {
                 Log.d("Get User onSuccess", response.body().toString())
                 val userProfile = response.body()
                 if (userProfile != null) {
-                    setFirstName(userProfile.firstName!!)
-                    setLastName(userProfile.lastName!!)
-                    val birthDate = LocalDate(userProfile.dateOfBirth!!.year, userProfile.dateOfBirth!!.month, userProfile.dateOfBirth!!.day)
+                    setFirstName(userProfile.firstName)
+                    setLastName(userProfile.lastName)
+                    val birthDate = LocalDate(userProfile.dateOfBirth.year, userProfile.dateOfBirth.month, userProfile.dateOfBirth.day)
                     val now = LocalDate()
-                    Log.d("GODINIKTE", userProfile.dateOfBirth!!.year.toString())
-                    Log.d("MQSEC", userProfile.dateOfBirth!!.month.toString())
-                    Log.d("DENCHI", userProfile.dateOfBirth!!.day.toString())
                     val age = Years.yearsBetween(birthDate, now).toString()
                     setYearsOld(age.substring(1, age.length - 1))
                 }

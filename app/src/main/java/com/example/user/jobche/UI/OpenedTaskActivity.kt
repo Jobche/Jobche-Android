@@ -42,7 +42,7 @@ class OpenedTaskActivity : AppCompatActivity() {
 
         profileViewModel.setEmail(email)
         profileViewModel.setPassword(password)
-        profileViewModel.createUser(task.creatorId)
+        profileViewModel.getUser(task.creatorId)
 
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {
             Toast.makeText(this, "You Applied Successfully", Toast.LENGTH_LONG).show()

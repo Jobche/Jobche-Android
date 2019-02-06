@@ -84,7 +84,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         homeViewModel.adapterEventData.observe(this, Observer {
-            recyclerView.adapter = RecyclerViewAdapter(
+            recyclerView.adapter = TasksRecyclerViewAdapter(
                 this,
                 homeViewModel.getTasks())
         })

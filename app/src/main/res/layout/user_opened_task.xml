@@ -7,7 +7,6 @@
                 type="com.example.user.jobche.ProfileViewModel"/>
     </data>
     <FrameLayout
-
             android:id="@+id/user_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -34,6 +33,7 @@
                         android:layout_marginTop="5dp">
 
                     <TextView
+                            android:id="@+id/user_firstname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{viewModel.firstName}"
@@ -41,6 +41,7 @@
                             android:textColor="@android:color/black"
                             android:textSize="12sp"/>
                     <TextView
+                            android:id="@+id/user_lastname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{viewModel.lastName}"
@@ -85,6 +86,7 @@
                         android:layout_marginTop="5dp">
 
                     <TextView
+                            android:id="@+id/user_years"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@{viewModel.yearsOld}"

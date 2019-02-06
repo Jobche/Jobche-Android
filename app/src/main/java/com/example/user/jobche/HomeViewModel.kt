@@ -44,7 +44,6 @@ class HomeViewModel {
         this.password = password
     }
 
-
     fun getPage(): Int {
         return this.page
     }
@@ -52,7 +51,6 @@ class HomeViewModel {
     fun setPage(page: Int) {
         this.page = page
     }
-
 
     fun getSize(): Int {
         return this.size

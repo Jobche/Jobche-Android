@@ -24,10 +24,6 @@ class MyApplicationsViewModel : ViewModel() {
 
     private lateinit var password: String
 
-    private val ids = ArrayList<Int>()
-
-    private val creatorIds = ArrayList<Int>()
-
     private var tasks = ArrayList<Task>()
 
     private var appliers = ArrayList<UserProfile>()

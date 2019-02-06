@@ -3,7 +3,7 @@ package com.example.user.jobche.Model
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-data class Tasks(var tasks: ArrayList<Task>)
+data class Tasks(val tasks: ArrayList<Task>)
 
 @Parcelize
 data class Task(val id: Int,

@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.R
-import com.example.user.jobche.RecyclerViewAdapter
+import com.example.user.jobche.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.MyTasksFragmentBinding
 
 
@@ -57,7 +57,7 @@ class MyTasksFragment : Fragment() {
         homeViewModel.generateTasks(homeViewModel.getCallMyTasks())
 
         homeViewModel.adapterEventData.observe(this, Observer {
-            recyclerView.adapter = RecyclerViewAdapter(
+            recyclerView.adapter = TasksRecyclerViewAdapter(
                 activity!!,
                 homeViewModel.getTasks()
             )

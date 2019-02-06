@@ -11,17 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.view.LayoutInflater
-import android.widget.Toast
-import com.example.user.jobche.Model.Location
 import com.example.user.jobche.Model.Task
-import com.example.user.jobche.Model.Tasks
+import com.example.user.jobche.UI.TaskAppliersActivity
 import com.example.user.jobche.UI.OpenedTaskActivity
 
 
-class RecyclerViewAdapter(
+
+
+class TasksRecyclerViewAdapter(
     private val context: Context,
     private val tasks: ArrayList<Task>
-) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TasksRecyclerViewAdapter.ViewHolder>() {
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
@@ -48,7 +48,14 @@ class RecyclerViewAdapter(
 
         holder.itemView.setOnClickListener {
             if (tasks[position].creatorId == userId) {
-                Toast.makeText(context, "Sa che ti pokaja", Toast.LENGTH_LONG).show()
+                val intent = Intent(context, TaskAppliersActivity::class.java)
+                intent.putExtra("TaskId", tasks[position].id)
+                context.startActivity(intent)
+
+//                supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+//                    TaskAppliersActivity()
+//                ).commit()
+
             } else {
                 val intent = Intent(context, OpenedTaskActivity::class.java)
                 intent.putExtra("Task", tasks[position])
