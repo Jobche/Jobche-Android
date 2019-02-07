@@ -14,7 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.MyApplicationsViewModel
 import com.example.user.jobche.R
-import com.example.user.jobche.TasksRecyclerViewAdapter
+import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.MyApplicationsFragmentBinding
 
 

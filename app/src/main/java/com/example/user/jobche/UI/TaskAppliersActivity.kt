@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import com.example.user.jobche.AppliersRecyclerViewAdapter
+import com.example.user.jobche.UI.RecylclerViewAdapters.AppliersRecyclerViewAdapter
 import com.example.user.jobche.TaskAppliersViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.databinding.ActivityTaskAppliersBinding
@@ -48,7 +48,7 @@ class TaskAppliersActivity : AppCompatActivity() {
 
         taskAppliersViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = AppliersRecyclerViewAdapter(
-                this,
+//                this,
                 taskAppliersViewModel.getAppliers()
             )
         })

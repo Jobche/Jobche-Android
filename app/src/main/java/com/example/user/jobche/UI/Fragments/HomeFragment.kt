@@ -1,6 +1,7 @@
 package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -12,22 +13,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.HomeViewModel
+import com.example.user.jobche.MyApplicationsViewModel
 import com.example.user.jobche.R
+import com.example.user.jobche.UI.AddTaskActivity
 import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
+import com.example.user.jobche.databinding.HomeFragmentBinding
+import com.example.user.jobche.databinding.MyApplicationsFragmentBinding
 import com.example.user.jobche.databinding.MyTasksFragmentBinding
 
-
-class MyTasksFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MyTasksFragment()
-    }
-
+class HomeFragment: Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
     private var page = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +40,9 @@ class MyTasksFragment : Fragment() {
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
-        val binding: MyTasksFragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.my_tasks_fragment, container, false)
+
+        val binding: HomeFragmentBinding =
+            DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false)
         val view: View = binding.root
         val homeViewModel = HomeViewModel()
         binding.viewModel = homeViewModel
@@ -49,12 +50,12 @@ class MyTasksFragment : Fragment() {
         homeViewModel.setEmail(email)
         homeViewModel.setPassword(password)
 
-        recyclerView = binding.listOfMyTasks
+        recyclerView = binding.listOfTasks
         val layoutManager = LinearLayoutManager(activity!!)
         recyclerView.layoutManager = layoutManager
 
+        homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
 
-        homeViewModel.generateTasks(homeViewModel.getCallMyTasks())
 
         homeViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = TasksRecyclerViewAdapter(
@@ -69,25 +70,21 @@ class MyTasksFragment : Fragment() {
 
         })
 
+        homeViewModel.fabEventLiveData.observe(this, Observer {
+            val intent = Intent(activity, AddTaskActivity::class.java)
+            startActivity(intent)
+        })
+
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     page += 1
                     homeViewModel.setPage(page)
-                    homeViewModel.generateTasks(homeViewModel.getCallMyTasks())
+                    homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
                 }
             }
         })
         return view
     }
 }
-
-
-//override fun onActivityCreated(savedInstanceState: Bundle?) {
-//    super.onActivityCreated(savedInstanceState)
-//    viewModel = ViewModelProviders.of(this).get(MyTasksViewModel::class.java)
-//    // TODO: Use the ViewModel
-//}
-
-//}

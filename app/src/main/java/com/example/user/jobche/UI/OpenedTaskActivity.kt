@@ -32,7 +32,7 @@ class OpenedTaskActivity : AppCompatActivity() {
         )
 
         val openedTaskViewModel = OpenedTaskViewModel(task)
-        val profileViewModel = ProfileViewModel()
+        val profileViewModel = ProfileViewModel(task.creatorId)
         binding.viewModel = openedTaskViewModel
         binding.frameOpenedTask.viewModel = openedTaskViewModel
         binding.creatorInfo.viewModel = profileViewModel
@@ -42,7 +42,7 @@ class OpenedTaskActivity : AppCompatActivity() {
 
         profileViewModel.setEmail(email)
         profileViewModel.setPassword(password)
-        profileViewModel.getUser(task.creatorId)
+        profileViewModel.getUser()
 
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {
             Toast.makeText(this, "You Applied Successfully", Toast.LENGTH_LONG).show()

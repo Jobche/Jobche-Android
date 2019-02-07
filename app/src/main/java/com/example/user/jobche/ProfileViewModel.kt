@@ -15,9 +15,7 @@ import org.joda.time.Years
 
 
 
-class ProfileViewModel : BaseObservable() {
-
-//    private var id:Int = 0
+class ProfileViewModel(val id: Int) : BaseObservable() {
 
     private lateinit var email:String
 
@@ -28,14 +26,6 @@ class ProfileViewModel : BaseObservable() {
     private var lastName: String = ""
 
     private var yearsOld:String = ""
-//
-//    fun getId() : Int {
-//        return this.id
-//    }
-//
-//    fun setId(id: Int) {
-//        this.id = id
-//    }
 
     fun getEmail(): String {
         return this.email
@@ -83,7 +73,7 @@ class ProfileViewModel : BaseObservable() {
         notifyPropertyChanged(BR.yearsOld)
     }
 
-    fun getUser(id: Int) {
+    fun getUser() {
 
         val authToken = Credentials.basic(getEmail(), getPassword())
 

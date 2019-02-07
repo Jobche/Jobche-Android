@@ -16,11 +16,18 @@ import com.example.user.jobche.*
 import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import com.example.user.jobche.UI.Fragments.MyApplicationsFragment
 import com.example.user.jobche.UI.Fragments.MyTasksFragment
 import com.example.user.jobche.UI.Fragments.ProfileFragment
+import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.ActivityHomeBinding
+import android.support.v4.app.FragmentTransaction
+import com.example.user.jobche.UI.Fragments.HomeFragment
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -75,48 +82,18 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
-        recyclerView = binding.listOfTasks
-        val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-
-
-        homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
-
-
-        homeViewModel.adapterEventData.observe(this, Observer {
-            recyclerView.adapter = TasksRecyclerViewAdapter(
-                this,
-                homeViewModel.getTasks())
-        })
-
-
-        homeViewModel.updateAdapterEventLiveData.observe(this, Observer {
-            recyclerView.adapter!!.notifyDataSetChanged()
-
-        })
-
-        homeViewModel.fabEventLiveData.observe(this, Observer {
-            val intent = Intent(this, AddTaskActivity::class.java)
-            startActivity(intent)
-        })
-
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
-                    page += 1
-                    homeViewModel.setPage(page)
-                    homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
-                }
-            }
-        })
+        supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, HomeFragment()).commit()
 
     }
+
 
     @SuppressLint("CommitTransaction")
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_home -> startActivity(Intent(this, HomeActivity::class.java))
+            R.id.nav_home -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+                HomeFragment()
+            ).commit()
 
 
             R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
@@ -138,11 +115,4 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
 }
