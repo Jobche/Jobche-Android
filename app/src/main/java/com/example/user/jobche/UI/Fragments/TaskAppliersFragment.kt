@@ -1,37 +1,54 @@
-package com.example.user.jobche.UI
+package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.example.user.jobche.UI.RecylclerViewAdapters.AppliersRecyclerViewAdapter
 import com.example.user.jobche.TaskAppliersViewModel
 import com.example.user.jobche.R
-import com.example.user.jobche.databinding.ActivityTaskAppliersBinding
+import com.example.user.jobche.databinding.FragmentTaskAppliersBinding
 
-class TaskAppliersActivity : AppCompatActivity() {
+
+class TaskAppliersFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
     private var page = 0
+    private var taskId = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task_appliers)
 
-        val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
+
+        val sharedPreferences: SharedPreferences =
+            activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
+
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
-        val taskId:Int = intent.getIntExtra("TaskId", 0)
-        Log.d("IDTASK", taskId.toString())
 
-        val binding: ActivityTaskAppliersBinding = DataBindingUtil.setContentView(this, R.layout.activity_task_appliers)
+        val bundle = arguments
+        Log.d("BnDl", arguments.toString())
+        if (bundle != null) {
+            taskId = bundle.getInt("TaskId")
+            Log.d("TskID", taskId.toString())
+        }
+
+
+        val binding: FragmentTaskAppliersBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_appliers, container, false)
         val taskAppliersViewModel = TaskAppliersViewModel()
         binding.viewModel = taskAppliersViewModel
 
@@ -40,7 +57,7 @@ class TaskAppliersActivity : AppCompatActivity() {
         taskAppliersViewModel.setTaskId(taskId)
 
         recyclerView = binding.listOfAppliers
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
 
 
@@ -48,7 +65,7 @@ class TaskAppliersActivity : AppCompatActivity() {
 
         taskAppliersViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = AppliersRecyclerViewAdapter(
-//                this,
+                this,
                 taskAppliersViewModel.getAppliers()
             )
         })
@@ -69,6 +86,8 @@ class TaskAppliersActivity : AppCompatActivity() {
                 }
             }
         })
+
+        return binding.root
     }
 
 }

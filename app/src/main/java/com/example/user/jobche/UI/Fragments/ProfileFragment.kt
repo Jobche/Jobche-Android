@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,17 +17,19 @@ import com.example.user.jobche.databinding.ActivityProfileBinding
 
 class ProfileFragment : Fragment() {
 
+    private var userId:Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val sharedPreferences: SharedPreferences =
             this.activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
-//        val bundle = this.arguments
-
-//        var id = bundle!!.getInt("Id", 0)
-//        if (id == 0) {
-           val id = sharedPreferences.getInt("ID", 0)
-//        }
+        val bundle = arguments
+        if (bundle != null) {
+            userId = bundle.getInt("UserId")
+            Log.d("YAHU", userId.toString())
+        }else {
+           userId = sharedPreferences.getInt("ID", 0)
+        }
 
         val email = sharedPreferences.getString("EMAIL", "")!!
         val password = sharedPreferences.getString("PASSWORD", "")!!
@@ -34,12 +37,12 @@ class ProfileFragment : Fragment() {
         val binding: ActivityProfileBinding =
             DataBindingUtil.inflate(inflater, R.layout.activity_profile, container, false)
         val view: View = binding.root
-        val profileViewModel = ProfileViewModel(id)
+        val profileViewModel = ProfileViewModel()
         binding.viewModel = profileViewModel
 
         profileViewModel.setEmail(email)
         profileViewModel.setPassword(password)
-        profileViewModel.getUser()
+        profileViewModel.getUser(userId)
         return view
     }
 }
