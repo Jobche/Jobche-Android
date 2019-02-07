@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -12,8 +11,7 @@
             android:id="@+id/drawer_layout"
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:openDrawer="start">
+            android:layout_height="match_parent">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -23,28 +21,13 @@
             <include
                     android:id="@+id/toolbar"
                     layout="@layout/toolbar"/>
+
             <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/fragment_container">
-
-                <android.support.design.widget.FloatingActionButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/fab"
-                        android:layout_gravity="end|bottom"
-                        android:layout_marginBottom="32dp"
-                        android:layout_marginEnd="32dp"
-                        app:fabSize="normal"
-                        android:src="@drawable/ic_add_white_24dp"
-                        android:onClick="@{() -> viewModel.onClickFab()}"/>
-
-                <android.support.v7.widget.RecyclerView
-                        android:id="@+id/listOfTasks"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
             </FrameLayout>
+
         </LinearLayout>
         <android.support.design.widget.NavigationView
                 android:layout_width="match_parent"

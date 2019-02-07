@@ -1,4 +1,4 @@
-package com.example.user.jobche.UI
+package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
 import android.app.DatePickerDialog
@@ -7,16 +7,23 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.example.user.jobche.AddTaskViewModel
-import com.example.user.jobche.databinding.ActivityAddTaskBinding
 import net.danlew.android.joda.JodaTimeAndroid
 import java.util.*
 import com.example.user.jobche.R
+import com.example.user.jobche.UI.HomeActivity
+import com.example.user.jobche.databinding.FragmentAddTaskBinding
 
 
-class AddTaskActivity : AppCompatActivity() {
+class AddTaskFragment : Fragment() {
+
+    private lateinit var email: String
+    private lateinit var password: String
 
     private val c = Calendar.getInstance()
     private val year = c.get(Calendar.YEAR)
@@ -25,20 +32,21 @@ class AddTaskActivity : AppCompatActivity() {
     private val hour = c.get(Calendar.HOUR_OF_DAY)
     private val minute = c.get(Calendar.MINUTE)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreate(savedInstanceState)
-        JodaTimeAndroid.init(this)
-        setContentView(R.layout.activity_add_task)
+        JodaTimeAndroid.init(activity) // initialize the library before using it
 
-        val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
-        val email = sharedPreferences.getString("EMAIL", "")!!
-        val password = sharedPreferences.getString("PASSWORD", "")!!
+        val sharedPreferences: SharedPreferences =
+            activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
-        val toolbar = findViewById<Toolbar>(R.id.custom_toolbar)
-        setSupportActionBar(toolbar)
+        email = sharedPreferences.getString("EMAIL", "")!!
+        password = sharedPreferences.getString("PASSWORD", "")!!
 
 
-        val binding: ActivityAddTaskBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
+        val binding: FragmentAddTaskBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_task, container, false)
         val addTaskViewModel = AddTaskViewModel()
         binding.viewModel = addTaskViewModel
 
@@ -48,7 +56,7 @@ class AddTaskActivity : AppCompatActivity() {
         addTaskViewModel.dateEventLiveData.observe(this, Observer {
 
             val dpd =
-                DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
+                DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
                     // Display Selected date in textbox
                     addTaskViewModel.setYear(yearCalendar)
                     addTaskViewModel.setMonth(monthOfYear + 1)
@@ -62,7 +70,7 @@ class AddTaskActivity : AppCompatActivity() {
         })
 
         addTaskViewModel.timeEventLiveData.observe(this, Observer {
-            val tpd = TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minuteOfHour ->
+            val tpd = TimePickerDialog(activity, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minuteOfHour ->
 
                 addTaskViewModel.setHour(hourOfDay)
                 addTaskViewModel.setMinute(minuteOfHour)
@@ -73,8 +81,9 @@ class AddTaskActivity : AppCompatActivity() {
         })
 
         addTaskViewModel.addTaskEventLiveData.observe(this, Observer {
-            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(activity, HomeActivity::class.java))
         })
+        return binding.root
     }
 }
 

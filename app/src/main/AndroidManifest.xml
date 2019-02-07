@@ -13,45 +13,23 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".UI.TaskAppliersActivity">
-        </activity>
-        <activity android:name=".UI.Fragments.ProfileFragment">
-        </activity>
-        <activity android:name=".UI.OpenedTaskActivity">
-        </activity>
+        
         <activity
                 android:name=".UI.HomeActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar" tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".UI.LoginActivity">
+        <activity android:name=".UI.LoginActivity" tools:ignore="InnerclassSeparator"/>
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN"/> -->
+        <activity android:name=".UI.SignupNameActivity" tools:ignore="InnerclassSeparator"/>
 
+        <activity android:name=".UI.SignupPasswordActivity" tools:ignore="InnerclassSeparator"/>
 
-            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity android:name=".UI.AddTaskActivity">
-        </activity>
-        <activity android:name=".UI.SignupNameActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN"/> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity android:name=".UI.SignupPasswordActivity">
-        </activity>
-        <activity android:name=".UI.SignupBirthActivity">
-        </activity>
+        <activity android:name=".UI.SignupBirthActivity" tools:ignore="InnerclassSeparator"/>
     </application>
 
 </manifest>

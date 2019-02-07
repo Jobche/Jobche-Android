@@ -15,7 +15,7 @@ import org.joda.time.Years
 
 
 
-class ProfileViewModel(val id: Int) : BaseObservable() {
+class ProfileViewModel : BaseObservable() {
 
     private lateinit var email:String
 
@@ -73,12 +73,12 @@ class ProfileViewModel(val id: Int) : BaseObservable() {
         notifyPropertyChanged(BR.yearsOld)
     }
 
-    fun getUser() {
+    fun getUser(userId: Int) {
 
         val authToken = Credentials.basic(getEmail(), getPassword())
 
         val call: Call<UserProfile> = RetrofitClient().getApi()
-            .getUser(authToken, id)
+            .getUser(authToken, userId)
 
         call.enqueue(object : Callback<UserProfile> {
             override fun onFailure(call: Call<UserProfile>, t: Throwable) {

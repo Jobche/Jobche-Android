@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
-import com.example.user.jobche.databinding.MyTasksFragmentBinding
+import com.example.user.jobche.databinding.FragmentMyTasksBinding
 
 
 class MyTasksFragment : Fragment() {
@@ -40,8 +40,8 @@ class MyTasksFragment : Fragment() {
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
-        val binding: MyTasksFragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.my_tasks_fragment, container, false)
+        val binding: FragmentMyTasksBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_my_tasks, container, false)
         val view: View = binding.root
         val homeViewModel = HomeViewModel()
         binding.viewModel = homeViewModel
@@ -58,7 +58,7 @@ class MyTasksFragment : Fragment() {
 
         homeViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = TasksRecyclerViewAdapter(
-                activity!!,
+                this,
                 homeViewModel.getTasks()
             )
         })

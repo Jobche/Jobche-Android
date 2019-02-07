@@ -19,10 +19,16 @@
     <string name="leva">leva</string>
     <string name="price">Price</string>
     <string name="start">Start</string>
-    <string name="date">Date</string>
     <string name="no_ratings">No Ratings</string>
     <string name="accepted">Accepted</string>
     <string name="firstname">Firstname</string>
     <string name="lastname">Lastname</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="payment">Payment</string>
+    <string name="workers">Workers</string>
+    <string name="time">Time</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
 
 </resources>

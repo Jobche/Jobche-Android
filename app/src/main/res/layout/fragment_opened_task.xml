@@ -12,11 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".UI.OpenedTaskActivity">
-
-        <include
-                android:id="@+id/custom_toolbar"
-                layout="@layout/toolbar"/>
+            tools:context=".UI.Fragments.OpenedTaskFragment">
 
         <include
                 android:id="@+id/creator_info"

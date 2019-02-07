@@ -1,7 +1,6 @@
 package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
-import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -13,13 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.HomeViewModel
-import com.example.user.jobche.MyApplicationsViewModel
 import com.example.user.jobche.R
-import com.example.user.jobche.UI.AddTaskActivity
 import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
-import com.example.user.jobche.databinding.HomeFragmentBinding
-import com.example.user.jobche.databinding.MyApplicationsFragmentBinding
-import com.example.user.jobche.databinding.MyTasksFragmentBinding
+import com.example.user.jobche.databinding.FragmentHomeBinding
 
 class HomeFragment: Fragment() {
 
@@ -41,9 +36,8 @@ class HomeFragment: Fragment() {
         password = sharedPreferences.getString("PASSWORD", "")!!
 
 
-        val binding: HomeFragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false)
-        val view: View = binding.root
+        val binding: FragmentHomeBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         val homeViewModel = HomeViewModel()
         binding.viewModel = homeViewModel
 
@@ -59,7 +53,7 @@ class HomeFragment: Fragment() {
 
         homeViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = TasksRecyclerViewAdapter(
-                activity!!,
+                this,
                 homeViewModel.getTasks()
             )
         })
@@ -71,8 +65,9 @@ class HomeFragment: Fragment() {
         })
 
         homeViewModel.fabEventLiveData.observe(this, Observer {
-            val intent = Intent(activity, AddTaskActivity::class.java)
-            startActivity(intent)
+            activity!!.supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+                AddTaskFragment()
+            ).commit()
         })
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -85,6 +80,6 @@ class HomeFragment: Fragment() {
                 }
             }
         })
-        return view
+        return binding.root
     }
 }
