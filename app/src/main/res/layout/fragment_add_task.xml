@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.example.user.jobche.AddTaskViewModel"/>
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".UI.Fragments.AddTaskFragment"
+            android:orientation="vertical"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp">
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:hint="@string/title"
+                android:inputType="textCapSentences"
+                android:text="@={viewModel.title}"
+        />
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:hint="@string/country"
+                android:inputType="textCapSentences"
+                android:text="@={viewModel.country}"/>
+
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:hint="@string/city"
+                android:inputType="textCapSentences"
+                android:text="@={viewModel.city}"/>
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:hint="@string/payment"
+                android:inputType="number"
+                android:text="@={viewModel.payment}"/>
+
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:hint="@string/workers"
+                android:inputType="number"
+                android:text="@={viewModel.numOfWorkers}"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+            <EditText
+                    android:id="@+id/date_edttxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:hint="@string/date"
+                    android:text="@={viewModel.date}"
+                    android:onClick="@{() -> viewModel.onClickDate()}"
+            />
+            <EditText
+                    android:id="@+id/time_edttxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:hint="@string/time"
+                    android:text="@={viewModel.time}"
+                    android:onClick="@{() -> viewModel.onClickTime()}"/>
+
+
+        </LinearLayout>
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:hint="@string/description"
+                android:padding="10dp"
+                android:inputType="textMultiLine|textCapSentences"
+                android:text="@={viewModel.description}"/>
+
+        <Button
+                android:id="@+id/add_task_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_task"
+                android:layout_gravity="center"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> viewModel.onClickAddTask()}"/>
+
+    </LinearLayout>
+</layout>
