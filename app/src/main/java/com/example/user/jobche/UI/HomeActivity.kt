@@ -66,6 +66,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+
         drawer = binding.drawerLayout
 
         val navigation = binding.navView
@@ -113,6 +116,16 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home)
+        // Press Back Icon
+        {
+            finish()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

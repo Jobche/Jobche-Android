@@ -3,6 +3,8 @@ package com.example.user.jobche
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
+import com.example.user.jobche.Model.Application
+import com.example.user.jobche.Model.Applications
 import com.example.user.jobche.Model.DateOfBirth
 import com.example.user.jobche.Model.UserProfile
 import com.google.gson.JsonObject
@@ -14,10 +16,9 @@ import retrofit2.Response
 import org.joda.time.Years
 
 
+class ProfileViewModel(private val userId: Int) : BaseObservable() {
 
-class ProfileViewModel : BaseObservable() {
-
-    private lateinit var email:String
+    private lateinit var email: String
 
     private lateinit var password: String
 
@@ -25,7 +26,7 @@ class ProfileViewModel : BaseObservable() {
 
     private var lastName: String = ""
 
-    private var yearsOld:String = ""
+    private var yearsOld: String = ""
 
     fun getEmail(): String {
         return this.email
@@ -73,12 +74,14 @@ class ProfileViewModel : BaseObservable() {
         notifyPropertyChanged(BR.yearsOld)
     }
 
-    fun getUser(userId: Int) {
+    fun getAuthToken(): String {
+        return Credentials.basic(getEmail(), getPassword())
 
-        val authToken = Credentials.basic(getEmail(), getPassword())
+    }
 
+    fun getUser() {
         val call: Call<UserProfile> = RetrofitClient().getApi()
-            .getUser(authToken, userId)
+            .getUser(getAuthToken(), userId)
 
         call.enqueue(object : Callback<UserProfile> {
             override fun onFailure(call: Call<UserProfile>, t: Throwable) {
@@ -91,11 +94,30 @@ class ProfileViewModel : BaseObservable() {
                 if (userProfile != null) {
                     setFirstName(userProfile.firstName)
                     setLastName(userProfile.lastName)
-                    val birthDate = LocalDate(userProfile.dateOfBirth.year, userProfile.dateOfBirth.month, userProfile.dateOfBirth.day)
+                    val birthDate = LocalDate(
+                        userProfile.dateOfBirth.year,
+                        userProfile.dateOfBirth.month,
+                        userProfile.dateOfBirth.day
+                    )
                     val now = LocalDate()
                     val age = Years.yearsBetween(birthDate, now).toString()
                     setYearsOld(age.substring(1, age.length - 1))
                 }
+            }
+        })
+    }
+
+    fun onAccept() {
+        val call: Call<Application> = RetrofitClient().getApi()
+            .acceptApplier(getAuthToken(), userId)
+
+        call.enqueue(object : Callback<Application> {
+            override fun onFailure(call: Call<Application>, t: Throwable) {
+                Log.d("Accept applier Failure ", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Application>, response: Response<Application>) {
+                Log.d("Accept applier Success", response.body().toString())
             }
         })
     }

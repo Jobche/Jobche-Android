@@ -45,7 +45,7 @@ class OpenedTaskFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_opened_task, container, false)
 
         val openedTaskViewModel = OpenedTaskViewModel(task)
-        val profileViewModel = ProfileViewModel()
+        val profileViewModel = ProfileViewModel(task.creatorId)
         binding.viewModel = openedTaskViewModel
         binding.frameOpenedTask.viewModel = openedTaskViewModel
         binding.creatorInfo.viewModel = profileViewModel
@@ -55,7 +55,7 @@ class OpenedTaskFragment : Fragment() {
 
         profileViewModel.setEmail(email)
         profileViewModel.setPassword(password)
-        profileViewModel.getUser(task.creatorId)
+        profileViewModel.getUser()
 
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {
             Toast.makeText(activity, "You Applied Successfully", Toast.LENGTH_LONG).show()

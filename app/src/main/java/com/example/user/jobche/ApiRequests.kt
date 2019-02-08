@@ -53,4 +53,9 @@ interface ApiRequests {
                     @Query("page") page: Int,
                     @Query("size") size: Int): Call<Applications>
 
+    @GET("application/approve/{id}")
+    fun acceptApplier(@Header("Authorization") auth: String,
+                    @Path("id") id:Int): Call<Application>
+
+
 }

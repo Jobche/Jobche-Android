@@ -10,11 +10,11 @@ import android.view.LayoutInflater
 import com.example.user.jobche.Model.DateOfBirth
 import com.example.user.jobche.Model.UserProfile
 import com.example.user.jobche.R
-import com.example.user.jobche.UI.Fragments.ProfileFragment
 import org.joda.time.LocalDate
 import org.joda.time.Years
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.example.user.jobche.UI.Fragments.ApplierProfileFragment
 
 class AppliersRecyclerViewAdapter(
     private val fragment: Fragment,
@@ -22,7 +22,7 @@ class AppliersRecyclerViewAdapter(
 ) : RecyclerView.Adapter<AppliersRecyclerViewAdapter.ViewHolder>() {
 
     private val bundle:Bundle = Bundle()
-    private val newFragment = ProfileFragment()
+    private val newFragment = ApplierProfileFragment()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.user_opened_task, parent, false)
