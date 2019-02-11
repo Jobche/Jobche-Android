@@ -1,37 +1,39 @@
 <resources>
     <string name="app_name">Jobche</string>
-    <string name="add_task">Add task</string>
-    <string name="profile">Profile</string>
-    <string name="messages">Messages</string>
-    <string name="applied">Applied</string>
-    <string name="my_tasks">My Tasks</string>
+    <string name="add_task">Добавяни обявата</string>
+    <string name="profile">Профил</string>
+    <string name="messages">Съобщения</string>
+    <string name="applied">Кандидатствания</string>
+    <string name="my_tasks">Мой Обяви</string>
     <string name="saved">Saved</string>
-    <string name="email">Email</string>
-    <string name="new_user">New user?</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="password">Password</string>
+    <string name="email">Емейл</string>
+    <string name="new_user">Нов потребител?</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="password">Парола</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="log_out">Log out</string>
-    <string name="home">Home</string>
-    <string name="title">Title</string>
-    <string name="leva">leva</string>
-    <string name="price">Price</string>
-    <string name="start">Start</string>
-    <string name="no_ratings">No Ratings</string>
-    <string name="accepted">Accepted</string>
-    <string name="firstname">Firstname</string>
-    <string name="lastname">Lastname</string>
-    <string name="country">Country</string>
-    <string name="city">City</string>
-    <string name="payment">Payment</string>
-    <string name="workers">Workers</string>
-    <string name="time">Time</string>
-    <string name="description">Description</string>
-    <string name="date">Date</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="log_out">Изход</string>
+    <string name="home">Обяви</string>
+    <string name="title">Заглавие</string>
+    <string name="leva">лв</string>
+    <string name="price">Заплащане</string>
+    <string name="start">Начало</string>
+    <string name="no_ratings">Без оценка</string>
+    <string name="accepted">Приети</string>
+    <string name="firstname">Име</string>
+    <string name="lastname">Фамилия</string>
+    <string name="country">Държава</string>
+    <string name="city">Град</string>
+    <string name="payment">Заплащане</string>
+    <string name="workers">Брой Работници</string>
+    <string name="time">Час</string>
+    <string name="description">Описание</string>
+    <string name="date">Дата</string>
+    <string name="search_tasks">Търсене</string>
+    <string name="to_date">Крайна дата</string>
+    <string name="from_date">Начална дата</string>
+    <string name="min_workers">Минимален брой работници</string>
+    <string name="min_payment">Минимално заплащане</string>
 
 </resources>
