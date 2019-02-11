@@ -23,7 +23,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val sharedPreferences: SharedPreferences =
             this.activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
-        
+
         userId = sharedPreferences.getInt("ID", 0)
 
 

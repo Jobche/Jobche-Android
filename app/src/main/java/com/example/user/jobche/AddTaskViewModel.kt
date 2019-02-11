@@ -6,6 +6,7 @@ import android.databinding.Bindable
 import android.util.Log
 import com.example.user.jobche.Model.Location
 import com.example.user.jobche.Model.Task
+import com.example.user.jobche.Model.Tasks
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.Credentials
@@ -239,6 +240,30 @@ class AddTaskViewModel: BaseObservable() {
             }
 
             override fun onResponse(call: Call<Task>, response: Response<Task>) {
+                Log.d("Add Task onSuccess:", response.body().toString())
+                _addTaskEventLiveData.call()
+            }
+
+        })
+
+    }
+
+
+    fun filterTasks() {
+
+        val authToken = Credentials.basic(getEmail(), getPassword())
+
+
+        val call: Call<Tasks> = RetrofitClient().getApi()
+            .getFilteredTasks(authToken, getTitle(), getCity(), getDateTime().toString(), getDateTime().toString(),
+                getNumOfWorkers().toInt(), getNumOfWorkers().toInt(), getPayment().toInt(), 0, 20)
+
+        call.enqueue(object: Callback<Tasks> {
+            override fun onFailure(call: Call<Tasks>, t: Throwable) {
+                Log.d("Add Task onFailure: ", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Tasks>, response: Response<Tasks>) {
                 Log.d("Add Task onSuccess:", response.body().toString())
                 _addTaskEventLiveData.call()
             }
