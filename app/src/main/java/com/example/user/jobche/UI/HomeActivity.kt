@@ -1,7 +1,6 @@
 package com.example.user.jobche.UI
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,24 +8,18 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.example.user.jobche.*
 import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
 import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import com.example.user.jobche.UI.Fragments.MyApplicationsFragment
 import com.example.user.jobche.UI.Fragments.MyTasksFragment
 import com.example.user.jobche.UI.Fragments.ProfileFragment
-import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.ActivityHomeBinding
-import android.support.v4.app.FragmentTransaction
+import android.util.Log
+import android.view.*
 import com.example.user.jobche.UI.Fragments.HomeFragment
 
 
@@ -90,10 +83,17 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar_home, menu)
+        return true
+    }
+
+
 
     @SuppressLint("CommitTransaction")
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
             R.id.nav_home -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
                 HomeFragment()
             ).commit()
@@ -119,12 +119,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home)
-        // Press Back Icon
-        {
-            finish()
+        if(item.itemId == R.id.action_search) {
+            Log.d("HAIDE DE", item.itemId.toString())
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, FilterFragment()).commit()
+            return true
         }
-
+        Log.d("Kurac", item.itemId.toString())
         return super.onOptionsItemSelected(item)
     }
 
