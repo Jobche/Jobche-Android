@@ -29,13 +29,12 @@ interface ApiRequests {
     @GET("tasks")
     fun getFilteredTasks(
         @Header("Authorization") auth:String,
-        @Query("title") title: String,
-        @Query("city") city: String,
-        @Query("dateStart") dateStart: String,
-        @Query("dateEnd") dateEnd: String,
-        @Query("numWStart") numWStart: Int,
-        @Query("numWEnd") numWEnd: Int,
-        @Query("pStart") pStart: Int,
+        @Query("title") title: String?,
+        @Query("city") city: String?,
+        @Query("dateStart") dateStart: String?,
+        @Query("dateEnd") dateEnd: String?,
+        @Query("numWStart") numWStart: Int?,
+        @Query("pStart") pStart: Int?,
         @Query("page") page: Int,
         @Query("size") size: Int): Call<Tasks>
 
