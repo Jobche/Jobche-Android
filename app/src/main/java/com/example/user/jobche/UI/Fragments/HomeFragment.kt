@@ -50,7 +50,7 @@ class HomeFragment: Fragment() {
 
         homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
 
-        homeViewModel.adapterEventData.observe(this, Observer {
+        homeViewModel.adapterEventLiveData.observe(this, Observer {
             recyclerView.adapter = TasksRecyclerViewAdapter(
                 this,
                 homeViewModel.getTasks()

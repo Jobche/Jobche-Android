@@ -11,24 +11,21 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.user.jobche.HomeViewModel
+import com.example.user.jobche.FilteredTasksViewModel
+import com.example.user.jobche.Model.Filter
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
-import com.example.user.jobche.databinding.FragmentMyTasksBinding
+import com.example.user.jobche.databinding.FragmentFilteredTasksBinding
 
 
-class MyTasksFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MyTasksFragment()
-    }
-
+class FilteredTasksFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
     private var page = 0
 
+    private lateinit var filter: Filter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,31 +37,34 @@ class MyTasksFragment : Fragment() {
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
-        val binding: FragmentMyTasksBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_my_tasks, container, false)
-        val view: View = binding.root
-        val homeViewModel = HomeViewModel()
-        binding.viewModel = homeViewModel
+        val bundle = arguments
+        if (bundle != null) {
+            filter = bundle.getParcelable("Filter")!!
+        }
 
-        homeViewModel.setEmail(email)
-        homeViewModel.setPassword(password)
+        val binding: FragmentFilteredTasksBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_filtered_tasks, container, false)
 
-        recyclerView = binding.listOfMyTasks
+        val filteredTasksViewModel = FilteredTasksViewModel()
+        binding.viewModel = filteredTasksViewModel
+
+        filteredTasksViewModel.setEmail(email)
+        filteredTasksViewModel.setPassword(password)
+
+        recyclerView = binding.listOfFilteredTasks
         val layoutManager = LinearLayoutManager(activity!!)
         recyclerView.layoutManager = layoutManager
 
+        filteredTasksViewModel.filterTasks(filter)
 
-        homeViewModel.generateTasks(homeViewModel.getCallMyTasks())
-
-        homeViewModel.adapterEventLiveData.observe(this, Observer {
+        filteredTasksViewModel.adapterEventLiveData.observe(this, Observer {
             recyclerView.adapter = TasksRecyclerViewAdapter(
                 this,
-                homeViewModel.getTasks()
+                filteredTasksViewModel.getTasks()
             )
         })
 
-
-        homeViewModel.updateAdapterEventLiveData.observe(this, Observer {
+        filteredTasksViewModel.updateAdapterEventLiveData.observe(this, Observer {
             recyclerView.adapter!!.notifyDataSetChanged()
 
         })
@@ -74,20 +74,13 @@ class MyTasksFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     page += 1
-                    homeViewModel.setPage(page)
-                    homeViewModel.generateTasks(homeViewModel.getCallMyTasks())
+                    filteredTasksViewModel.setPage(page)
+                    filteredTasksViewModel.filterTasks(filter)
                 }
             }
         })
-        return view
+
+        return binding.root
     }
+
 }
-
-
-//override fun onActivityCreated(savedInstanceState: Bundle?) {
-//    super.onActivityCreated(savedInstanceState)
-//    viewModel = ViewModelProviders.of(this).get(MyTasksViewModel::class.java)
-//    // TODO: Use the ViewModel
-//}
-
-//}

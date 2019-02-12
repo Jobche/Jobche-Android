@@ -1,7 +1,9 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.ViewModel;
 import android.util.Log
+import com.example.user.jobche.Model.Filter
 import com.example.user.jobche.Model.Task
 import com.example.user.jobche.Model.Tasks
 import okhttp3.Credentials
@@ -9,40 +11,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel {
+class FilteredTasksViewModel : ViewModel() {
+    private lateinit var email:String
 
-    private lateinit var email: String
-
-    private lateinit var password: String
-
-    private val size: Int = 20
+    private lateinit var password:String
 
     private var page: Int = 0
 
-    private lateinit var tasks: ArrayList<Task>
+    private val size: Int = 20
 
-    private val _fabEventLiveData = SingleLiveData<Any>()
+    private lateinit var tasks: ArrayList<Task>
 
     private val _adapterEventLiveData = SingleLiveData<Any>()
 
     private val _updateAdapterEventLiveData = SingleLiveData<Any>()
-
-
-    fun getEmail(): String {
-        return this.email
-    }
-
-    fun setEmail(email: String) {
-        this.email = email
-    }
-
-    fun getPassword(): String {
-        return this.password
-    }
-
-    fun setPassword(password: String) {
-        this.password = password
-    }
 
     fun getPage(): Int {
         return this.page
@@ -52,20 +34,26 @@ class HomeViewModel {
         this.page = page
     }
 
+
     fun getSize(): Int {
         return this.size
     }
 
-    fun getAuthToken(): String {
-        return Credentials.basic(getEmail(), getPassword())
+    fun getEmail(): String {
+        return this.email
     }
 
-    fun getCallAllTasks(): Call<Tasks> {
-        return RetrofitClient().getApi().getTasks(getAuthToken(), getPage(), getSize())
+    fun setEmail(email: String) {
+        this.email = email
     }
 
-    fun getCallMyTasks(): Call<Tasks> {
-        return RetrofitClient().getApi().getMyTasks(getAuthToken(), getPage(), getSize())
+
+    fun getPassword(): String {
+        return this.password
+    }
+
+    fun setPassword(password: String) {
+        this.password = password
     }
 
     fun getTasks(): ArrayList<Task> {
@@ -76,29 +64,33 @@ class HomeViewModel {
         this.tasks = tasks
     }
 
-    val fabEventLiveData: LiveData<Any>
-        get() = _fabEventLiveData
-
     val adapterEventLiveData: LiveData<Any>
         get() = _adapterEventLiveData
 
     val updateAdapterEventLiveData: LiveData<Any>
         get() = _updateAdapterEventLiveData
 
-    fun onClickFab() {
-        _fabEventLiveData.call()
+
+    fun getAuthToken(): String {
+        return Credentials.basic(getEmail(), getPassword())
     }
 
+    fun filterTasks(filter: Filter) {
 
-    fun generateTasks(call: Call<Tasks>) {
+        Log.d("FILTRIRAm", filter.toString())
+        val call: Call<Tasks> = RetrofitClient().getApi()
+            .getFilteredTasks(
+                getAuthToken(), filter.title, filter.city, filter.dateStart, filter.dateEnd,
+                filter.numWStart, filter.pStart, getPage(), getSize()
+            )
+
         call.enqueue(object : Callback<Tasks> {
             override fun onFailure(call: Call<Tasks>, t: Throwable) {
-                Log.d("Get Tasks onFailure: ", t.message.toString())
+                Log.d("Search Task onFailure: ", t.message.toString())
             }
 
             override fun onResponse(call: Call<Tasks>, response: Response<Tasks>) {
-                Log.d("Get Tasks onSuccess:", response.body().toString())
-
+                Log.d("Search Task onSuccess:", response.body().toString())
                 if (response.body() != null) {
                     setTasks(response.body()!!.tasks)
                     if (getPage() == 0) {
@@ -114,6 +106,8 @@ class HomeViewModel {
                     setPage(getPage() - 1)
                 }
             }
+
         })
+
     }
 }

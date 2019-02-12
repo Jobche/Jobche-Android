@@ -14,13 +14,10 @@ import com.example.user.jobche.*
 import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
 import android.support.design.widget.NavigationView
-import com.example.user.jobche.UI.Fragments.MyApplicationsFragment
-import com.example.user.jobche.UI.Fragments.MyTasksFragment
-import com.example.user.jobche.UI.Fragments.ProfileFragment
 import com.example.user.jobche.databinding.ActivityHomeBinding
 import android.util.Log
 import android.view.*
-import com.example.user.jobche.UI.Fragments.HomeFragment
+import com.example.user.jobche.UI.Fragments.*
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
