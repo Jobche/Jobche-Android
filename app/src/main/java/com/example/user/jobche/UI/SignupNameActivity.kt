@@ -5,6 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.example.user.jobche.R
 import com.example.user.jobche.SignupNameViewModel
 import com.example.user.jobche.databinding.ActivitySignupNameBinding
@@ -24,6 +25,10 @@ class SignupNameActivity : AppCompatActivity() {
             val intent = Intent(this, SignupPasswordActivity::class.java)
             intent.putExtra("User", signupNameViewModel.getRegisterUser())
             startActivity(intent)
+        })
+
+        signupNameViewModel.toastEventLiveData.observe(this, Observer {
+            Toast.makeText(this, signupNameViewModel.getToastMsg(), Toast.LENGTH_LONG).show()
         })
 
 

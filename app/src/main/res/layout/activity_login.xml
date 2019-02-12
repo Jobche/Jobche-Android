@@ -39,7 +39,6 @@
                     android:textStyle="bold"/>
 
             <EditText
-                    android:id="@+id/login_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
@@ -56,8 +55,8 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Password"
-                    android:layout_marginTop="20dp"
+                    android:text="@string/password"
+                    android:layout_marginTop="30dp"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
@@ -82,11 +81,11 @@
             <Button
                     android:id="@+id/login_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="45dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Log In"
+                    android:text="@string/log_in"
                     android:textColor="@android:color/white"
                     android:textAllCaps="false"
                     android:textSize="16sp"
@@ -99,7 +98,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginStart="45dp"
                     android:layout_marginTop="10dp">
 
                 <TextView
@@ -110,7 +108,6 @@
                         android:textColor="@android:color/white"
                 />
                 <Button
-                        android:id="@+id/signup_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/sign_up"

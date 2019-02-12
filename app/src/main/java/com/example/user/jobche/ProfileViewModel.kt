@@ -99,8 +99,7 @@ class ProfileViewModel(private val userId: Int) : BaseObservable() {
                         userProfile.dateOfBirth.month,
                         userProfile.dateOfBirth.day
                     )
-                    val now = LocalDate()
-                    val age = Years.yearsBetween(birthDate, now).toString()
+                    val age = Years.yearsBetween(birthDate, LocalDate()).toString()
                     setYearsOld(age.substring(1, age.length - 1))
                 }
             }

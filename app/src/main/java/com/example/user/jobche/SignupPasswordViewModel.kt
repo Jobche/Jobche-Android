@@ -19,7 +19,6 @@ class SignupPasswordViewModel: BaseObservable() {
     val toastEventLiveData : LiveData<Any>
         get() = _toastEventLiveData
 
-
     val nextEventLiveData : LiveData<Any>
         get() = _nextEventLiveData
 
@@ -30,7 +29,6 @@ class SignupPasswordViewModel: BaseObservable() {
     fun setRegisterUser(user: User){
         this.registerUser = user
     }
-
 
     @Bindable
     fun getPassword(): String {
@@ -56,16 +54,19 @@ class SignupPasswordViewModel: BaseObservable() {
         return toastMsg
     }
 
+    fun setToastMsg(toastMsg: String) {
+        this.toastMsg = toastMsg
+    }
+
     fun onClick() {
         if(getPassword() == getConfPassword() && getPassword().length >= 6) {
             registerUser.password = getPassword()
-            Log.d("PASSSOWRODOWDR", registerUser.password)
             _nextEventLiveData.call()
         } else {
             if (getPassword().length < 6) {
-                toastMsg = "Password must be at least 6 characters"
+                toastMsg = "Паролата трябва да съдържа поне 6 символа."
             } else if (getPassword() != getConfPassword()) {
-                toastMsg = "Password does not match the confirm password."
+                setToastMsg("Паролата не съвпада с потвърдената.")
             }
             _toastEventLiveData.call()
             setPassword("")

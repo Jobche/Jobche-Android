@@ -13,59 +13,82 @@
             android:layout_height="match_parent"
             tools:context=".UI.SignupBirthActivity"
             android:orientation="vertical"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            android:background="@color/colorPrimary">
 
-        <TextView
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="When is your birthday?"
-                android:textSize="30sp"
-                android:layout_marginTop="100dp"
-                android:textColor="#111"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp">
 
-        <EditText
-                android:id="@+id/signup_birthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Date of birth"
-                android:textColor="#111"
-                android:textColorHint="#111"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:background="@android:color/transparent"
-                android:inputType="date"
-                android:layout_marginTop="50dp"
-                android:text="@={viewModel.formattedBirthDate}"
-                android:onClick="@{() -> viewModel.onClickBirthDate()}"/>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#111"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="When is your birthday?"
+                    android:textSize="30sp"
+                    android:layout_marginTop="100dp"
+                    android:textColor="@android:color/white"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_of_birth"
+                    android:layout_marginTop="50dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
-        <EditText
-                android:id="@+id/signup_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email"
-                android:textColor="#111"
-                android:textColorHint="#111"
-                android:maxLines="1"
-                android:padding="8dp"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="20dp"
-                android:text="@={viewModel.email}"/>
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#111"/>
+            <EditText
+                    android:id="@+id/signup_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:maxLines="1"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="10dp"
+                    android:text="@={viewModel.formattedBirthDate}"
+                    android:onClick="@{() -> viewModel.onClickBirthDate()}"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/white"/>
 
-        <Button
-                android:id="@+id/next_birth_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Next"
-                android:layout_marginTop="20dp"
-                android:onClick="@{() -> viewModel.onClick()}"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+
+
+            <EditText
+                    android:id="@+id/signup_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:maxLines="1"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="10dp"
+                    android:text="@={viewModel.email}"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/white"/>
+
+            <Button
+                    android:id="@+id/next_pass_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="@string/next"
+                    android:textColor="@android:color/white"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:elevation="2dp"
+                    android:background="@drawable/button_login"
+                    android:layout_marginTop="40dp"
+                    android:onClick="@{() -> viewModel.onClick()}"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>

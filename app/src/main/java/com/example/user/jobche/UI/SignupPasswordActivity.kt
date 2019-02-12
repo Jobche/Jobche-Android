@@ -26,8 +26,9 @@ class SignupPasswordActivity : AppCompatActivity() {
             intent.putExtra("User", signupPasswordViewModel.getRegisterUser())
             startActivity(intent)
         })
+
         signupPasswordViewModel.toastEventLiveData.observe(this, Observer {
-            Toast.makeText(this, signupPasswordViewModel.getToastMsg(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, signupPasswordViewModel.getToastMsg(), Toast.LENGTH_LONG).show()
         })
 
 
