@@ -5,7 +5,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.example.user.jobche.AddTaskViewModel"/>
+                type="com.example.user.jobche.FilterViewModel"/>
     </data>
 
     <LinearLayout
@@ -23,7 +23,7 @@
                 android:layout_marginTop="20dp"
                 android:hint="@string/title"
                 android:inputType="textCapSentences"
-                android:text="@={viewModel.city}"/>
+                android:text="@={viewModel.title}"/>
 
         <EditText
                 android:layout_width="match_parent"
@@ -71,8 +71,8 @@
                     android:layout_weight="1"
                     android:focusable="false"
                     android:hint="@string/from_date"
-                    android:text="@={viewModel.date}"
-                    android:onClick="@{() -> viewModel.onClickDate()}"/>
+                    android:text="@{viewModel.formattedDateStart}"
+                    android:onClick="@{() -> viewModel.onBeginDate()}"/>
 
             <View
                     android:layout_width="10dp"
@@ -90,8 +90,8 @@
                     android:layout_weight="1"
                     android:focusable="false"
                     android:hint="@string/to_date"
-                    android:text="@={viewModel.time}"
-                    android:onClick="@{() -> viewModel.onClickDate()}"/>
+                    android:text="@{viewModel.formattedDateEnd}"
+                    android:onClick="@{() -> viewModel.onEndDate()}"/>
 
         </LinearLayout>
 
@@ -104,7 +104,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:onClick="@{() -> viewModel.filterTasks()}"/>
+                android:onClick="@{() -> viewModel.onClickSearch()}"/>
 
     </LinearLayout>
 </layout>
