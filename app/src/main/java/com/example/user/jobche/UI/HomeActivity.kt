@@ -26,6 +26,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var email: String
     private lateinit var password: String
     private var isLoaded: Boolean = false
+    private var mToolBarNavigationListenerIsRegistered = false
+    private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +38,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (isLoaded) {
             email = sharedPreferences.getString("EMAIL", "")!!
             password = sharedPreferences.getString("PASSWORD", "")!!
-        }
-        else {
+        } else {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
             return
@@ -54,16 +55,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar!!.setDisplayShowHomeEnabled(true)
-
         drawer = binding.drawerLayout
 
         val navigation = binding.navView
         navigation.setNavigationItemSelectedListener(this)
         navigation.menu.getItem(0).isChecked = true
 
-        val toggle = ActionBarDrawerToggle(
+        toggle = ActionBarDrawerToggle(
             this,
             drawer,
             toolbar,
@@ -74,7 +72,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container, HomeFragment()).commit()
+            .replace(R.id.fragment_container, HomeFragment()).commit()
 
     }
 
@@ -83,21 +81,25 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.nav_home -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+            R.id.nav_home -> supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container,
                 HomeFragment()
             ).commit()
 
 
-            R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+            R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container,
                 ProfileFragment()
             ).commit()
 
-            R.id.nav_my_tasks -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+            R.id.nav_my_tasks -> supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container,
                 MyTasksFragment()
             ).commit()
 
 
-            R.id.nav_applied_for -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+            R.id.nav_applied_for -> supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container,
                 MyApplicationsFragment()
             ).commit()
 
@@ -107,19 +109,47 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    public fun changeToolbar(title: String){
+    fun changeToolbar(title: String) {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = title
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.action_search) {
+        if (item.itemId == R.id.action_search) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, FilterFragment()).commit()
+                .replace(R.id.fragment_container, FilterFragment()).addToBackStack(null).commit()
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
+    fun showBackButton(show: Boolean) {
+        //lock swipe for drawer
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        if (show) {
+            // Remove hamburger
+            toggle.isDrawerIndicatorEnabled = false
+            // Show back button
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            if (!mToolBarNavigationListenerIsRegistered) {
+                toggle.toolbarNavigationClickListener = View.OnClickListener {
+                    // Doesn't have to be onBackPressed
+                    onBackPressed()
+                }
+
+                mToolBarNavigationListenerIsRegistered = true
+            }
+
+        } else {
+//        unlock swipe for drawer
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+//            Remove back button
+            supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+//            Show hamburger
+            toggle.isDrawerIndicatorEnabled = true
+            toggle.toolbarNavigationClickListener = null
+            mToolBarNavigationListenerIsRegistered = false
+        }
+    }
 }
