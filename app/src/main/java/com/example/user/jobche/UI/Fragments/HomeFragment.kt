@@ -8,9 +8,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
@@ -23,6 +22,11 @@ class HomeFragment: Fragment() {
     private lateinit var password: String
     private var page = 0
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +83,12 @@ class HomeFragment: Fragment() {
                 }
             }
         })
+
         return binding.root
+    }
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater!!.inflate(R.menu.menu_toolbar_home, menu)
+        super.onCreateOptionsMenu(menu,inflater)
+
     }
 }

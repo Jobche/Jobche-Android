@@ -23,11 +23,9 @@ import com.example.user.jobche.UI.Fragments.*
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
-    private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
     private var isLoaded: Boolean = false
-    private var page = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +54,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar!!.setDisplayShowHomeEnabled(true)
 
         drawer = binding.drawerLayout
 
@@ -79,12 +77,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                                 .replace(R.id.fragment_container, HomeFragment()).commit()
 
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_toolbar_home, menu)
-        return true
-    }
-
 
 
     @SuppressLint("CommitTransaction")
@@ -115,14 +107,18 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    public fun changeToolbar(title: String){
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = title
+    }
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.action_search) {
-            Log.d("HAIDE DE", item.itemId.toString())
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, FilterFragment()).commit()
             return true
         }
-        Log.d("Kurac", item.itemId.toString())
         return super.onOptionsItemSelected(item)
     }
 
