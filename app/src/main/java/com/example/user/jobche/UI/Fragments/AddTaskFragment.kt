@@ -39,6 +39,12 @@ class AddTaskFragment : Fragment() {
         super.onCreate(savedInstanceState)
         JodaTimeAndroid.init(activity) // initialize the library before using it
 
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).supportActionBar!!.title = "Добавяни Обява"
+            (activity as HomeActivity).showBackButton(true)
+
+        }
+
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
@@ -46,7 +52,8 @@ class AddTaskFragment : Fragment() {
         password = sharedPreferences.getString("PASSWORD", "")!!
 
 
-        val binding: FragmentAddTaskBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_task, container, false)
+        val binding: FragmentAddTaskBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_add_task, container, false)
         val addTaskViewModel = AddTaskViewModel()
         binding.viewModel = addTaskViewModel
 
@@ -56,16 +63,26 @@ class AddTaskFragment : Fragment() {
         addTaskViewModel.dateEventLiveData.observe(this, Observer {
 
             val dpd =
-                DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
-                    // Display Selected date in textbox
-                    addTaskViewModel.setYear(yearCalendar)
-                    addTaskViewModel.setMonth(monthOfYear + 1)
-                    addTaskViewModel.setDay(dayOfMonth)
+                DatePickerDialog(
+                    activity!!,
+                    DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
+                        // Display Selected date in textbox
+                        addTaskViewModel.setYear(yearCalendar)
+                        addTaskViewModel.setMonth(monthOfYear + 1)
+                        addTaskViewModel.setDay(dayOfMonth)
 
-                    addTaskViewModel.setDate(
-                        String.format("%02d", dayOfMonth) + "-" + String.format("%02d",(monthOfYear + 1)) + "-" + yearCalendar)
+                        addTaskViewModel.setDate(
+                            String.format("%02d", dayOfMonth) + "-" + String.format(
+                                "%02d",
+                                (monthOfYear + 1)
+                            ) + "-" + yearCalendar
+                        )
 
-                }, year, month, day)
+                    },
+                    year,
+                    month,
+                    day
+                )
             dpd.show()
         })
 

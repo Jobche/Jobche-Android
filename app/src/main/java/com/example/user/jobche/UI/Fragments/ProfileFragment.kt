@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.ProfileViewModel
 import com.example.user.jobche.R
+import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentProfileBinding
 
 
@@ -21,6 +22,13 @@ class ProfileFragment : Fragment() {
     private var userId: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).supportActionBar!!.title = "Профил"
+            (activity as HomeActivity).showBackButton(false)
+        }
+
         val sharedPreferences: SharedPreferences =
             this.activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 

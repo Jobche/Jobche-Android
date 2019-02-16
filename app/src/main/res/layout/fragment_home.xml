@@ -9,7 +9,8 @@
     </data>
     <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
 
         <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -21,11 +22,16 @@
                 app:fabSize="normal"
                 android:src="@drawable/ic_add_white_24dp"
                 android:onClick="@{() -> viewModel.onClickFab()}"/>
-
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/listOfTasks"
+        <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/listOfTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </FrameLayout>
 </layout>

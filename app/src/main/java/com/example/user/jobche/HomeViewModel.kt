@@ -1,6 +1,8 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import android.util.Log
 import com.example.user.jobche.Model.Task
 import com.example.user.jobche.Model.Tasks
@@ -9,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel {
+class HomeViewModel : BaseObservable(){
 
     private lateinit var email: String
 
@@ -18,6 +20,8 @@ class HomeViewModel {
     private val size: Int = 20
 
     private var page: Int = 0
+
+    private var isLoading:Boolean = true
 
     private lateinit var tasks: ArrayList<Task>
 
@@ -74,6 +78,17 @@ class HomeViewModel {
 
     fun setTasks(tasks: ArrayList<Task>) {
         this.tasks = tasks
+
+    }
+
+    fun setIsLoading(isLoading: Boolean) {
+        this.isLoading = isLoading
+        notifyPropertyChanged(BR.isLoading)
+    }
+
+    @Bindable
+    fun getIsLoading(): Boolean {
+        return this.isLoading
     }
 
     val fabEventLiveData: LiveData<Any>

@@ -13,15 +13,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.R
+import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.FragmentMyTasksBinding
 
 
 class MyTasksFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MyTasksFragment()
-    }
 
 
     private lateinit var recyclerView: RecyclerView
@@ -33,6 +30,11 @@ class MyTasksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).supportActionBar!!.title = "Моите Обяви"
+            (activity as HomeActivity).showBackButton(false)
+        }
 
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
@@ -84,10 +86,3 @@ class MyTasksFragment : Fragment() {
 }
 
 
-//override fun onActivityCreated(savedInstanceState: Bundle?) {
-//    super.onActivityCreated(savedInstanceState)
-//    viewModel = ViewModelProviders.of(this).get(MyTasksViewModel::class.java)
-//    // TODO: Use the ViewModel
-//}
-
-//}

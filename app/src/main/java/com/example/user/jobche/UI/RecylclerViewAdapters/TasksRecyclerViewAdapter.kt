@@ -54,7 +54,7 @@ class TasksRecyclerViewAdapter(
                 newFragment.arguments = bundle
                 fragment.activity!!.supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, newFragment
-                ).commit()
+                ).addToBackStack(null).commit()
 
             } else {
 
@@ -63,7 +63,7 @@ class TasksRecyclerViewAdapter(
                 newFragment.arguments = bundle
                 fragment.activity!!.supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, newFragment
-                ).commit()
+                ).addToBackStack(null).commit()
 
             }
         }

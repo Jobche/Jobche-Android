@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import com.example.user.jobche.FilteredTasksViewModel
 import com.example.user.jobche.Model.Filter
 import com.example.user.jobche.R
+import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.FragmentFilteredTasksBinding
 
@@ -30,6 +31,11 @@ class FilteredTasksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).supportActionBar!!.title = "Филтрирани Обяви"
+            (activity as HomeActivity).showBackButton(true)
+        }
 
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)

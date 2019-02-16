@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import com.example.user.jobche.UI.RecylclerViewAdapters.AppliersRecyclerViewAdapter
 import com.example.user.jobche.TaskAppliersViewModel
 import com.example.user.jobche.R
+import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentTaskAppliersBinding
 
 
@@ -41,12 +42,14 @@ class TaskAppliersFragment : Fragment() {
 
 
         val bundle = arguments
-        Log.d("BnDl", arguments.toString())
         if (bundle != null) {
             taskId = bundle.getInt("TaskId")
-            Log.d("TskID", taskId.toString())
         }
 
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).supportActionBar!!.title = "Желаещи"
+            (activity as HomeActivity).showBackButton(true)
+        }
 
         val binding: FragmentTaskAppliersBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_appliers, container, false)
         val taskAppliersViewModel = TaskAppliersViewModel()

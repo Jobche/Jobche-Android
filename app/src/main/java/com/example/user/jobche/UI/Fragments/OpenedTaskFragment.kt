@@ -14,6 +14,7 @@ import com.example.user.jobche.Model.Task
 import com.example.user.jobche.R
 import com.example.user.jobche.OpenedTaskViewModel
 import com.example.user.jobche.ProfileViewModel
+import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentOpenedTaskBinding
 
 class OpenedTaskFragment : Fragment() {
@@ -40,6 +41,11 @@ class OpenedTaskFragment : Fragment() {
             task = bundle.getParcelable("Task")!!
         }
 
+
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).supportActionBar!!.title = ""
+            (activity as HomeActivity).showBackButton(true)
+        }
 
         val binding: FragmentOpenedTaskBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_opened_task, container, false)

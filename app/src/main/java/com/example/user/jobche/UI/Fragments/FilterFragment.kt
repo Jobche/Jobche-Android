@@ -8,12 +8,11 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.example.user.jobche.FilterViewModel
 import com.example.user.jobche.Model.DateOfBirth
 import com.example.user.jobche.R
+import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentFilterBinding
 import org.joda.time.DateTime
 import java.util.*
@@ -40,6 +39,12 @@ class FilterFragment : Fragment() {
 
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
+
+
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).supportActionBar!!.title = "Филтри"
+            (activity as HomeActivity).showBackButton(true)
+        }
 
         val binding: FragmentFilterBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_filter, container, false)
@@ -91,10 +96,5 @@ class FilterFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProviders.of(this).get(FilterViewModel::class.java)
-//        // TODO: Use the ViewModel
-//    }
 
 }

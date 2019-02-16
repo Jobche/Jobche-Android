@@ -49,10 +49,11 @@ class AppliersRecyclerViewAdapter(
 
         holder.itemView.setOnClickListener {
             bundle.putInt("UserId", appliers[position].id)
+            bundle.putString("Name", appliers[position].firstName)
             newFragment.arguments = bundle
             fragment.activity!!.supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container, newFragment
-            ).commit()
+            ).addToBackStack(null).commit()
         }
     }
 

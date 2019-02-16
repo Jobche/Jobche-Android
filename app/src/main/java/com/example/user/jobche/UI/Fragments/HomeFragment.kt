@@ -8,10 +8,10 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.*
 import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.R
+import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.FragmentHomeBinding
 
@@ -39,6 +39,11 @@ class HomeFragment: Fragment() {
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).supportActionBar!!.title = "Обяви"
+            (activity as HomeActivity).showBackButton(false)
+
+        }
 
         val binding: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
@@ -70,7 +75,7 @@ class HomeFragment: Fragment() {
         homeViewModel.fabEventLiveData.observe(this, Observer {
             activity!!.supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
                 AddTaskFragment()
-            ).commit()
+            ).addToBackStack(null).commit()
         })
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
