@@ -15,13 +15,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignupBirthViewModel: BaseObservable() {
+class SignupBirthViewModel : BaseObservable() {
 
     private var birthDate: LocalDate? = null
 
     private var formattedBirthDate: String = ""
-
-    private var email:String = ""
 
     private var registerUser = User()
 
@@ -38,7 +36,7 @@ class SignupBirthViewModel: BaseObservable() {
         return this.birthDate
     }
 
-    fun setBirthDate(birthDate:LocalDate) {
+    fun setBirthDate(birthDate: LocalDate) {
         this.birthDate = birthDate
         formatBirthDate(birthDate)
     }
@@ -55,25 +53,18 @@ class SignupBirthViewModel: BaseObservable() {
 
     fun formatBirthDate(birthDate: LocalDate) {
         val formattedBirthDate = String.format("%02d", birthDate.dayOfMonth) + "." +
-                                        String.format("%02d", birthDate.monthOfYear) + "." +
-                                        birthDate.year.toString()
+                String.format("%02d", birthDate.monthOfYear) + "." +
+                birthDate.year.toString()
         setFormattedBirthDate(formattedBirthDate)
     }
 
-    @Bindable
-    fun getEmail(): String {
-        return this.email
-    }
-
-    fun setEmail(email:String) {
-        this.email = email
-        notifyPropertyChanged(BR.email)
-    }
-
-    fun setRegisterUser(user: User){
+    fun setRegisterUser(user: User) {
         this.registerUser = user
     }
 
+    fun getRegisterUser(): User {
+        return this.registerUser
+    }
 
     fun getToastMsg(): String {
         return toastMsg
@@ -95,7 +86,7 @@ class SignupBirthViewModel: BaseObservable() {
     val birthDateEventLiveData: LiveData<Any>
         get() = _birthDateEventLiveData
 
-    val nextEventLiveData : LiveData<Any>
+    val nextEventLiveData: LiveData<Any>
         get() = _nextEventLiveData
 
     fun onClickBirthDate() {
@@ -103,36 +94,14 @@ class SignupBirthViewModel: BaseObservable() {
     }
 
     fun onClick() {
-        if(getEmail() == "" || getBirthDate() == null) {
+        if (getBirthDate() == null) {
             setToastMsg("Попълнете празните полета.")
             _toastEventLiveData.call()
         }
-//        else if(getBirthDate())
-        registerUser.email = getEmail()
-        registerUser.dateOfBirth = getBirthDate()
-
-        val paramObject = JsonObject()
-        paramObject.addProperty("firstName", registerUser.firstName)
-        paramObject.addProperty("lastName", registerUser.lastName)
-        paramObject.addProperty("email", registerUser.email)
-        paramObject.addProperty("password", registerUser.password)
-        paramObject.add("dateOfBirth", Gson().toJsonTree(DateOfBirth(birthDate!!.dayOfMonth, birthDate!!.monthOfYear, birthDate!!.year)))
-
-
-        val call: Call<User> = RetrofitClient().getApi()
-            .createUser(paramObject)
-
-        call.enqueue(object: Callback<User> {
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.d("Sign up onFailure: ", t.message.toString())
-            }
-
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                Log.d("Sign up onSuccess:", response.body().toString())
-                _nextEventLiveData.call()
-            }
-
-        })
-
+        else if(getYearsOld() < 18) {
+            setToastMsg("Трябва да си поне 18 годишен.")
+            _toastEventLiveData.call()
+        }
+        _nextEventLiveData.call()
     }
 }

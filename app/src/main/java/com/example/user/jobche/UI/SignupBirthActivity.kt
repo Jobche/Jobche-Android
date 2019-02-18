@@ -36,7 +36,8 @@ class SignupBirthActivity : AppCompatActivity() {
 
             val dpd =
                 DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
-                    signupBirthViewModel.setBirthDate(LocalDate(dayOfMonth, monthOfYear + 1, yearCalendar))
+                    signupBirthViewModel.setBirthDate(LocalDate(yearCalendar, monthOfYear + 1, dayOfMonth))
+                    LocalDate()
                 }, year, month, day)
             dpd.show()
         })
@@ -46,7 +47,8 @@ class SignupBirthActivity : AppCompatActivity() {
         })
 
         signupBirthViewModel.nextEventLiveData.observe(this, Observer {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, SignupContactsActivity::class.java)
+            intent.putExtra("User", signupBirthViewModel.getRegisterUser())
             startActivity(intent)
         })
 
