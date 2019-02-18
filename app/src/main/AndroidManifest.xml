@@ -13,23 +13,32 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".UI.SignupContactsActivity">
+        </activity>
         <activity
                 android:name=".UI.HomeActivity"
-                android:theme="@style/AppTheme.NoActionBar" tools:ignore="InnerclassSeparator">
+                android:theme="@style/AppTheme.NoActionBar"
+                tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".UI.LoginActivity" tools:ignore="InnerclassSeparator"/>
-
-        <activity android:name=".UI.SignupNameActivity" tools:ignore="InnerclassSeparator"/>
-
-        <activity android:name=".UI.SignupPasswordActivity" tools:ignore="InnerclassSeparator"/>
-
-        <activity android:name=".UI.SignupBirthActivity" tools:ignore="InnerclassSeparator"/>
+        <activity
+                android:name=".UI.LoginActivity"
+                android:windowSoftInputMode="adjustPan"
+                tools:ignore="InnerclassSeparator">
+        </activity>
+        <activity
+                android:name=".UI.SignupNameActivity"
+                tools:ignore="InnerclassSeparator"/>
+        <activity
+                android:name=".UI.SignupPasswordActivity"
+                tools:ignore="InnerclassSeparator"/>
+        <activity
+                android:name=".UI.SignupBirthActivity"
+                tools:ignore="InnerclassSeparator"/>
     </application>
 
 </manifest>

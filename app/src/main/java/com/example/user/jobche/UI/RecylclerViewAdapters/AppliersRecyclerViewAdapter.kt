@@ -29,10 +29,9 @@ class AppliersRecyclerViewAdapter(
         return ViewHolder(view)
     }
 
-    fun dateTimeToYears(dateOfBirth: DateOfBirth): String {
-        val birthDate = LocalDate(dateOfBirth.year, dateOfBirth.month, dateOfBirth.day)
+    fun dateTimeToYears(dateOfBirth: LocalDate): String {
         val now = LocalDate()
-        val age = Years.yearsBetween(birthDate, now).toString()
+        val age = Years.yearsBetween(dateOfBirth, now).toString()
         return age.substring(1, age.length - 1)
 
     }

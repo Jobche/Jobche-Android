@@ -40,5 +40,9 @@
     <string name="next">Продължи</string>
     <string name="confirm_password">Потвърди Парола</string>
     <string name="date_of_birth">Дата на раждане</string>
+    <string name="task_history">История</string>
+    <string name="when_is_your_birthday">Кога си роден?</string>
+    <string name="phone">Телефон</string>
+    <string name="contacts">За връзка с другите.</string>
 
 </resources>

@@ -10,9 +10,9 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.user.jobche.Model.DateOfBirth
 import com.example.user.jobche.R
+import com.example.user.jobche.RegisterUser
 import com.example.user.jobche.SignupBirthViewModel
 import com.example.user.jobche.databinding.ActivitySignupBirthBinding
-import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.util.*
 
@@ -30,14 +30,13 @@ class SignupBirthActivity : AppCompatActivity() {
         val binding: ActivitySignupBirthBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup_birth)
         val signupBirthViewModel = SignupBirthViewModel()
         binding.viewModel = signupBirthViewModel
-        signupBirthViewModel.setRegisterUser(intent.getParcelableExtra("User"))
+        signupBirthViewModel.setRegisterUser(intent.getParcelableExtra("user"))
 
         signupBirthViewModel.birthDateEventLiveData.observe(this, Observer {
 
             val dpd =
                 DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
                     signupBirthViewModel.setBirthDate(LocalDate(yearCalendar, monthOfYear + 1, dayOfMonth))
-                    LocalDate()
                 }, year, month, day)
             dpd.show()
         })
@@ -48,7 +47,7 @@ class SignupBirthActivity : AppCompatActivity() {
 
         signupBirthViewModel.nextEventLiveData.observe(this, Observer {
             val intent = Intent(this, SignupContactsActivity::class.java)
-            intent.putExtra("User", signupBirthViewModel.getRegisterUser())
+            intent.putExtra("user", signupBirthViewModel.getRegisterUser())
             startActivity(intent)
         })
 

@@ -85,19 +85,19 @@ class ProfileViewModel(private val userId: Int) : BaseObservable() {
 
         call.enqueue(object : Callback<UserProfile> {
             override fun onFailure(call: Call<UserProfile>, t: Throwable) {
-                Log.d("Get User onFailure ", t.message.toString())
+                Log.d("Get user onFailure ", t.message.toString())
             }
 
             override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
-                Log.d("Get User onSuccess", response.body().toString())
+                Log.d("Get user onSuccess", response.body().toString())
                 val userProfile = response.body()
                 if (userProfile != null) {
                     setFirstName(userProfile.firstName)
                     setLastName(userProfile.lastName)
                     val birthDate = LocalDate(
                         userProfile.dateOfBirth.year,
-                        userProfile.dateOfBirth.month,
-                        userProfile.dateOfBirth.day
+                        userProfile.dateOfBirth.monthOfYear,
+                        userProfile.dateOfBirth.dayOfMonth
                     )
                     val age = Years.yearsBetween(birthDate, LocalDate()).toString()
                     setYearsOld(age.substring(1, age.length - 1))

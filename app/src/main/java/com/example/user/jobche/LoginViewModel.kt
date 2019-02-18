@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
-import com.example.user.jobche.Model.LoginUser
 import com.example.user.jobche.Model.User
 import com.google.gson.JsonObject
 import retrofit2.Call

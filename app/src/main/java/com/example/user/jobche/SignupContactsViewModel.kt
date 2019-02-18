@@ -1,8 +1,6 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
-import android.databinding.BaseObservable
-import android.databinding.Bindable
 import android.util.Log
 import android.util.Patterns
 import com.example.user.jobche.Model.DateOfBirth
@@ -13,45 +11,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignupContactsViewModel : BaseObservable() {
+class SignupContactsViewModel(val registerUser: RegisterUser) {
 
-
-    private var phoneNum: String = ""
-
-    private var email: String = ""
-
-    private lateinit var registerUser:User
 
     private var toastMsg: String = ""
 
     private val _nextEventLiveData = SingleLiveData<Any>()
 
     private val _toastEventLiveData = SingleLiveData<Any>()
-
-    @Bindable
-    fun getPhoneNum(): String {
-        return this.phoneNum
-    }
-
-    fun setPhoneNum(phoneNum: String) {
-        this.phoneNum = phoneNum
-        notifyPropertyChanged(BR.phoneNum)
-    }
-
-    @Bindable
-    fun getEmail(): String {
-        return this.email
-    }
-
-    fun setEmail(email: String) {
-        this.email = email
-        notifyPropertyChanged(BR.email)
-    }
-
-    fun setRegisterUser(user: User) {
-        this.registerUser = user
-    }
-
 
     fun getToastMsg(): String {
         return toastMsg
@@ -70,16 +37,17 @@ class SignupContactsViewModel : BaseObservable() {
 
     fun onClick() {
 
-        if (getEmail() == "" || getPhoneNum() == "") {
+        if (registerUser.email == "" || registerUser.phoneNum == "") {
             setToastMsg("Попълнете празните полета.")
-            _toastEventLiveData.call()
-        } else if (!(Patterns.EMAIL_ADDRESS.matcher(getEmail()).matches())) {
+        } else if (!(Patterns.EMAIL_ADDRESS.matcher(registerUser.email).matches())) {
             setToastMsg("Неправилно въведен Имейл.")
+        } else if (registerUser.phoneNum.length != 10) {
+            setToastMsg("Неправилно въведен Телефон.")
+        }
+
+        if (getToastMsg() != "") {
             _toastEventLiveData.call()
         } else {
-
-            registerUser.email = getEmail()
-            registerUser.phoneNum = getPhoneNum()
 
             val paramObject = JsonObject()
             paramObject.addProperty("firstName", registerUser.firstName)
@@ -89,9 +57,9 @@ class SignupContactsViewModel : BaseObservable() {
                 "dateOfBirth",
                 Gson().toJsonTree(
                     DateOfBirth(
-                        registerUser.dateOfBirth!!.dayOfMonth,
-                        registerUser.dateOfBirth!!.monthOfYear,
-                        registerUser.dateOfBirth!!.year
+                        registerUser.dateOfBirth.dayOfMonth,
+                        registerUser.dateOfBirth.monthOfYear,
+                        registerUser.dateOfBirth.year
                     )
                 )
             )

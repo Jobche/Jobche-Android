@@ -3,17 +3,8 @@ package com.example.user.jobche
 import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
-import android.util.Log
-import com.example.user.jobche.Model.DateOfBirth
-import com.example.user.jobche.Model.User
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import org.joda.time.Years
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class SignupBirthViewModel : BaseObservable() {
 
@@ -21,7 +12,7 @@ class SignupBirthViewModel : BaseObservable() {
 
     private var formattedBirthDate: String = ""
 
-    private var registerUser = User()
+    private lateinit var registerUser: RegisterUser
 
     private var toastMsg: String = ""
 
@@ -58,11 +49,11 @@ class SignupBirthViewModel : BaseObservable() {
         setFormattedBirthDate(formattedBirthDate)
     }
 
-    fun setRegisterUser(user: User) {
+    fun setRegisterUser(user: RegisterUser) {
         this.registerUser = user
     }
 
-    fun getRegisterUser(): User {
+    fun getRegisterUser(): RegisterUser {
         return this.registerUser
     }
 
@@ -102,6 +93,9 @@ class SignupBirthViewModel : BaseObservable() {
             setToastMsg("Трябва да си поне 18 годишен.")
             _toastEventLiveData.call()
         }
-        _nextEventLiveData.call()
+        else {
+            registerUser.dateOfBirth = getBirthDate()!!
+            _nextEventLiveData.call()
+        }
     }
 }

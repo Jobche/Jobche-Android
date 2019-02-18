@@ -22,9 +22,9 @@ import com.example.user.jobche.databinding.FragmentFilteredTasksBinding
 class FilteredTasksFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var email: String
-    private lateinit var password: String
     private var page = 0
+    private val sharedPreferences: SharedPreferences =
+        activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
     private lateinit var filter: Filter
     override fun onCreateView(
@@ -37,11 +37,6 @@ class FilteredTasksFragment : Fragment() {
             (activity as HomeActivity).showBackButton(true)
         }
 
-        val sharedPreferences: SharedPreferences =
-            activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
-
-        email = sharedPreferences.getString("EMAIL", "")!!
-        password = sharedPreferences.getString("PASSWORD", "")!!
 
         val bundle = arguments
         if (bundle != null) {
@@ -54,8 +49,8 @@ class FilteredTasksFragment : Fragment() {
         val filteredTasksViewModel = FilteredTasksViewModel()
         binding.viewModel = filteredTasksViewModel
 
-        filteredTasksViewModel.setEmail(email)
-        filteredTasksViewModel.setPassword(password)
+        filteredTasksViewModel.setEmail(sharedPreferences.getString("EMAIL", "")!!)
+        filteredTasksViewModel.setPassword(sharedPreferences.getString("PASSWORD", "")!!)
 
         recyclerView = binding.listOfFilteredTasks
         val layoutManager = LinearLayoutManager(activity!!)
