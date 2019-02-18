@@ -4,6 +4,9 @@
 
     <data>
         <variable
+                name="user"
+                type="com.example.user.jobche.RegisterUser"/>
+        <variable
                 name="viewModel"
                 type="com.example.user.jobche.SignupNameViewModel"/>
     </data>
@@ -46,7 +49,7 @@
                     android:inputType="textCapSentences"
                     android:background="@android:color/transparent"
                     android:layout_marginTop="10dp"
-                    android:text="@={viewModel.firstName}"/>
+                    android:text="@={user.firstName}"/>
 
             <View
                     android:layout_width="match_parent"
@@ -64,7 +67,6 @@
                     android:textStyle="bold"/>
 
             <EditText
-                    android:id="@+id/signup_lastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences"
@@ -72,14 +74,13 @@
                     android:maxLines="1"
                     android:background="@android:color/transparent"
                     android:layout_marginTop="10dp"
-                    android:text="@={viewModel.lastName}"/>
+                    android:text="@={user.lastName}"/>
             <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@android:color/white"/>
 
             <Button
-                    android:id="@+id/next_name_btn"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="40dp"

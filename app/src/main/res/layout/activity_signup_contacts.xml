@@ -4,6 +4,9 @@
 
     <data>
         <variable
+                name="user"
+                type="com.example.user.jobche.RegisterUser"/>
+        <variable
                 name="viewModel"
                 type="com.example.user.jobche.SignupContactsViewModel"/>
     </data>
@@ -32,21 +35,20 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/phone"
+                    android:text="@string/email"
                     android:layout_marginTop="50dp"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
 
             <EditText
-                    android:id="@+id/signup_birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:maxLines="1"
                     android:background="@android:color/transparent"
                     android:layout_marginTop="10dp"
-                    android:text="@={viewModel.phoneNum}"/>
+                    android:text="@={user.email}"/>
             <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -55,7 +57,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/email"
+                    android:text="@string/phone"
                     android:layout_marginTop="30dp"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
@@ -63,21 +65,20 @@
 
 
             <EditText
-                    android:id="@+id/signup_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:maxLines="1"
                     android:background="@android:color/transparent"
+                    android:inputType="phone"
                     android:layout_marginTop="10dp"
-                    android:text="@={viewModel.email}"/>
+                    android:text="@={user.phoneNum}"/>
             <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@android:color/white"/>
 
             <Button
-                    android:id="@+id/next_pass_btn"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:text="@string/next"
