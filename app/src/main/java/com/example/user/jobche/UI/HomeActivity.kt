@@ -90,30 +90,24 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container,
                 ProfileFragment()
-            ).commit()
+            ).addToBackStack(null).commit()
 
             R.id.nav_my_tasks -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container,
                 MyTasksFragment()
-            ).commit()
+            ).addToBackStack(null).commit()
 
 
             R.id.nav_applied_for -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container,
                 MyApplicationsFragment()
-            ).commit()
+            ).addToBackStack(null).commit()
 
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
-
-    fun changeToolbar(title: String) {
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = title
-    }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_search) {
