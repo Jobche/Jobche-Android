@@ -4,6 +4,10 @@
 
     <data>
         <variable
+                name="task"
+                type="com.example.user.jobche.Task"/>
+
+        <variable
                 name="viewModel"
                 type="com.example.user.jobche.AddTaskViewModel"/>
     </data>
@@ -23,17 +27,17 @@
                 android:padding="10dp"
                 android:hint="@string/title"
                 android:inputType="textCapSentences"
-                android:text="@={viewModel.title}"
+                android:text='@={task.safeTitle}'
         />
 
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:hint="@string/country"
-                android:inputType="textCapSentences"
-                android:text="@={viewModel.country}"/>
+        <!--<EditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:padding="10dp"-->
+                <!--android:hint="@string/country"-->
+                <!--android:inputType="textCapSentences"-->
+                <!--android:text="@={task.location.country}"/>-->
 
 
         <EditText
@@ -43,7 +47,7 @@
                 android:padding="10dp"
                 android:hint="@string/city"
                 android:inputType="textCapSentences"
-                android:text="@={viewModel.city}"/>
+                android:text="@={task.safeLocation.safeCity}"/>
 
         <EditText
                 android:layout_width="match_parent"
@@ -52,7 +56,7 @@
                 android:padding="10dp"
                 android:hint="@string/payment"
                 android:inputType="number"
-                android:text="@={viewModel.payment}"/>
+                android:text='@={viewModel.payment}'/>
 
 
         <EditText
@@ -62,7 +66,7 @@
                 android:padding="10dp"
                 android:hint="@string/workers"
                 android:inputType="number"
-                android:text="@={viewModel.numOfWorkers}"/>
+                android:text='@={viewModel.numberOfWorkers}'/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -97,11 +101,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-
                 android:hint="@string/description"
                 android:padding="10dp"
                 android:inputType="textMultiLine|textCapSentences"
-                android:text="@={viewModel.description}"/>
+                android:text="@={task.safeDescription}"/>
 
         <Button
                 android:id="@+id/add_task_btn"
