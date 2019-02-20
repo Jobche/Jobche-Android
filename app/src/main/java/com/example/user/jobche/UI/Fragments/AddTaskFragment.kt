@@ -9,15 +9,19 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.AddTaskViewModel
+import com.example.user.jobche.Task
 import net.danlew.android.joda.JodaTimeAndroid
 import java.util.*
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentAddTaskBinding
+import org.joda.time.LocalDate
+import org.joda.time.LocalTime
 
 
 class AddTaskFragment : Fragment() {
@@ -51,11 +55,12 @@ class AddTaskFragment : Fragment() {
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
-
+        val task = Task()
         val binding: FragmentAddTaskBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_task, container, false)
-        val addTaskViewModel = AddTaskViewModel()
+        val addTaskViewModel = AddTaskViewModel(task)
         binding.viewModel = addTaskViewModel
+        binding.task = task
 
         addTaskViewModel.setEmail(email)
         addTaskViewModel.setPassword(password)
@@ -66,18 +71,7 @@ class AddTaskFragment : Fragment() {
                 DatePickerDialog(
                     activity!!,
                     DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
-                        // Display Selected date in textbox
-                        addTaskViewModel.setYear(yearCalendar)
-                        addTaskViewModel.setMonth(monthOfYear + 1)
-                        addTaskViewModel.setDay(dayOfMonth)
-
-                        addTaskViewModel.setDate(
-                            String.format("%02d", dayOfMonth) + "-" + String.format(
-                                "%02d",
-                                (monthOfYear + 1)
-                            ) + "-" + yearCalendar
-                        )
-
+                        addTaskViewModel.setLocalDate(LocalDate(yearCalendar, monthOfYear + 1, dayOfMonth))
                     },
                     year,
                     month,
@@ -88,12 +82,9 @@ class AddTaskFragment : Fragment() {
 
         addTaskViewModel.timeEventLiveData.observe(this, Observer {
             val tpd = TimePickerDialog(activity, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minuteOfHour ->
+                addTaskViewModel.setLocalTime(LocalTime(hourOfDay, minuteOfHour))
 
-                addTaskViewModel.setHour(hourOfDay)
-                addTaskViewModel.setMinute(minuteOfHour)
-
-                addTaskViewModel.setTime(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minuteOfHour))
-            }, hour, minute, false)
+            }, hour, minute, true)
             tpd.show()
         })
 
