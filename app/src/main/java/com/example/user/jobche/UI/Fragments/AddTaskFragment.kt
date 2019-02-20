@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.user.jobche.AddTaskViewModel
 import com.example.user.jobche.Task
 import net.danlew.android.joda.JodaTimeAndroid
@@ -91,6 +92,11 @@ class AddTaskFragment : Fragment() {
         addTaskViewModel.addTaskEventLiveData.observe(this, Observer {
             startActivity(Intent(activity, HomeActivity::class.java))
         })
+
+        addTaskViewModel.toastEventLiveData.observe(this, Observer {
+            Toast.makeText(activity, addTaskViewModel.getToastMsg(), Toast.LENGTH_LONG).show()
+        })
+
         return binding.root
     }
 }

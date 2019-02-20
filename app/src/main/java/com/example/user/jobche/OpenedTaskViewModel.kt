@@ -15,7 +15,6 @@ class OpenedTaskViewModel(val task: Task) {
 
     private lateinit var password: String
 
-
     private val date: String = (task.safeDateTime).substring(8, 10) + "." + (task.safeDateTime).substring(5, 7)
 
     private val time: String = (task.safeDateTime).substring(11, 16)

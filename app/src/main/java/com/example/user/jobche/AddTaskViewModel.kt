@@ -20,6 +20,8 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
 
     private lateinit var password: String
 
+    private var toastMsg: String = ""
+
     private var localDate: LocalDate? = null
 
     private var localTime: LocalTime? = null
@@ -38,6 +40,8 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
 
     private val _addTaskEventLiveData = SingleLiveData<Any>()
 
+    private val _toastEventLiveData = SingleLiveData<Any>()
+
     fun getEmail(): String {
         return this.email
     }
@@ -53,6 +57,11 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
 
     fun setPassword(password: String) {
         this.password = password
+    }
+
+
+    fun getToastMsg(): String {
+        return this.toastMsg
     }
 
     @Bindable
@@ -130,7 +139,13 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
     }
 
     fun getDateTime(localDate: LocalDate, localTime: LocalTime): LocalDateTime {
-        return LocalDateTime(localDate.year, localDate.monthOfYear, localDate.dayOfMonth, localTime.hourOfDay, localTime.minuteOfHour)
+        return LocalDateTime(
+            localDate.year,
+            localDate.monthOfYear,
+            localDate.dayOfMonth,
+            localTime.hourOfDay,
+            localTime.minuteOfHour
+        )
     }
 
     val dateEventLiveData: LiveData<Any>
@@ -142,6 +157,9 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
     val addTaskEventLiveData: LiveData<Any>
         get() = _addTaskEventLiveData
 
+    val toastEventLiveData: LiveData<Any>
+        get() = _toastEventLiveData
+
     fun onClickDate() {
         _dateEventLiveData.call()
     }
@@ -152,40 +170,64 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
 
     fun onClickAddTask() {
 
-        val paramObject = JsonObject()
-        paramObject.addProperty("title", task.safeTitle)
-        paramObject.addProperty("payment", task.safePayment)
-        paramObject.addProperty("numberOfWorkers", task.safeNumberOfWorkers)
-        paramObject.addProperty("description", task.safeDescription)
-        paramObject.addProperty("dateTime", getDateTime(getLocalDate(), getLocalTime()).toString())
-        paramObject.add("location", Gson().toJsonTree(
-            Location(
-                task.safeLocation.safeCountry,
-                task.safeLocation.safeCity,
-                task.safeLocation.safeNeighborhood
+        if (task.safeTitle == "") {
+            toastMsg = "Моля въведете заглавие."
+        } else if (task.safeLocation.safeCity == "") {
+            toastMsg = "Моля въведете град, където ще се проведе работата."
+        } else if (getPayment() == "" || getPayment().toInt() == 0) {
+            toastMsg = "Моля въведете сума за заплащане."
+        } else if (getNumberOfWorkers() == "" || getNumberOfWorkers().toInt() == 0) {
+            toastMsg = "Моля въведете броя на нужните работници."
+        } else if (getDate() == "" || getLocalDate().isBefore(LocalDate())) {
+            toastMsg = "Моля въведете предстояща дата."
+        } else if (getTime() == "") {
+            toastMsg = "Моля въведете час за начало на работата."
+        } else if (task.safeDescription == "") {
+            toastMsg = "Моля въведете описание на работата."
+        } else {
+            toastMsg = ""
+        }
+
+        if (toastMsg != "") {
+            _toastEventLiveData.call()
+        } else {
+
+            val paramObject = JsonObject()
+            paramObject.addProperty("title", task.safeTitle)
+            paramObject.addProperty("payment", task.safePayment)
+            paramObject.addProperty("numberOfWorkers", task.safeNumberOfWorkers)
+            paramObject.addProperty("description", task.safeDescription)
+            paramObject.addProperty("dateTime", getDateTime(getLocalDate(), getLocalTime()).toString())
+            paramObject.add(
+                "location", Gson().toJsonTree(
+                    Location(
+                        task.safeLocation.safeCountry,
+                        task.safeLocation.safeCity,
+                        task.safeLocation.safeNeighborhood
+                    )
+                )
             )
-        ))
 
-        val authToken = Credentials.basic(getEmail(), getPassword())
+            val authToken = Credentials.basic(getEmail(), getPassword())
 
 
-        val call: Call<Task> = RetrofitClient().getApi()
-            .createTask(authToken, paramObject)
+            val call: Call<Task> = RetrofitClient().getApi()
+                .createTask(authToken, paramObject)
 
-        call.enqueue(object : Callback<Task> {
-            override fun onFailure(call: Call<Task>, t: Throwable) {
-                Log.d("Add Task onFailure: ", t.message.toString())
-            }
+            call.enqueue(object : Callback<Task> {
+                override fun onFailure(call: Call<Task>, t: Throwable) {
+                    Log.d("Add Task onFailure: ", t.message.toString())
+                }
 
-            override fun onResponse(call: Call<Task>, response: Response<Task>) {
-                Log.d("Add Task onSuccess:", response.body().toString())
-                _addTaskEventLiveData.call()
-            }
+                override fun onResponse(call: Call<Task>, response: Response<Task>) {
+                    Log.d("Add Task onSuccess:", response.body().toString())
+                    _addTaskEventLiveData.call()
+                }
 
-        })
+            })
+
+        }
 
     }
-
-
 }
 
