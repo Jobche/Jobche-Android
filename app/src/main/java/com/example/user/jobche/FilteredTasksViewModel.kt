@@ -1,11 +1,9 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModel
 import android.util.Log
 import com.example.user.jobche.Model.Filter
-import com.example.user.jobche.Model.Task
-import com.example.user.jobche.Model.Tasks
 import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback

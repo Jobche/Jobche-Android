@@ -69,7 +69,7 @@ class TaskAppliersFragment : Fragment() {
         taskAppliersViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = AppliersRecyclerViewAdapter(
                 this,
-                taskAppliersViewModel.getAppliers()
+                taskAppliersViewModel.getApplications()
             )
         })
 

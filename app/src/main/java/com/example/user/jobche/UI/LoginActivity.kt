@@ -40,7 +40,7 @@ class LoginActivity: AppCompatActivity() {
 
         loginViewModel.failEventLiveData.observe(this, Observer {
             Toast.makeText(this, "Login Incorrect! Try Again.", Toast.LENGTH_LONG).show()
-            loginViewModel.setEmail("")
+//            loginViewModel.setEmail("")
             loginViewModel.setPassword("")
         })
     }

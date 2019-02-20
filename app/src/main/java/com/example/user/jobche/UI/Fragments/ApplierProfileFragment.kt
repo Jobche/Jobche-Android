@@ -17,7 +17,8 @@ class ApplierProfileFragment : Fragment() {
 
     private lateinit var email:String
     private lateinit var password:String
-    private var userId:Int = 0
+    private var applicationId:Int = 0
+    private var applierId:Int = 0
     private lateinit var name:String
 
     override fun onCreateView(
@@ -29,7 +30,8 @@ class ApplierProfileFragment : Fragment() {
 
         val bundle = arguments
         if (bundle != null) {
-            userId = bundle.getInt("UserId")
+            applicationId = bundle.getInt("ApplicationId")
+            applierId = bundle.getInt("ApplierId")
             name = bundle.getString("Name")!!
         }
 
@@ -43,7 +45,9 @@ class ApplierProfileFragment : Fragment() {
 
         val binding: FragmentApplierProfileBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_applier_profile, container, false)
-        val profileViewModel = ProfileViewModel(userId)
+        val profileViewModel = ProfileViewModel()
+        profileViewModel.setUserId(applierId)
+        profileViewModel.setApplicationId(applicationId)
         binding.viewModel = profileViewModel
         binding.profileInfo.viewModel = profileViewModel
         profileViewModel.setEmail(email)
@@ -52,6 +56,4 @@ class ApplierProfileFragment : Fragment() {
 
         return binding.root
     }
-
-
 }

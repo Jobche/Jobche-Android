@@ -2,11 +2,9 @@ package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.MainThread
 import android.util.Log
 import com.example.user.jobche.Model.Application
 import com.example.user.jobche.Model.Applications
-import com.example.user.jobche.Model.Task
 import com.example.user.jobche.Model.UserProfile
 import okhttp3.Credentials
 import retrofit2.Call

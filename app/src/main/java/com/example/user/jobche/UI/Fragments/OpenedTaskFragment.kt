@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.user.jobche.Model.Task
+import com.example.user.jobche.Task
 import com.example.user.jobche.R
 import com.example.user.jobche.OpenedTaskViewModel
 import com.example.user.jobche.ProfileViewModel
@@ -21,7 +21,7 @@ class OpenedTaskFragment : Fragment() {
 
     private lateinit var email: String
     private lateinit var password: String
-    private lateinit var task:Task
+    private lateinit var task: Task
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,9 +51,11 @@ class OpenedTaskFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_opened_task, container, false)
 
         val openedTaskViewModel = OpenedTaskViewModel(task)
-        val profileViewModel = ProfileViewModel(task.creatorId)
+        val profileViewModel = ProfileViewModel()
+        profileViewModel.setUserId(task.safeCreatorId)
         binding.viewModel = openedTaskViewModel
         binding.frameOpenedTask.viewModel = openedTaskViewModel
+        binding.frameOpenedTask.task = task
         binding.creatorInfo.viewModel = profileViewModel
 
         openedTaskViewModel.setEmail(email)

@@ -65,9 +65,8 @@ data class Task(
         @Bindable get() = acceptedWorkersCount
         set(value) {
             acceptedWorkersCount = value
-            notifyPropertyChanged(BR.acceptedWorkersCount)
+            notifyPropertyChanged(BR.safeAcceptedWorkersCount)
         }
-
 
 }
 

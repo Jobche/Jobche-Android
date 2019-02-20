@@ -16,11 +16,15 @@ import retrofit2.Response
 import org.joda.time.Years
 
 
-class ProfileViewModel(private val userId: Int) : BaseObservable() {
+class ProfileViewModel : BaseObservable() {
 
     private lateinit var email: String
 
     private lateinit var password: String
+
+    private var applicationId: Int = 0
+
+    private var userId: Int = 0
 
     private var firstName: String = ""
 
@@ -42,6 +46,22 @@ class ProfileViewModel(private val userId: Int) : BaseObservable() {
 
     fun setPassword(password: String) {
         this.password = password
+    }
+
+    fun getApplicationId(): Int {
+        return this.applicationId
+    }
+
+    fun setApplicationId(applicationId: Int) {
+        this.applicationId = applicationId
+    }
+
+    fun getUserId(): Int {
+        return this.userId
+    }
+
+    fun setUserId(userId: Int) {
+        this.userId = userId
     }
 
     @Bindable
@@ -81,7 +101,7 @@ class ProfileViewModel(private val userId: Int) : BaseObservable() {
 
     fun getUser() {
         val call: Call<UserProfile> = RetrofitClient().getApi()
-            .getUser(getAuthToken(), userId)
+            .getUser(getAuthToken(), getUserId())
 
         call.enqueue(object : Callback<UserProfile> {
             override fun onFailure(call: Call<UserProfile>, t: Throwable) {
@@ -108,7 +128,7 @@ class ProfileViewModel(private val userId: Int) : BaseObservable() {
 
     fun onAccept() {
         val call: Call<Application> = RetrofitClient().getApi()
-            .acceptApplier(getAuthToken(), userId)
+            .acceptApplier(getAuthToken(), getApplicationId())
 
         call.enqueue(object : Callback<Application> {
             override fun onFailure(call: Call<Application>, t: Throwable) {

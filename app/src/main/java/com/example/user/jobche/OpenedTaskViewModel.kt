@@ -1,17 +1,10 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
-import android.content.SharedPreferences
-import android.support.v7.app.AppCompatActivity
-import android.text.TextUtils.substring
 import android.util.Log
 import com.example.user.jobche.Model.Application
-import com.example.user.jobche.Model.Task
-import com.example.user.jobche.Model.UserProfile
 import com.google.gson.JsonObject
 import okhttp3.Credentials
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,12 +16,12 @@ class OpenedTaskViewModel(val task: Task) {
     private lateinit var password: String
 
 
-    private val date: String = (task.dateTime).substring(8, 10) + "." + (task.dateTime).substring(5, 7)
+    private val date: String = (task.safeDateTime).substring(8, 10) + "." + (task.safeDateTime).substring(5, 7)
 
-    private val time: String = (task.dateTime).substring(11, 16)
-    private val payment: String = task.payment.toString()
+    private val time: String = (task.safeDateTime).substring(11, 16)
+    private val payment: String = task.safePayment.toString()
 
-    private val numberOfWorkers: String = task.numberOfWorkers.toString()
+    private val numberOfWorkers: String = task.safeNumberOfWorkers.toString()
 
     private val _onClickEventLiveData = SingleLiveData<Any>()
 
@@ -72,10 +65,9 @@ class OpenedTaskViewModel(val task: Task) {
 
     fun onClick() {
         val paramObject = JsonObject()
-        paramObject.addProperty("taskId", task.id)
+        paramObject.addProperty("taskId", task.safeId)
 
         val authToken = Credentials.basic(getEmail(), getPassword())
-
 
         val call: Call<Application> = RetrofitClient().getApi()
             .applyForTask(authToken, paramObject)
@@ -92,6 +84,4 @@ class OpenedTaskViewModel(val task: Task) {
 
         })
     }
-
-
 }

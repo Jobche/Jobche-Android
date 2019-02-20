@@ -14,11 +14,12 @@ import org.joda.time.LocalDate
 import org.joda.time.Years
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.example.user.jobche.Model.Application
 import com.example.user.jobche.UI.Fragments.ApplierProfileFragment
 
 class AppliersRecyclerViewAdapter(
     private val fragment: Fragment,
-    private val appliers: ArrayList<UserProfile>
+    private val applications: ArrayList<Application>
 ) : RecyclerView.Adapter<AppliersRecyclerViewAdapter.ViewHolder>() {
 
     private val bundle:Bundle = Bundle()
@@ -37,18 +38,19 @@ class AppliersRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return appliers.size
+        return applications.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: called.")
-        holder.firstname.text = appliers[position].firstName
-        holder.lastname.text = appliers[position].lastName
-        holder.years.text = dateTimeToYears(appliers[position].dateOfBirth)
+        holder.firstname.text = applications[position].applicant.firstName
+        holder.lastname.text = applications[position].applicant.lastName
+        holder.years.text = dateTimeToYears(applications[position].applicant.dateOfBirth)
 
         holder.itemView.setOnClickListener {
-            bundle.putInt("UserId", appliers[position].id)
-            bundle.putString("Name", appliers[position].firstName)
+            bundle.putInt("ApplicationId", applications[position].id)
+            bundle.putInt("ApplierId", applications[position].applicant.id)
+            bundle.putString("Name", applications[position].applicant.firstName)
             newFragment.arguments = bundle
             fragment.activity!!.supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container, newFragment

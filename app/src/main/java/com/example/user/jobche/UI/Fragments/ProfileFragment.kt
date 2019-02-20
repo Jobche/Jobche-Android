@@ -41,7 +41,8 @@ class ProfileFragment : Fragment() {
         val binding: FragmentProfileBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         val view: View = binding.root
-        val profileViewModel = ProfileViewModel(userId)
+        val profileViewModel = ProfileViewModel()
+        profileViewModel.setUserId(userId)
         binding.viewModel = profileViewModel
 
         profileViewModel.setEmail(email)

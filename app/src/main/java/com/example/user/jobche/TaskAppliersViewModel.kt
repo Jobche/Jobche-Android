@@ -31,7 +31,6 @@ class TaskAppliersViewModel {
     private val _updateAdapterEventLiveData = SingleLiveData<Any>()
 
 
-
     fun getEmail(): String {
         return this.email
     }
@@ -65,13 +64,11 @@ class TaskAppliersViewModel {
     }
 
     fun getTaskId(): Int {
-        Log.d("VTOROTV", taskId.toString())
         return this.taskId
     }
 
     fun setTaskId(taskId: Int) {
         this.taskId = taskId
-        Log.d("PYROV", taskId.toString())
     }
 
 

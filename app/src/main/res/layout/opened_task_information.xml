@@ -2,6 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
+        <variable
+                name="task"
+                type="com.example.user.jobche.Task"/>
         <variable
                 name="viewModel"
                 type="com.example.user.jobche.OpenedTaskViewModel"/>
@@ -30,7 +34,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date:"
+                        android:text="@string/date"
                         android:layout_marginStart="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
@@ -46,7 +50,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Start at:"
+                        android:text="@string/start_at"
                         android:layout_marginStart="100dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
@@ -59,13 +63,13 @@
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
 
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="am"
-                        android:layout_marginStart="4dp"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"/>
+                <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="am"-->
+                        <!--android:layout_marginStart="4dp"-->
+                        <!--android:textColor="@android:color/black"-->
+                        <!--android:textSize="15sp"/>-->
             </LinearLayout>
 
             <View
@@ -84,7 +88,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.task.location.city}"
+                        android:text="@{task.safeLocation.safeCity}"
                         android:layout_marginStart="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
@@ -99,7 +103,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.task.location.country}"
+                        android:text="@{task.safeLocation.safeCountry}"
                         android:layout_marginStart="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
@@ -107,7 +111,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Money:"
+                        android:text="@string/payment"
                         android:layout_marginStart="100dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
@@ -115,7 +119,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.payment}"
+                        android:text='@{"" + task.safePayment}'
                         android:layout_marginStart="7dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
@@ -123,7 +127,7 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="leva"
+                        android:text="@string/leva"
                         android:layout_marginStart="4dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
@@ -140,7 +144,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Description:"
+                    android:text="@string/description"
                     android:layout_marginStart="10dp"
                     android:textColor="@android:color/black"
                     android:textSize="15sp"/>
@@ -148,7 +152,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.task.description}"
+                    android:text="@{task.safeDescription}"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="30dp"
@@ -173,14 +177,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="Workers:"
+                        android:text="@string/workers"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text='@{"" + task.safeAcceptedWorkersCount}'
                         android:layout_marginStart="7dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
@@ -195,14 +199,14 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.numberOfWorkers}"
+                        android:text='@{"" + task.safeNumberOfWorkers}'
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Accepted"
+                        android:text="@string/accepted"
                         android:layout_marginStart="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
