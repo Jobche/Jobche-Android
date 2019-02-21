@@ -11,12 +11,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class LoginViewModel : BaseObservable() {
-
-    private var email: String = ""
-    private var password: String = ""
-
-    private var id:Int = 0
+data class LoginViewModel(
+    var email: String = "",
+    var password: String = "",
+    var id:Int = 0,
+    var isLogged:Boolean = false,
+    var toastMsg:String = ""
+){
 
     private val _signupEventLiveData = SingleLiveData<Any>()
 
@@ -24,9 +25,9 @@ class LoginViewModel : BaseObservable() {
 
     private val _failEventLiveData = SingleLiveData<Any>()
 
+
     val loginEventLiveData: LiveData<Any>
         get() = _loginEventLiveData
-
 
     val signupEventLiveData: LiveData<Any>
         get() = _signupEventLiveData
@@ -38,38 +39,10 @@ class LoginViewModel : BaseObservable() {
         _signupEventLiveData.call()
     }
 
-    @Bindable
-    fun getEmail(): String {
-        return this.email
-    }
-
-    fun setEmail(email: String) {
-        this.email = email
-        notifyPropertyChanged(BR.email)
-    }
-
-    @Bindable
-    fun getPassword(): String {
-        return this.password
-    }
-
-    fun setPassword(password: String) {
-        this.password = password
-        notifyPropertyChanged(BR.password)
-    }
-
-    fun getId(): Int {
-        return this.id
-    }
-
-    fun setId(id: Int) {
-        this.id = id
-    }
-
     fun onClick() {
         val paramObject = JsonObject()
-        paramObject.addProperty("email", this.email)
-        paramObject.addProperty("password", this.password)
+        paramObject.addProperty("email", email)
+        paramObject.addProperty("password", password)
 
         val call: Call<User> = RetrofitClient().getApi()
             .loginUser(paramObject)
@@ -83,10 +56,13 @@ class LoginViewModel : BaseObservable() {
                 Log.d("Login user Success:", response.body().toString())
                 val user: User? = response.body()
                 if (user == null) {
+                    toastMsg = "Невалидно въведени данни! Опитайте пак."
                     _failEventLiveData.call()
                 } else {
-                    setId(user.id)
+                    id = user.id
+                    isLogged = true
                     _loginEventLiveData.call()
+
                 }
             }
 
