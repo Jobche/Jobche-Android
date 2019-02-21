@@ -1,6 +1,7 @@
 package com.example.user.jobche.UI
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -16,28 +17,27 @@ import com.example.user.jobche.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
 
 
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        loginViewModel = LoginViewModel()
-        binding.viewModel = loginViewModel
-        saveData() //to reset sharedPreferences parameters
+        binding.viewModel = viewModel
+        saveData()//to reset SharedProPreferences
 
-        loginViewModel.loginEventLiveData.observe(this, Observer {
-            saveData() //to set sharedPreferences parameters
-            Log.d("Otiam", "kym home")
+        viewModel.loginEventLiveData.observe(this, Observer {
+            saveData()//to set SharedProPreferences
             startActivity(Intent(this, HomeActivity::class.java))
         })
 
-        loginViewModel.signupEventLiveData.observe(this, Observer {
+        viewModel.signupEventLiveData.observe(this, Observer {
             startActivity(Intent(this, SignupNameActivity::class.java))
         })
 
-        loginViewModel.failEventLiveData.observe(this, Observer {
-            Toast.makeText(this, loginViewModel.toastMsg, Toast.LENGTH_LONG).show()
+        viewModel.failEventLiveData.observe(this, Observer {
+            Toast.makeText(this, viewModel.toastMsg, Toast.LENGTH_LONG).show()
         })
     }
 
@@ -45,10 +45,10 @@ class LoginActivity : AppCompatActivity() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
-        editor.putString("EMAIL", loginViewModel.email)
-        editor.putString("PASSWORD", loginViewModel.password)
-        editor.putInt("ID", loginViewModel.id)
-        editor.putBoolean("IS_LOGGED", loginViewModel.isLogged)
+        editor.putString("EMAIL", viewModel.email)
+        editor.putString("PASSWORD", viewModel.password)
+        editor.putInt("ID", viewModel.id)
+        editor.putBoolean("IS_LOGGED", viewModel.isLogged)
         editor.apply()
     }
 }
