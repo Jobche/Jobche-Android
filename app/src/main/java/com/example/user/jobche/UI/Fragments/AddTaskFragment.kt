@@ -94,7 +94,7 @@ class AddTaskFragment : Fragment() {
         })
 
         addTaskViewModel.toastEventLiveData.observe(this, Observer {
-            Toast.makeText(activity, addTaskViewModel.getToastMsg(), Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, addTaskViewModel.toastMsg, Toast.LENGTH_LONG).show()
         })
 
         return binding.root

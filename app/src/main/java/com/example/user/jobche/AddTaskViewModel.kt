@@ -20,15 +20,12 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
 
     private lateinit var password: String
 
-    private var toastMsg: String = ""
+    var toastMsg: String = ""
+
 
     private var localDate: LocalDate? = null
 
     private var localTime: LocalTime? = null
-
-    private var payment: String = ""
-
-    private var numberOfWorkers: String = ""
 
     private var date: String = ""
 
@@ -57,35 +54,6 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
 
     fun setPassword(password: String) {
         this.password = password
-    }
-
-
-    fun getToastMsg(): String {
-        return this.toastMsg
-    }
-
-    @Bindable
-    fun getPayment(): String {
-        return this.payment
-    }
-
-    fun setPayment(payment: String) {
-        task.payment = payment.toInt()
-        this.payment = payment
-        notifyPropertyChanged(BR.payment)
-
-    }
-
-    @Bindable
-    fun getNumberOfWorkers(): String {
-        return this.numberOfWorkers
-    }
-
-    fun setNumberOfWorkers(numberOfWorkers: String) {
-        task.numberOfWorkers = numberOfWorkers.toInt()
-        this.numberOfWorkers = numberOfWorkers
-        notifyPropertyChanged(BR.numberOfWorkers)
-
     }
 
     @Bindable
@@ -174,14 +142,17 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
             toastMsg = "Моля въведете заглавие."
         } else if (task.location.city == "") {
             toastMsg = "Моля въведете град, където ще се проведе работата."
-        } else if (getPayment() == "" || getPayment().toInt() == 0) {
+        } else if (task.payment == "" || task.payment.toInt() == 0) {
             toastMsg = "Моля въведете сума за заплащане."
-        } else if (getNumberOfWorkers() == "" || getNumberOfWorkers().toInt() == 0) {
+        } else if (task.numberOfWorkers == "" || task.numberOfWorkers.toInt() == 0) {
             toastMsg = "Моля въведете броя на нужните работници."
         } else if (getDate() == "" || getLocalDate().isBefore(LocalDate())) {
             toastMsg = "Моля въведете предстояща дата."
         } else if (getTime() == "") {
             toastMsg = "Моля въведете час за начало на работата."
+        } else if (getLocalDate() == LocalDate() &&
+            getLocalTime().isBefore(LocalTime(LocalTime().hourOfDay + 2, LocalTime().minuteOfHour))) {
+                toastMsg = "Трябва да остават поне 2 часа до започването"
         } else if (task.description == "") {
             toastMsg = "Моля въведете описание на работата."
         } else {
@@ -194,8 +165,8 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
 
             val paramObject = JsonObject()
             paramObject.addProperty("title", task.title)
-            paramObject.addProperty("payment", task.payment)
-            paramObject.addProperty("numberOfWorkers", task.numberOfWorkers)
+            paramObject.addProperty("payment", task.payment.toInt())
+            paramObject.addProperty("numberOfWorkers", task.numberOfWorkers.toInt())
             paramObject.addProperty("description", task.description)
             paramObject.addProperty("dateTime", getDateTime(getLocalDate(), getLocalTime()).toString())
             paramObject.add(
@@ -209,7 +180,6 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
             )
 
             val authToken = Credentials.basic(getEmail(), getPassword())
-
 
             val call: Call<Task> = RetrofitClient().getApi()
                 .createTask(authToken, paramObject)
