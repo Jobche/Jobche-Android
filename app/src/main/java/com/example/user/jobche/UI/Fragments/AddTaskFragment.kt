@@ -59,12 +59,10 @@ class AddTaskFragment : Fragment() {
         val task = Task()
         val binding: FragmentAddTaskBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_task, container, false)
-        val addTaskViewModel = AddTaskViewModel(task)
+        val addTaskViewModel = AddTaskViewModel(task, email, password)
         binding.viewModel = addTaskViewModel
         binding.task = task
 
-        addTaskViewModel.setEmail(email)
-        addTaskViewModel.setPassword(password)
 
         addTaskViewModel.dateEventLiveData.observe(this, Observer {
 
@@ -72,7 +70,7 @@ class AddTaskFragment : Fragment() {
                 DatePickerDialog(
                     activity!!,
                     DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
-                        addTaskViewModel.setLocalDate(LocalDate(yearCalendar, monthOfYear + 1, dayOfMonth))
+                        addTaskViewModel.localDate = (LocalDate(yearCalendar, monthOfYear + 1, dayOfMonth))
                     },
                     year,
                     month,
@@ -83,7 +81,7 @@ class AddTaskFragment : Fragment() {
 
         addTaskViewModel.timeEventLiveData.observe(this, Observer {
             val tpd = TimePickerDialog(activity, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minuteOfHour ->
-                addTaskViewModel.setLocalTime(LocalTime(hourOfDay, minuteOfHour))
+                addTaskViewModel.localTime = (LocalTime(hourOfDay, minuteOfHour))
 
             }, hour, minute, true)
             tpd.show()

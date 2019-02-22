@@ -12,7 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.FilteredTasksViewModel
-import com.example.user.jobche.Model.Filter
+import com.example.user.jobche.Filter
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
@@ -23,8 +23,7 @@ class FilteredTasksFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private var page = 0
-    private val sharedPreferences: SharedPreferences =
-        activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
+
 
     private lateinit var filter: Filter
     override fun onCreateView(
@@ -36,6 +35,8 @@ class FilteredTasksFragment : Fragment() {
             (activity as HomeActivity).supportActionBar!!.title = "Филтрирани Обяви"
             (activity as HomeActivity).showBackButton(true)
         }
+        val sharedPreferences: SharedPreferences =
+            activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
 
         val bundle = arguments

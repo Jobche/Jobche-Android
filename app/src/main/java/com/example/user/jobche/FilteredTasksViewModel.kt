@@ -3,7 +3,6 @@ package com.example.user.jobche
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
-import com.example.user.jobche.Model.Filter
 import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
@@ -75,11 +74,10 @@ class FilteredTasksViewModel : ViewModel() {
 
     fun filterTasks(filter: Filter) {
 
-        Log.d("FILTRIRAm", filter.toString())
         val call: Call<Tasks> = RetrofitClient().getApi()
             .getFilteredTasks(
                 getAuthToken(), filter.title, filter.city, filter.dateStart, filter.dateEnd,
-                filter.numWStart, filter.pStart, getPage(), getSize()
+                filter.numWStart?.toIntOrNull() , filter.pStart?.toIntOrNull(), getPage(), getSize()
             )
 
         call.enqueue(object : Callback<Tasks> {

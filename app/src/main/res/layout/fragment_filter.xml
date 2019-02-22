@@ -4,6 +4,9 @@
 
     <data>
         <variable
+                name="filter"
+                type="com.example.user.jobche.Filter"/>
+        <variable
                 name="viewModel"
                 type="com.example.user.jobche.FilterViewModel"/>
     </data>
@@ -22,7 +25,7 @@
                 android:layout_marginTop="20dp"
                 android:hint="@string/title"
                 android:inputType="textCapSentences"
-                android:text="@={viewModel.title}"/>
+                android:text="@={filter.title}"/>
 
         <EditText
                 android:layout_width="match_parent"
@@ -30,7 +33,7 @@
                 android:layout_marginTop="20dp"
                 android:hint="@string/city"
                 android:inputType="textCapSentences"
-                android:text="@={viewModel.city}"/>
+                android:text="@={filter.city}"/>
 
         <EditText
                 android:layout_width="match_parent"
@@ -38,7 +41,7 @@
                 android:layout_marginTop="20dp"
                 android:hint="@string/min_payment"
                 android:inputType="number"
-                android:text="@={viewModel.payment}"/>
+                android:text='@={filter.PStart}'/>
 
 
         <EditText
@@ -47,7 +50,7 @@
                 android:layout_marginTop="20dp"
                 android:hint="@string/min_workers"
                 android:inputType="number"
-                android:text="@={viewModel.numOfWorkers}"/>
+                android:text='@={filter.numWStart}'/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -64,7 +67,6 @@
                 android:weightSum="2">
 
             <EditText
-                    android:id="@+id/date_edttxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -83,7 +85,6 @@
                     android:textSize="20sp"/>
 
             <EditText
-                    android:id="@+id/time_edttxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

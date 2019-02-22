@@ -2,15 +2,12 @@ package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
 import android.app.DatePickerDialog
-import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.example.user.jobche.FilterViewModel
-import com.example.user.jobche.Model.DateOfBirth
+import com.example.user.jobche.Filter
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentFilterBinding
@@ -24,8 +21,6 @@ class FilterFragment : Fragment() {
     private val year = c.get(Calendar.YEAR)
     private val month = c.get(Calendar.MONTH)
     private val day = c.get(Calendar.DAY_OF_MONTH)
-    private lateinit var email: String
-    private lateinit var password: String
     private val bundle:Bundle = Bundle()
     private lateinit var newFragment:Fragment
 
@@ -34,33 +29,24 @@ class FilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val sharedPreferences: SharedPreferences =
-            activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
-
-        email = sharedPreferences.getString("EMAIL", "")!!
-        password = sharedPreferences.getString("PASSWORD", "")!!
-
-
         if (activity is HomeActivity) {
             (activity as HomeActivity).supportActionBar!!.title = "Филтри"
             (activity as HomeActivity).showBackButton(true)
         }
 
+        val filter = Filter()
         val binding: FragmentFilterBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_filter, container, false)
-        val filterViewModel = FilterViewModel()
+        val filterViewModel = FilterViewModel(filter)
         binding.viewModel = filterViewModel
+        binding.filter = filter
 
-        filterViewModel.setEmail(email)
-        filterViewModel.setPassword(password)
 
         filterViewModel.beginDateEventLiveData.observe(activity!!, Observer {
             val dpd = DatePickerDialog(
                 activity!!,
                 DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
-                    val dateTime = DateTime(yearCalendar, monthOfYear + 1, dayOfMonth, 0, 0)
-                    filterViewModel.setDateStart(dateTime.toString())
-                    filterViewModel.setFormattedDateStart(dateTime)
+                    filterViewModel.dateStart = DateTime(yearCalendar, monthOfYear + 1, dayOfMonth, 0, 0)
                 },
                 year,
                 month,
@@ -73,9 +59,7 @@ class FilterFragment : Fragment() {
             val dpd = DatePickerDialog(
                 activity!!,
                 DatePickerDialog.OnDateSetListener { _, yearCalendar, monthOfYear, dayOfMonth ->
-                    val dateTime = DateTime(yearCalendar, monthOfYear + 1, dayOfMonth, 0, 0)
-                    filterViewModel.setDateEnd(dateTime.toString())
-                    filterViewModel.setFormattedDateEnd(dateTime)
+                    filterViewModel.dateEnd = DateTime(yearCalendar, monthOfYear + 1, dayOfMonth, 0, 0)
                 },
                 year,
                 month,
@@ -85,7 +69,7 @@ class FilterFragment : Fragment() {
         })
 
         filterViewModel.searchTasksEventLiveData.observe(activity!!, Observer {
-            bundle.putParcelable("Filter", filterViewModel.getFilter())
+            bundle.putParcelable("Filter", filterViewModel.filter)
             newFragment = FilteredTasksFragment()
             newFragment.arguments = bundle
             activity!!.supportFragmentManager.beginTransaction().replace(

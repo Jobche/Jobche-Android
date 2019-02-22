@@ -2,6 +2,7 @@ package com.example.user.jobche
 
 import com.example.user.jobche.Model.*
 import com.google.gson.JsonObject
+import org.joda.time.DateTime
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.GET
@@ -31,8 +32,8 @@ interface ApiRequests {
         @Header("Authorization") auth:String,
         @Query("title") title: String?,
         @Query("city") city: String?,
-        @Query("dateStart") dateStart: String?,
-        @Query("dateEnd") dateEnd: String?,
+        @Query("dateStart") dateStart: DateTime?,
+        @Query("dateEnd") dateEnd: DateTime?,
         @Query("numWStart") numWStart: Int?,
         @Query("pStart") pStart: Int?,
         @Query("page") page: Int,
