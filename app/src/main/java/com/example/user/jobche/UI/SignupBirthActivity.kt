@@ -28,9 +28,8 @@ class SignupBirthActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signup_birth)
 
         val binding: ActivitySignupBirthBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup_birth)
-        val signupBirthViewModel = SignupBirthViewModel()
+        val signupBirthViewModel = SignupBirthViewModel(intent.getParcelableExtra("user"))
         binding.viewModel = signupBirthViewModel
-        signupBirthViewModel.setRegisterUser(intent.getParcelableExtra("user"))
 
         signupBirthViewModel.birthDateEventLiveData.observe(this, Observer {
 
@@ -42,12 +41,12 @@ class SignupBirthActivity : AppCompatActivity() {
         })
 
         signupBirthViewModel.toastEventLiveData.observe(this, Observer {
-            Toast.makeText(this, signupBirthViewModel.getToastMsg(), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, signupBirthViewModel.toastMsg, Toast.LENGTH_LONG).show()
         })
 
         signupBirthViewModel.nextEventLiveData.observe(this, Observer {
             val intent = Intent(this, SignupContactsActivity::class.java)
-            intent.putExtra("user", signupBirthViewModel.getRegisterUser())
+            intent.putExtra("user", signupBirthViewModel.registerUser)
             startActivity(intent)
         })
 

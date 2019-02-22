@@ -31,7 +31,7 @@ class SignupNameActivity : AppCompatActivity() {
         })
 
         signupNameViewModel.toastEventLiveData.observe(this, Observer {
-            Toast.makeText(this, signupNameViewModel.getToastMsg(), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, signupNameViewModel.toastMsg, Toast.LENGTH_LONG).show()
         })
 
 

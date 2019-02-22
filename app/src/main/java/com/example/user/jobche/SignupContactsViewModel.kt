@@ -14,19 +14,11 @@ import retrofit2.Response
 class SignupContactsViewModel(val registerUser: RegisterUser) {
 
 
-    private var toastMsg: String = ""
+    var toastMsg: String = ""
 
     private val _nextEventLiveData = SingleLiveData<Any>()
 
     private val _toastEventLiveData = SingleLiveData<Any>()
-
-    fun getToastMsg(): String {
-        return toastMsg
-    }
-
-    fun setToastMsg(toastMsg: String) {
-        this.toastMsg = toastMsg
-    }
 
     val toastEventLiveData: LiveData<Any>
         get() = _toastEventLiveData
@@ -38,14 +30,14 @@ class SignupContactsViewModel(val registerUser: RegisterUser) {
     fun onClick() {
 
         if (registerUser.email == "" || registerUser.phoneNum == "") {
-            setToastMsg("Попълнете празните полета.")
+            toastMsg = "Попълнете празните полета."
         } else if (!(Patterns.EMAIL_ADDRESS.matcher(registerUser.email).matches())) {
-            setToastMsg("Неправилно въведен Имейл.")
+            toastMsg = "Неправилно въведен Имейл."
         } else if (registerUser.phoneNum.length != 10) {
-            setToastMsg("Неправилно въведен Телефон.")
+            toastMsg = "Неправилно въведен Телефон."
         }
 
-        if (getToastMsg() != "") {
+        if (toastMsg != "") {
             _toastEventLiveData.call()
         } else {
 

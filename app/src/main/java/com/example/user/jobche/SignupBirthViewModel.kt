@@ -6,15 +6,13 @@ import android.databinding.Bindable
 import org.joda.time.LocalDate
 import org.joda.time.Years
 
-class SignupBirthViewModel : BaseObservable() {
+class SignupBirthViewModel(val registerUser: RegisterUser) : BaseObservable() {
 
     private var birthDate: LocalDate? = null
 
     private var formattedBirthDate: String = ""
 
-    private lateinit var registerUser: RegisterUser
-
-    private var toastMsg: String = ""
+    var toastMsg: String = ""
 
     private val _nextEventLiveData = SingleLiveData<Any>()
 
@@ -49,22 +47,6 @@ class SignupBirthViewModel : BaseObservable() {
         setFormattedBirthDate(formattedBirthDate)
     }
 
-    fun setRegisterUser(user: RegisterUser) {
-        this.registerUser = user
-    }
-
-    fun getRegisterUser(): RegisterUser {
-        return this.registerUser
-    }
-
-    fun getToastMsg(): String {
-        return toastMsg
-    }
-
-    fun setToastMsg(toastMsg: String) {
-        this.toastMsg = toastMsg
-    }
-
     fun getYearsOld(): Int {
 
         val age = Years.yearsBetween(birthDate, LocalDate()).toString()
@@ -86,11 +68,11 @@ class SignupBirthViewModel : BaseObservable() {
 
     fun onClick() {
         if (getBirthDate() == null) {
-            setToastMsg("Попълнете празните полета.")
+            toastMsg = "Попълнете празните полета."
             _toastEventLiveData.call()
         }
         else if(getYearsOld() < 18) {
-            setToastMsg("Трябва да си поне 18 годишен.")
+            toastMsg = "Трябва да си поне 18 годишен."
             _toastEventLiveData.call()
         }
         else {

@@ -27,7 +27,7 @@ class SignupContactsActivity : AppCompatActivity() {
 
 
         signupContactsViewModel.toastEventLiveData.observe(this, Observer {
-            Toast.makeText(this, signupContactsViewModel.getToastMsg(), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, signupContactsViewModel.toastMsg, Toast.LENGTH_LONG).show()
         })
 
         signupContactsViewModel.nextEventLiveData.observe(this, Observer {

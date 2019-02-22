@@ -3,9 +3,9 @@ package com.example.user.jobche
 import android.arch.lifecycle.LiveData
 
 
-class SignupPasswordViewModel(val user: RegisterUser) {
+class SignupPasswordViewModel(val registerUser: RegisterUser) {
 
-    private var toastMsg: String = ""
+    var toastMsg: String = ""
 
     private val _nextEventLiveData = SingleLiveData<Any>()
 
@@ -17,25 +17,18 @@ class SignupPasswordViewModel(val user: RegisterUser) {
     val nextEventLiveData: LiveData<Any>
         get() = _nextEventLiveData
 
-    fun getToastMsg(): String {
-        return toastMsg
-    }
-
-    fun setToastMsg(toastMsg: String) {
-        this.toastMsg = toastMsg
-    }
 
     fun onClick() {
-        if (user.password != user.confPassword) {
-            setToastMsg("Паролата не съвпада с потвърдената.")
-        } else if (user.password.length < 6) {
-            setToastMsg("Паролата трябва да съдържа поне 6 символа.")
+        if (registerUser.password != registerUser.confPassword) {
+            toastMsg = "Паролата не съвпада с потвърдената."
+        } else if (registerUser.password.length < 6) {
+            toastMsg = "Паролата трябва да съдържа поне 6 символа."
         }
 
-        if (getToastMsg() != "") {
+        if (toastMsg != "") {
             _toastEventLiveData.call()
-            user.password = ""
-            user.password = ""
+            registerUser.password = ""
+            registerUser.password = ""
         } else {
             _nextEventLiveData.call()
         }

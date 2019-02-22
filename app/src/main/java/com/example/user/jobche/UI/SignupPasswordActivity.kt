@@ -31,10 +31,8 @@ class SignupPasswordActivity : AppCompatActivity() {
         })
 
         signupPasswordViewModel.toastEventLiveData.observe(this, Observer {
-            Toast.makeText(this, signupPasswordViewModel.getToastMsg(), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, signupPasswordViewModel.toastMsg, Toast.LENGTH_LONG).show()
         })
-
-
 
     }
 }
