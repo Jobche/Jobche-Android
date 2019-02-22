@@ -70,7 +70,7 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
     }
 
     fun setPayment(payment: String) {
-        task.safePayment = payment.toInt()
+        task.payment = payment.toInt()
         this.payment = payment
         notifyPropertyChanged(BR.payment)
 
@@ -82,7 +82,7 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
     }
 
     fun setNumberOfWorkers(numberOfWorkers: String) {
-        task.safeNumberOfWorkers = numberOfWorkers.toInt()
+        task.numberOfWorkers = numberOfWorkers.toInt()
         this.numberOfWorkers = numberOfWorkers
         notifyPropertyChanged(BR.numberOfWorkers)
 
@@ -170,9 +170,9 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
 
     fun onClickAddTask() {
 
-        if (task.safeTitle == "") {
+        if (task.title == "") {
             toastMsg = "Моля въведете заглавие."
-        } else if (task.safeLocation.safeCity == "") {
+        } else if (task.location.city == "") {
             toastMsg = "Моля въведете град, където ще се проведе работата."
         } else if (getPayment() == "" || getPayment().toInt() == 0) {
             toastMsg = "Моля въведете сума за заплащане."
@@ -182,7 +182,7 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
             toastMsg = "Моля въведете предстояща дата."
         } else if (getTime() == "") {
             toastMsg = "Моля въведете час за начало на работата."
-        } else if (task.safeDescription == "") {
+        } else if (task.description == "") {
             toastMsg = "Моля въведете описание на работата."
         } else {
             toastMsg = ""
@@ -193,17 +193,17 @@ class AddTaskViewModel(val task: Task) : BaseObservable() {
         } else {
 
             val paramObject = JsonObject()
-            paramObject.addProperty("title", task.safeTitle)
-            paramObject.addProperty("payment", task.safePayment)
-            paramObject.addProperty("numberOfWorkers", task.safeNumberOfWorkers)
-            paramObject.addProperty("description", task.safeDescription)
+            paramObject.addProperty("title", task.title)
+            paramObject.addProperty("payment", task.payment)
+            paramObject.addProperty("numberOfWorkers", task.numberOfWorkers)
+            paramObject.addProperty("description", task.description)
             paramObject.addProperty("dateTime", getDateTime(getLocalDate(), getLocalTime()).toString())
             paramObject.add(
                 "location", Gson().toJsonTree(
                     Location(
-                        task.safeLocation.safeCountry,
-                        task.safeLocation.safeCity,
-                        task.safeLocation.safeNeighborhood
+                        task.location.country,
+                        task.location.city,
+                        task.location.neighborhood
                     )
                 )
             )

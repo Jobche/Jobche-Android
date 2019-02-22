@@ -15,12 +15,12 @@ class OpenedTaskViewModel(val task: Task) {
 
     private lateinit var password: String
 
-    private val date: String = (task.safeDateTime).substring(8, 10) + "." + (task.safeDateTime).substring(5, 7)
+    private val date: String = (task.dateTime).substring(8, 10) + "." + (task.dateTime).substring(5, 7)
 
-    private val time: String = (task.safeDateTime).substring(11, 16)
-    private val payment: String = task.safePayment.toString()
+    private val time: String = (task.dateTime).substring(11, 16)
+    private val payment: String = task.payment.toString()
 
-    private val numberOfWorkers: String = task.safeNumberOfWorkers.toString()
+    private val numberOfWorkers: String = task.numberOfWorkers.toString()
 
     private val _onClickEventLiveData = SingleLiveData<Any>()
 
@@ -64,7 +64,7 @@ class OpenedTaskViewModel(val task: Task) {
 
     fun onClick() {
         val paramObject = JsonObject()
-        paramObject.addProperty("taskId", task.safeId)
+        paramObject.addProperty("taskId", task.id)
 
         val authToken = Credentials.basic(getEmail(), getPassword())
 

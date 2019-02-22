@@ -27,7 +27,7 @@
                 android:padding="10dp"
                 android:hint="@string/title"
                 android:inputType="textCapSentences"
-                android:text='@={task.safeTitle}'
+                android:text='@={task.title}'
         />
 
         <!--<EditText-->
@@ -47,7 +47,7 @@
                 android:padding="10dp"
                 android:hint="@string/city"
                 android:inputType="textCapSentences"
-                android:text="@={task.safeLocation.safeCity}"/>
+                android:text="@={task.location.city}"/>
 
         <EditText
                 android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                 android:hint="@string/description"
                 android:padding="10dp"
                 android:inputType="textMultiLine|textCapSentences"
-                android:text="@={task.safeDescription}"/>
+                android:text="@={task.description}"/>
 
         <Button
                 android:id="@+id/add_task_btn"

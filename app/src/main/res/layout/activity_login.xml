@@ -8,16 +8,15 @@
                 name="viewModel"
                 type="com.example.user.jobche.LoginViewModel"/>
     </data>
-    <LinearLayout
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".UI.LoginActivity"
             android:background="@color/colorPrimary"
-            android:isScrollContainer="true">
+            tools:context=".UI.LoginActivity">
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginEnd="40dp"
                 android:layout_marginStart="40dp">
@@ -120,5 +119,5 @@
                         android:onClick="@{() -> viewModel.onSignup()}"/>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </layout>

@@ -52,7 +52,7 @@ class OpenedTaskFragment : Fragment() {
 
         val openedTaskViewModel = OpenedTaskViewModel(task)
         val profileViewModel = ProfileViewModel()
-        profileViewModel.setUserId(task.safeCreatorId)
+        profileViewModel.setUserId(task.creatorId)
         binding.viewModel = openedTaskViewModel
         binding.frameOpenedTask.viewModel = openedTaskViewModel
         binding.frameOpenedTask.task = task

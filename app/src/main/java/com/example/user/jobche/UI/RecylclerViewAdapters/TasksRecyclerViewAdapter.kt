@@ -39,19 +39,19 @@ class TasksRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: called.")
-        holder.title.text = tasks[position].safeTitle
-        holder.location.text = tasks[position].safeLocation.safeCity
+        holder.title.text = tasks[position].title
+        holder.location.text = tasks[position].location.city
         holder.date.text =
-                ((tasks[position].safeDateTime).substring(8, 10) + "." + (tasks[position].safeDateTime).substring(5, 7))
-        holder.time.text = (tasks[position].safeDateTime).substring(11, 16)
-        holder.payment.text = tasks[position].safePayment.toString()
-        holder.numberOfWorkers.text = tasks[position].safeNumberOfWorkers.toString()
+                ((tasks[position].dateTime).substring(8, 10) + "." + (tasks[position].dateTime).substring(5, 7))
+        holder.time.text = (tasks[position].dateTime).substring(11, 16)
+        holder.payment.text = tasks[position].payment.toString()
+        holder.numberOfWorkers.text = tasks[position].numberOfWorkers.toString()
         holder.acceptedWorkersCount.text = tasks[position].safeAcceptedWorkersCount.toString()
 
         holder.itemView.setOnClickListener {
-            if (tasks[position].safeCreatorId == userId) {
+            if (tasks[position].creatorId == userId) {
                 newFragment = TaskAppliersFragment()
-                bundle.putInt("TaskId", tasks[position].safeId)
+                bundle.putInt("TaskId", tasks[position].id)
                 newFragment.arguments = bundle
                 fragment.activity!!.supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, newFragment
