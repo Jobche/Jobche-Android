@@ -3,30 +3,36 @@ package com.example.user.jobche
 import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
-import com.example.user.jobche.Model.Filter
 import org.joda.time.DateTime
 
-class FilterViewModel : BaseObservable() {
+class FilterViewModel(val filter: Filter) : BaseObservable() {
 
-    private lateinit var email: String
+    var dateStart: DateTime? = null
+        set(value) {
+            formattedDateStart = formatDate(value)
+            filter.dateStart = value
+        }
 
-    private lateinit var password: String
+    var dateEnd: DateTime? = null
+        set(value) {
+            formattedDateEnd = (formatDate(value))
+            filter.dateEnd = value
+        }
 
-    private var title: String? = null
+    var formattedDateStart: String = ""
+        @Bindable get() = field
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.formattedDateStart)
+        }
 
-    private var city: String? = null
+    var formattedDateEnd: String = ""
+        @Bindable get() = field
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.formattedDateEnd)
+        }
 
-    private var payment: String? = null
-
-    private var numOfWorkers: String? = null
-
-    private var formattedDateStart: String = ""
-
-    private var formattedDateEnd: String = ""
-
-    private var dateStart: String? = null
-
-    private var dateEnd: String? = null
 
     private val _beginDateEventLiveData = SingleLiveData<Any>()
 
@@ -43,106 +49,15 @@ class FilterViewModel : BaseObservable() {
     val searchTasksEventLiveData: LiveData<Any>
         get() = _searchTasksEventLiveData
 
-    fun getEmail(): String {
-        return this.email
-    }
+    fun formatDate(dateTime: DateTime?): String {
 
-    fun setEmail(email: String) {
-        this.email = email
-    }
-
-
-    fun getPassword(): String {
-        return this.password
-    }
-
-    fun setPassword(password: String) {
-        this.password = password
-    }
-
-
-    @Bindable
-    fun getCity(): String? {
-        return this.city
-    }
-
-    fun setCity(city: String) {
-        this.city = city
-        notifyPropertyChanged(BR.city)
-    }
-
-    @Bindable
-    fun getTitle(): String? {
-        return this.title
-    }
-
-    fun setTitle(title: String) {
-        this.title = title
-        notifyPropertyChanged(BR.title)
-    }
-
-    @Bindable
-    fun getPayment(): String? {
-        return this.payment
-    }
-
-    fun setPayment(payment: String) {
-        this.payment = payment
-        notifyPropertyChanged(BR.payment)
-    }
-
-    @Bindable
-    fun getNumOfWorkers(): String? {
-        return this.numOfWorkers
-    }
-
-    fun setNumOfWorkers(numOfWorkers: String) {
-        this.numOfWorkers = numOfWorkers
-        notifyPropertyChanged(BR.numOfWorkers)
-    }
-
-    @Bindable
-    fun getFormattedDateStart(): String {
-        return this.formattedDateStart
-    }
-
-    fun setFormattedDateStart(dateTime: DateTime) {
-        this.formattedDateStart = formatDate(dateTime)
-        notifyPropertyChanged(BR.formattedDateStart)
-
-    }
-
-    @Bindable
-    fun getFormattedDateEnd(): String {
-        return this.formattedDateEnd
-    }
-
-    fun setFormattedDateEnd(dateTime: DateTime) {
-        this.formattedDateEnd = formatDate(dateTime)
-        notifyPropertyChanged(BR.formattedDateEnd)
-
-    }
-
-    fun formatDate(dateTime: DateTime): String {
-        return String.format("%02d", dateTime.dayOfMonth) + "." +
-                String.format("%02d", dateTime.monthOfYear) + "." +
-                dateTime.year.toString()
-    }
-
-    fun getDateStart(): String? {
-        return this.dateStart
-    }
-
-    fun setDateStart(dateStart: String) {
-        this.dateStart = dateStart
-    }
-
-    fun getDateEnd(): String? {
-        return this.dateEnd
-    }
-
-    fun setDateEnd(dateEnd: String) {
-        this.dateEnd = dateEnd
+        return if(dateTime == null) {
+            ""
+        }else {
+                String.format("%02d", dateTime.dayOfMonth) + "." +
+                        String.format("%02d", dateTime.monthOfYear) + "." +
+                        dateTime.year.toString()
+            }
     }
 
     fun onBeginDate() {
@@ -151,13 +66,6 @@ class FilterViewModel : BaseObservable() {
 
     fun onEndDate() {
         _endDateEventLiveData.call()
-    }
-
-    fun getFilter(): Filter {
-        return Filter(
-            getTitle(), getCity(), getDateStart(), getDateEnd(),
-            getNumOfWorkers()?.toInt(), getPayment()?.toInt()
-        )
     }
 
     fun onClickSearch() {
