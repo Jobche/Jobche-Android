@@ -28,7 +28,7 @@ class SignupPasswordViewModel(val registerUser: RegisterUser) {
         if (toastMsg != "") {
             _toastEventLiveData.call()
             registerUser.password = ""
-            registerUser.password = ""
+            registerUser.confPassword = ""
         } else {
             _nextEventLiveData.call()
         }

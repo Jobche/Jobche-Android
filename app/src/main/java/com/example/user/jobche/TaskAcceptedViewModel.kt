@@ -1,6 +1,7 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.ViewModel
 import android.telecom.Call
 import android.util.Log
 import com.example.user.jobche.Model.Application
@@ -10,7 +11,7 @@ import okhttp3.Credentials
 import retrofit2.Callback
 import retrofit2.Response
 
-class TaskAcceptedViewModel(val task: Task, private val email: String, private val password: String) {
+class TaskAcceptedViewModel(val task: Task, private val email: String, private val password: String): ViewModel() {
 
     var page: Int = 0
 
@@ -19,6 +20,9 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
     var appliers = ArrayList<UserProfile>()
 
     var applications = ArrayList<Application>()
+
+    var acceptedApplications = ArrayList<Application>()
+
 
     private val _adapterEventLiveData = SingleLiveData<Any>()
 
@@ -56,6 +60,10 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                 if (response.body() != null) {
                     applications = response.body()!!.applications
                     for (appl in applications) {
+                        if(appl.accepted) {
+                            acceptedApplications.add(appl)
+                            applications.remove(appl)
+                        }
                         appliers.add(appl.applicant)
                     }
                     if (page == 0) {

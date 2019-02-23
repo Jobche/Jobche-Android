@@ -1,12 +1,11 @@
 package com.example.user.jobche
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.example.user.jobche.UI.Fragments.TaskAcceptedFragment
-import com.example.user.jobche.UI.Fragments.TaskWorkersFragment
+import com.example.user.jobche.UI.Fragments.TaskAppliedFragment
 
 class ViewPagerAdapter(fm: FragmentManager?, val task: Task) :
     FragmentPagerAdapter(fm) {
@@ -18,13 +17,13 @@ class ViewPagerAdapter(fm: FragmentManager?, val task: Task) :
 
     override fun getItem(p0: Int): Fragment {
        return when (p0) {
-            0 ->  goToTaskAccepted()
-            else ->  TaskAppliedFragment()
+            0 ->  goToFragment(TaskAcceptedFragment())
+            else -> goToFragment(TaskAppliedFragment())
         }
     }
 
-    fun goToTaskAccepted(): Fragment {
-        newFragment = TaskAcceptedFragment()
+    fun goToFragment(fragment: Fragment): Fragment {
+        newFragment = fragment
         bundle.putParcelable("Task", task)
         newFragment.arguments = bundle
         return newFragment

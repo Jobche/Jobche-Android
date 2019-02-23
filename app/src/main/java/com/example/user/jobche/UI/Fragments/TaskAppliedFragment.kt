@@ -3,24 +3,22 @@ package com.example.user.jobche.UI.Fragments
 import android.arch.lifecycle.Observer
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.user.jobche.UI.RecylclerViewAdapters.AppliersRecyclerViewAdapter
-import com.example.user.jobche.TaskAcceptedViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.Task
-import com.example.user.jobche.UI.HomeActivity
-import com.example.user.jobche.ViewPagerAdapter
-import com.example.user.jobche.databinding.FragmentTaskAcceptedBinding
+import com.example.user.jobche.TaskAcceptedViewModel
+import com.example.user.jobche.UI.RecylclerViewAdapters.AppliersRecyclerViewAdapter
+import com.example.user.jobche.databinding.FragmentTaskAppliedBinding
 
 
-class TaskAcceptedFragment : Fragment() {
+class TaskAppliedFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
@@ -34,9 +32,6 @@ class TaskAcceptedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        super.onCreate(savedInstanceState)
-
-
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
@@ -49,11 +44,8 @@ class TaskAcceptedFragment : Fragment() {
             task = bundle.getParcelable("Task")!!
         }
 
-        val binding: FragmentTaskAcceptedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_accepted, container, false)
+        val binding: FragmentTaskAppliedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_applied, container, false)
         val taskAppliersViewModel = TaskAcceptedViewModel(task, email, password)
-        binding.viewModel = taskAppliersViewModel
-        binding.task = task
-
         recyclerView = binding.listOfAppliers
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
@@ -64,7 +56,7 @@ class TaskAcceptedFragment : Fragment() {
         taskAppliersViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = AppliersRecyclerViewAdapter(
                 this,
-                taskAppliersViewModel.acceptedApplications
+                taskAppliersViewModel.applications
             )
         })
         taskAppliersViewModel.onClickEventLiveData.observe(this, Observer {
