@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
+import com.example.user.jobche.Model.ErrorTask
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.Credentials
@@ -14,16 +15,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddTaskViewModel(val task: Task, private val email: String, private val password: String) : BaseObservable() {
+class AddTaskViewModel(val task: AddTask, private val email: String, private val password: String) : BaseObservable() {
 
-    var toastMsg: String = ""
+    val errorMsg: String = "Моля попълнете полето."
 
-    var errorTitle: String = ""
+    var onClicked: Boolean = false
         @Bindable get() = field
         set(value) {
             field = value
-            notifyPropertyChanged(BR.errorTitle)
+            notifyPropertyChanged(BR.onClicked)
         }
+
+
     var localDate: LocalDate? = null
         set(value) {
             date = (formatDate(value!!))
@@ -99,31 +102,9 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
 
     fun onClickAddTask() {
 
-        if (task.title == "") {
-            toastMsg = "Моля въведете заглавие."
-            errorTitle = toastMsg
-        } else if (task.location.city == "") {
-            toastMsg = "Моля въведете град, където ще се проведе работата."
-        } else if (task.payment == "" || task.payment.toInt() == 0) {
-            toastMsg = "Моля въведете сума за заплащане."
-        } else if (task.numberOfWorkers == "" || task.numberOfWorkers.toInt() == 0) {
-            toastMsg = "Моля въведете броя на нужните работници."
-        } else if (date == "" || localDate!!.isBefore(LocalDate())) {
-            toastMsg = "Моля въведете предстояща дата."
-        } else if (time == "") {
-            toastMsg = "Моля въведете час за начало на работата."
-        } else if (localDate!!.isEqual(LocalDate()) &&
-            localTime!!.isBefore(LocalTime().plusHours(2))) {
-                toastMsg = "Трябва да остават поне 2 часа до започването"
-        } else if (task.description == "") {
-            toastMsg = "Моля въведете описание на работата."
-        } else {
-            toastMsg = ""
-        }
-
-        if (toastMsg != "") {
-            _toastEventLiveData.call()
-        } else {
+        onClicked = true
+        if (task.title.isNotEmpty() && task.city.isNotEmpty() && task.payment.isNotEmpty() && task.numberOfWorkers.isNotEmpty()
+            && task.description.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
 
             val paramObject = JsonObject()
             paramObject.addProperty("title", task.title)
@@ -134,9 +115,9 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
             paramObject.add(
                 "location", Gson().toJsonTree(
                     Location(
-                        task.location.country,
-                        task.location.city,
-                        task.location.neighborhood
+                        "България",
+                        task.city,
+                        ""
                     )
                 )
             )
@@ -157,7 +138,6 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
             })
 
         }
-
     }
 }
 

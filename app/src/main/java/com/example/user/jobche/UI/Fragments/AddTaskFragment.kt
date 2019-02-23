@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.user.jobche.AddTask
 import com.example.user.jobche.AddTaskViewModel
 import com.example.user.jobche.Task
 import net.danlew.android.joda.JodaTimeAndroid
@@ -56,7 +57,7 @@ class AddTaskFragment : Fragment() {
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
-        val task = Task()
+        val task = AddTask()
         val binding: FragmentAddTaskBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_add_task, container, false)
         val addTaskViewModel = AddTaskViewModel(task, email, password)
@@ -89,10 +90,6 @@ class AddTaskFragment : Fragment() {
 
         addTaskViewModel.addTaskEventLiveData.observe(this, Observer {
             startActivity(Intent(activity, HomeActivity::class.java))
-        })
-
-        addTaskViewModel.toastEventLiveData.observe(this, Observer {
-            Toast.makeText(activity, addTaskViewModel.toastMsg, Toast.LENGTH_LONG).show()
         })
 
         return binding.root

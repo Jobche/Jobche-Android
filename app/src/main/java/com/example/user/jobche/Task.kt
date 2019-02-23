@@ -3,6 +3,7 @@ package com.example.user.jobche
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.os.Parcelable
+import com.example.user.jobche.Model.ErrorTask
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -31,10 +32,57 @@ data class Task(
 
 }
 
+class AddTask: BaseObservable() {
+
+    var title: String = ""
+        @Bindable get() = field
+        set(value) {
+            field = value
+//            errorTask.errorTitle = ""
+            notifyPropertyChanged(BR.title)
+        }
+
+    var city: String = ""
+        @Bindable get() = field
+        set(value) {
+            field = value
+//            errorTask.errorCity = ""
+            notifyPropertyChanged(BR.city)
+        }
+
+    var payment: String = ""
+        @Bindable get() = field
+        set(value) {
+            field = value
+//            errorTask.errorPayment = ""
+            notifyPropertyChanged(BR.payment)
+        }
+
+    var numberOfWorkers: String = ""
+        @Bindable get() = field
+        set(value) {
+            field = value
+//            errorTask.errorNumOfWorkers = ""
+            notifyPropertyChanged(BR.numberOfWorkers)
+        }
+
+    var dateTime: String = ""
+
+    var description: String = ""
+        @Bindable get() = field
+        set(value) {
+            field = value
+//            errorTask.errorNumOfWorkers = ""
+            notifyPropertyChanged(BR.description)
+        }
+
+
+}
+
 
 @Parcelize
 data class Location(
     val country: String = "България",
     var city: String = "",
     val neighborhood: String = ""
-) : Parcelable
+) : Parcelable, BaseObservable()
