@@ -48,5 +48,8 @@
     <string name="error_empty">Моля попълнете полето.</string>
     <string name="apply">Кандидатствам</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

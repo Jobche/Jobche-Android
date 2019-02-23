@@ -20,7 +20,6 @@ import com.example.user.jobche.databinding.FragmentMyTasksBinding
 
 class MyTasksFragment : Fragment() {
 
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String

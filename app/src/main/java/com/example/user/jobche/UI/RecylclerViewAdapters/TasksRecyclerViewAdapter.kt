@@ -13,8 +13,9 @@ import android.widget.TextView
 import android.view.LayoutInflater
 import com.example.user.jobche.Task
 import com.example.user.jobche.R
-import com.example.user.jobche.UI.Fragments.TaskAppliersFragment
+import com.example.user.jobche.UI.Fragments.TaskAcceptedFragment
 import com.example.user.jobche.UI.Fragments.OpenedTaskFragment
+import com.example.user.jobche.UI.Fragments.TaskWorkersFragment
 
 
 class TasksRecyclerViewAdapter(
@@ -50,7 +51,7 @@ class TasksRecyclerViewAdapter(
 
         holder.itemView.setOnClickListener {
             if (tasks[position].creatorId == userId) {
-                newFragment = TaskAppliersFragment()
+                newFragment = TaskWorkersFragment()
                 bundle.putParcelable("Task", tasks[position])
                 newFragment.arguments = bundle
                 fragment.activity!!.supportFragmentManager.beginTransaction().replace(

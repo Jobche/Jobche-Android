@@ -8,19 +8,19 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.UI.RecylclerViewAdapters.AppliersRecyclerViewAdapter
-import com.example.user.jobche.TaskAppliersViewModel
+import com.example.user.jobche.TaskAcceptedViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.Task
 import com.example.user.jobche.UI.HomeActivity
-import com.example.user.jobche.databinding.FragmentTaskAppliersBinding
+import com.example.user.jobche.ViewPagerAdapter
+import com.example.user.jobche.databinding.FragmentTaskAcceptedBinding
 
 
-class TaskAppliersFragment : Fragment() {
+class TaskAcceptedFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
@@ -49,16 +49,15 @@ class TaskAppliersFragment : Fragment() {
             task = bundle.getParcelable("Task")!!
         }
 
-        if (activity is HomeActivity) {
-            (activity as HomeActivity).supportActionBar!!.title = "Желаещи"
-            (activity as HomeActivity).showBackButton(true)
-        }
-
-        val binding: FragmentTaskAppliersBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_appliers, container, false)
-        val taskAppliersViewModel = TaskAppliersViewModel(task, email, password)
+        val binding: FragmentTaskAcceptedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_accepted, container, false)
+        val taskAppliersViewModel = TaskAcceptedViewModel(task, email, password)
         binding.viewModel = taskAppliersViewModel
         binding.task = task
 
+
+//
+//        binding.viewPager.adapter = ViewPagerAdapter(activity!!.supportFragmentManager)
+//        binding.tabLayout.setupWithViewPager(binding.viewPager)
 
         recyclerView = binding.listOfAppliers
         val layoutManager = LinearLayoutManager(activity)

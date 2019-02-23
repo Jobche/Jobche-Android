@@ -10,7 +10,7 @@ import okhttp3.Credentials
 import retrofit2.Callback
 import retrofit2.Response
 
-class TaskAppliersViewModel(val task: Task, private val email: String, private val password: String) {
+class TaskAcceptedViewModel(val task: Task, private val email: String, private val password: String) {
 
     var page: Int = 0
 
