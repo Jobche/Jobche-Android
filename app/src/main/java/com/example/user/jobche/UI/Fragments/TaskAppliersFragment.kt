@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import com.example.user.jobche.UI.RecylclerViewAdapters.AppliersRecyclerViewAdapter
 import com.example.user.jobche.TaskAppliersViewModel
 import com.example.user.jobche.R
+import com.example.user.jobche.Task
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentTaskAppliersBinding
 
@@ -25,7 +26,9 @@ class TaskAppliersFragment : Fragment() {
     private lateinit var email: String
     private lateinit var password: String
     private var page = 0
-    private var taskId = 0
+    private var task: Task = Task()
+    private val bundle: Bundle = Bundle()
+    private lateinit var newFragment: Fragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +46,7 @@ class TaskAppliersFragment : Fragment() {
 
         val bundle = arguments
         if (bundle != null) {
-            taskId = bundle.getInt("TaskId")
+            task = bundle.getParcelable("Task")!!
         }
 
         if (activity is HomeActivity) {
@@ -52,12 +55,10 @@ class TaskAppliersFragment : Fragment() {
         }
 
         val binding: FragmentTaskAppliersBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_appliers, container, false)
-        val taskAppliersViewModel = TaskAppliersViewModel()
+        val taskAppliersViewModel = TaskAppliersViewModel(task, email, password)
         binding.viewModel = taskAppliersViewModel
+        binding.task = task
 
-        taskAppliersViewModel.setEmail(email)
-        taskAppliersViewModel.setPassword(password)
-        taskAppliersViewModel.setTaskId(taskId)
 
         recyclerView = binding.listOfAppliers
         val layoutManager = LinearLayoutManager(activity)
@@ -69,9 +70,19 @@ class TaskAppliersFragment : Fragment() {
         taskAppliersViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = AppliersRecyclerViewAdapter(
                 this,
-                taskAppliersViewModel.getApplications()
+                taskAppliersViewModel.applications
             )
         })
+        taskAppliersViewModel.onClickEventLiveData.observe(this, Observer {
+            newFragment = OpenedTaskFragment()
+            this.bundle.putParcelable("Task", task)
+            newFragment.arguments = bundle
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container, newFragment
+            ).addToBackStack(null).commit()
+
+        })
+
 
 
         taskAppliersViewModel.updateAdapterEventLiveData.observe(this, Observer {
@@ -84,8 +95,8 @@ class TaskAppliersFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     page += 1
-                    taskAppliersViewModel.setPage(page)
-                    taskAppliersViewModel.getAppliers()
+                    taskAppliersViewModel.page = page
+                    taskAppliersViewModel.appliers
                 }
             }
         })
