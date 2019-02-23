@@ -33,8 +33,6 @@ class ProfileFragment : Fragment() {
             this.activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
         userId = sharedPreferences.getInt("ID", 0)
-
-
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 

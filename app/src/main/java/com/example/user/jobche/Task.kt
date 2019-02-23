@@ -3,7 +3,6 @@ package com.example.user.jobche
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.os.Parcelable
-import com.example.user.jobche.Model.ErrorTask
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 

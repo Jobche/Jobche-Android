@@ -44,14 +44,14 @@ class TasksRecyclerViewAdapter(
         holder.date.text =
                 ((tasks[position].dateTime).substring(8, 10) + "." + (tasks[position].dateTime).substring(5, 7))
         holder.time.text = (tasks[position].dateTime).substring(11, 16)
-        holder.payment.text = tasks[position].payment.toString()
-        holder.numberOfWorkers.text = tasks[position].numberOfWorkers.toString()
+        holder.payment.text = tasks[position].payment
+        holder.numberOfWorkers.text = tasks[position].numberOfWorkers
         holder.acceptedWorkersCount.text = tasks[position].safeAcceptedWorkersCount.toString()
 
         holder.itemView.setOnClickListener {
             if (tasks[position].creatorId == userId) {
                 newFragment = TaskAppliersFragment()
-                bundle.putInt("TaskId", tasks[position].id)
+                bundle.putParcelable("Task", tasks[position])
                 newFragment.arguments = bundle
                 fragment.activity!!.supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, newFragment

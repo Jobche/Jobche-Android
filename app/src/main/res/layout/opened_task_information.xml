@@ -63,13 +63,6 @@
                         android:textColor="@android:color/black"
                         android:textSize="15sp"/>
 
-                <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="am"-->
-                        <!--android:layout_marginStart="4dp"-->
-                        <!--android:textColor="@android:color/black"-->
-                        <!--android:textSize="15sp"/>-->
             </LinearLayout>
 
             <View

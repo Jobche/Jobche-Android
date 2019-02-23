@@ -21,6 +21,7 @@ class OpenedTaskFragment : Fragment() {
 
     private lateinit var email: String
     private lateinit var password: String
+    private var userId: Int = 0
     private lateinit var task: Task
 
     override fun onCreateView(
@@ -32,6 +33,7 @@ class OpenedTaskFragment : Fragment() {
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
+        userId = sharedPreferences.getInt("ID", 0)
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
@@ -50,16 +52,13 @@ class OpenedTaskFragment : Fragment() {
         val binding: FragmentOpenedTaskBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_opened_task, container, false)
 
-        val openedTaskViewModel = OpenedTaskViewModel(task)
+        val openedTaskViewModel = OpenedTaskViewModel(task, email, password, userId)
         val profileViewModel = ProfileViewModel()
         profileViewModel.setUserId(task.creatorId)
         binding.viewModel = openedTaskViewModel
         binding.frameOpenedTask.viewModel = openedTaskViewModel
         binding.frameOpenedTask.task = task
         binding.creatorInfo.viewModel = profileViewModel
-
-        openedTaskViewModel.setEmail(email)
-        openedTaskViewModel.setPassword(password)
 
         profileViewModel.setEmail(email)
         profileViewModel.setPassword(password)
