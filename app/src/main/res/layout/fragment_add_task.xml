@@ -20,44 +20,77 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp">
 
-        <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"
-        android:hint="@string/title"
-        android:inputType="textCapSentences"
-        android:text='@={task.title}'
-        app:error="@{viewModel.errorTitle}"
-        />
-
-        <EditText
+        <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:hint="@string/city"
-                android:inputType="textCapSentences"
-                android:text="@={task.location.city}"/>
+                android:layout_marginTop="10dp"
+                app:error="@{viewModel.errorTitle}"
+                app:errorEnabled="true">
 
-        <EditText
+            <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:hint="@string/title"
+                    android:inputType="textCapSentences"
+                    android:text='@={task.title}'/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:hint="@string/payment"
-                android:inputType="number"
-                android:text='@={task.payment}'/>
+                android:layout_marginTop="10dp"
+                app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:hint="@string/city"
+                    android:inputType="textCapSentences"
+                    android:text="@={task.location.city}"/>
+
+        </android.support.design.widget.TextInputLayout>
 
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:hint="@string/workers"
-                android:inputType="number"
-                android:text='@={task.numberOfWorkers}'/>
+                android:layout_marginTop="10dp"
+                app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:hint="@string/payment"
+                    android:inputType="number"
+                    android:text='@={task.payment}'/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:hint="@string/workers"
+                    android:inputType="number"
+                    android:text='@={task.numberOfWorkers}'/>
+
+        </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -65,37 +98,63 @@
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
-            <EditText
-                    android:id="@+id/date_edttxt"
+            <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:focusable="false"
-                    android:hint="@string/date"
-                    android:text="@={viewModel.date}"
-                    android:onClick="@{() -> viewModel.onClickDate()}"
-            />
-            <EditText
-                    android:id="@+id/time_edttxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:focusable="false"
-                    android:hint="@string/time"
-                    android:text="@={viewModel.time}"
-                    android:onClick="@{() -> viewModel.onClickTime()}"/>
+                    app:errorEnabled="true">
 
+
+                <android.support.design.widget.TextInputEditText
+                        android:id="@+id/date_edttxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="@string/date"
+                        android:text="@={viewModel.date}"
+                        android:onClick="@{() -> viewModel.onClickDate()}"
+                />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    app:errorEnabled="true">
+
+                <android.support.design.widget.TextInputEditText
+                        android:id="@+id/time_edttxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="@string/time"
+                        android:text="@={viewModel.time}"
+                        android:onClick="@{() -> viewModel.onClickTime()}"/>
+
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="@string/description"
-                android:padding="10dp"
-                android:inputType="textMultiLine|textCapSentences"
-                android:text="@={task.description}"/>
+                android:layout_marginTop="10dp"
+                app:errorEnabled="true">
+
+
+            <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/description"
+                    android:padding="10dp"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:text="@={task.description}"/>
+
+        </android.support.design.widget.TextInputLayout>
 
         <Button
                 android:id="@+id/add_task_btn"

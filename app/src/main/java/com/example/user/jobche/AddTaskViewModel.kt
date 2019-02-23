@@ -18,9 +18,12 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
 
     var toastMsg: String = ""
 
-    @Bindable
     var errorTitle: String = ""
-
+        @Bindable get() = field
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.errorTitle)
+        }
     var localDate: LocalDate? = null
         set(value) {
             date = (formatDate(value!!))
@@ -91,8 +94,6 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
 
     fun onClickTime() {
         _timeEventLiveData.call()
-        Log.d("VREME", (LocalTime(LocalTime().plusHours(2).hourOfDay, LocalTime().minuteOfHour)).toString())
-        Log.d("VREMENCE", (LocalTime().plusHours(2)).toString())
 
     }
 
@@ -101,7 +102,6 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
         if (task.title == "") {
             toastMsg = "Моля въведете заглавие."
             errorTitle = toastMsg
-            notifyPropertyChanged(BR.errorTitle)
         } else if (task.location.city == "") {
             toastMsg = "Моля въведете град, където ще се проведе работата."
         } else if (task.payment == "" || task.payment.toInt() == 0) {
