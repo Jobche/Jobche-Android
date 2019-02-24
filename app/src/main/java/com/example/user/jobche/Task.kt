@@ -37,7 +37,6 @@ class AddTask: BaseObservable() {
         @Bindable get() = field
         set(value) {
             field = value
-//            errorTask.errorTitle = ""
             notifyPropertyChanged(BR.title)
         }
 
@@ -61,7 +60,6 @@ class AddTask: BaseObservable() {
         @Bindable get() = field
         set(value) {
             field = value
-//            errorTask.errorNumOfWorkers = ""
             notifyPropertyChanged(BR.numberOfWorkers)
         }
 
@@ -71,7 +69,6 @@ class AddTask: BaseObservable() {
         @Bindable get() = field
         set(value) {
             field = value
-//            errorTask.errorNumOfWorkers = ""
             notifyPropertyChanged(BR.description)
         }
 

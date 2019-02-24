@@ -6,18 +6,19 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.user.jobche.UI.RecylclerViewAdapters.AppliersRecyclerViewAdapter
 import com.example.user.jobche.TaskAcceptedViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.Task
-import com.example.user.jobche.UI.HomeActivity
-import com.example.user.jobche.ViewPagerAdapter
 import com.example.user.jobche.databinding.FragmentTaskAcceptedBinding
+import java.util.*
 
 
 class TaskAcceptedFragment : Fragment() {
@@ -49,7 +50,8 @@ class TaskAcceptedFragment : Fragment() {
             task = bundle.getParcelable("Task")!!
         }
 
-        val binding: FragmentTaskAcceptedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_accepted, container, false)
+        val binding: FragmentTaskAcceptedBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_task_accepted, container, false)
         val taskAppliersViewModel = TaskAcceptedViewModel(task, email, password)
         binding.viewModel = taskAppliersViewModel
         binding.task = task
@@ -75,6 +77,35 @@ class TaskAcceptedFragment : Fragment() {
                 R.id.fragment_container, newFragment
             ).addToBackStack(null).commit()
 
+        })
+
+        taskAppliersViewModel.onStartEventLiveData.observe(this, Observer {
+            val stringArray = taskAppliersViewModel.acceptedNames.toTypedArray()
+            val booleanArray = BooleanArray(taskAppliersViewModel.acceptedNames.size)
+            for(i in taskAppliersViewModel.acceptedNames.indices) {
+                booleanArray[i] = false
+            }
+            val builder = AlertDialog.Builder(activity!!)
+
+            builder.setTitle("Отбележете хората, които са дошли и ще работят.")
+
+            builder.setMultiChoiceItems(stringArray, booleanArray) { dialog, which, isChecked ->
+                booleanArray[which] = isChecked
+            }
+
+            builder.setPositiveButton("Start") { dialog, which ->
+                // Do something when click positive button
+                taskAppliersViewModel.startWork(booleanArray)
+            }
+
+
+            builder.setNeutralButton("Cancel") { dialog, which ->
+                // Do something when click the neutral button
+            }
+
+            val dialog = builder.create()
+            // Display the alert dialog on interface
+            dialog.show()
         })
 
         taskAppliersViewModel.updateAdapterEventLiveData.observe(this, Observer {

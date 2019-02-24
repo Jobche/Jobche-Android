@@ -116,8 +116,8 @@ class ProfileViewModel : BaseObservable() {
                     setLastName(userProfile.lastName)
                     val birthDate = LocalDate(
                         userProfile.dateOfBirth.year,
-                        userProfile.dateOfBirth.monthOfYear,
-                        userProfile.dateOfBirth.dayOfMonth
+                        userProfile.dateOfBirth.month,
+                        userProfile.dateOfBirth.day
                     )
                     val age = Years.yearsBetween(birthDate, LocalDate()).toString()
                     setYearsOld(age.substring(1, age.length - 1))

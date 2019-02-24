@@ -2,6 +2,7 @@ package com.example.user.jobche
 
 import com.example.user.jobche.Model.*
 import com.google.gson.JsonObject
+import okhttp3.ResponseBody
 import org.joda.time.DateTime
 import retrofit2.Call
 import retrofit2.http.*
@@ -68,5 +69,8 @@ interface ApiRequests {
     @GET("application/approve/{id}")
     fun acceptApplier(@Header("Authorization") auth: String,
                     @Path("id") id:Int): Call<Application>
+
+    @POST("work")
+    fun startWork(@Header("Authorization") auth:String ,@Body body:JsonObject): Call<ResponseBody>
 
 }
