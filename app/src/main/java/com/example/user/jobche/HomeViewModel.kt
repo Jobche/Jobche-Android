@@ -19,7 +19,7 @@ class HomeViewModel : BaseObservable(){
 
     private var page: Int = 0
 
-    private lateinit var tasks: ArrayList<Task>
+    var tasks = ArrayList<Task>()
 
     private val _fabEventLiveData = SingleLiveData<Any>()
 
@@ -68,15 +68,6 @@ class HomeViewModel : BaseObservable(){
         return RetrofitClient().getApi().getMyTasks(getAuthToken(), getPage(), getSize())
     }
 
-    fun getTasks(): ArrayList<Task> {
-        return this.tasks
-    }
-
-    fun setTasks(tasks: ArrayList<Task>) {
-        this.tasks = tasks
-
-    }
-
     val fabEventLiveData: LiveData<Any>
         get() = _fabEventLiveData
 
@@ -101,7 +92,7 @@ class HomeViewModel : BaseObservable(){
                 Log.d("Get Tasks onSuccess:", response.body().toString())
 
                 if (response.body() != null) {
-                    setTasks(response.body()!!.tasks)
+                    tasks = (response.body()!!.tasks)
                     if (getPage() == 0) {
                         _adapterEventLiveData.call()
                     } else {

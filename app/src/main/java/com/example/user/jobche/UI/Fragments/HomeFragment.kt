@@ -8,18 +8,22 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.*
 import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
-import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
+import com.example.user.jobche.Adapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.FragmentHomeBinding
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
+    private lateinit var homeViewModel: HomeViewModel
+    private val bundle: Bundle = Bundle()
+    private lateinit var newFragment: Fragment
     private var page = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +51,7 @@ class HomeFragment: Fragment() {
 
         val binding: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        val homeViewModel = HomeViewModel()
+        homeViewModel = HomeViewModel()
         binding.viewModel = homeViewModel
 
         homeViewModel.setEmail(email)
@@ -61,8 +65,8 @@ class HomeFragment: Fragment() {
 
         homeViewModel.adapterEventLiveData.observe(this, Observer {
             recyclerView.adapter = TasksRecyclerViewAdapter(
-                this,
-                homeViewModel.getTasks()
+                homeViewModel.tasks,
+                this
             )
         })
 
@@ -73,7 +77,8 @@ class HomeFragment: Fragment() {
         })
 
         homeViewModel.fabEventLiveData.observe(this, Observer {
-            activity!!.supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container,
                 AddTaskFragment()
             ).addToBackStack(null).commit()
         })
@@ -91,9 +96,21 @@ class HomeFragment: Fragment() {
 
         return binding.root
     }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater!!.inflate(R.menu.menu_toolbar_home, menu)
-        super.onCreateOptionsMenu(menu,inflater)
+        super.onCreateOptionsMenu(menu, inflater)
+
+    }
+
+    override fun onClick(position: Int) {
+        newFragment = OpenedTaskFragment()
+        bundle.putParcelable("Task", homeViewModel.tasks[position])
+        newFragment.arguments = bundle
+        activity!!.supportFragmentManager.beginTransaction().replace(
+            R.id.fragment_container, newFragment
+        ).addToBackStack(null).commit()
 
     }
 }
+

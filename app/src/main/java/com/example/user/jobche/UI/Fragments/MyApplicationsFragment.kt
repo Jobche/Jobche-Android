@@ -15,21 +15,20 @@ import android.view.ViewGroup
 import com.example.user.jobche.MyApplicationsViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
-import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
+import com.example.user.jobche.Adapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.FragmentMyApplicationsBinding
 
 
-class MyApplicationsFragment : Fragment() {
-
-
-    companion object {
-        fun newInstance() = MyApplicationsFragment()
-    }
+class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
 
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
+    private lateinit var myApplicationsViewModel:MyApplicationsViewModel
+    private val bundle: Bundle = Bundle()
+    private lateinit var newFragment: Fragment
+
     private var page = 0
 
     override fun onCreateView(
@@ -51,7 +50,7 @@ class MyApplicationsFragment : Fragment() {
         val binding: FragmentMyApplicationsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_my_applications, container, false)
         val view: View = binding.root
-        val myApplicationsViewModel = MyApplicationsViewModel()
+        myApplicationsViewModel = MyApplicationsViewModel()
         binding.viewModel = myApplicationsViewModel
 
         myApplicationsViewModel.setEmail(email)
@@ -65,11 +64,10 @@ class MyApplicationsFragment : Fragment() {
         myApplicationsViewModel.getAppliedTasks()
 
         myApplicationsViewModel.adapterEventData.observe(this, Observer {
-            Log.d("TASK ZA APPLY", myApplicationsViewModel.getTasks().toString())
 
             recyclerView.adapter = TasksRecyclerViewAdapter(
-                this,
-                myApplicationsViewModel.getTasks()
+                myApplicationsViewModel.tasks,
+                this
             )
         })
 
@@ -91,5 +89,13 @@ class MyApplicationsFragment : Fragment() {
         })
 
         return view
+    }
+    override fun onClick(position: Int) {
+        newFragment = OpenedTaskFragment()
+        bundle.putParcelable("Task", myApplicationsViewModel.tasks[position])
+        newFragment.arguments = bundle
+        activity!!.supportFragmentManager.beginTransaction().replace(
+            R.id.fragment_container, newFragment
+        ).addToBackStack(null).commit()
     }
 }

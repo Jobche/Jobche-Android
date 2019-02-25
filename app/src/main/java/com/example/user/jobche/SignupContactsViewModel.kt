@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData
 import android.util.Log
 import android.util.Patterns
 import com.example.user.jobche.Model.DateOfBirth
-import com.example.user.jobche.Model.User
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.Call

@@ -14,15 +14,18 @@ import android.view.ViewGroup
 import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
-import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
+import com.example.user.jobche.Adapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.FragmentMyTasksBinding
 
 
-class MyTasksFragment : Fragment() {
+class MyTasksFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
+    private lateinit var homeViewModel: HomeViewModel
+    private val bundle: Bundle = Bundle()
+    private lateinit var newFragment: Fragment
     private var page = 0
 
     override fun onCreateView(
@@ -44,7 +47,7 @@ class MyTasksFragment : Fragment() {
         val binding: FragmentMyTasksBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_my_tasks, container, false)
         val view: View = binding.root
-        val homeViewModel = HomeViewModel()
+        homeViewModel = HomeViewModel()
         binding.viewModel = homeViewModel
 
         homeViewModel.setEmail(email)
@@ -59,8 +62,8 @@ class MyTasksFragment : Fragment() {
 
         homeViewModel.adapterEventLiveData.observe(this, Observer {
             recyclerView.adapter = TasksRecyclerViewAdapter(
-                this,
-                homeViewModel.getTasks()
+                homeViewModel.tasks,
+                this
             )
         })
 
@@ -81,6 +84,14 @@ class MyTasksFragment : Fragment() {
             }
         })
         return view
+    }
+    override fun onClick(position: Int) {
+        newFragment = TaskWorkersFragment()
+        bundle.putParcelable("Task", homeViewModel.tasks[position])
+        newFragment.arguments = bundle
+        activity!!.supportFragmentManager.beginTransaction().replace(
+            R.id.fragment_container, newFragment
+        ).addToBackStack(null).commit()
     }
 }
 

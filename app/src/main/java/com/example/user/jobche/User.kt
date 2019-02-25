@@ -1,12 +1,12 @@
-package com.example.user.jobche.Model
+package com.example.user.jobche
 
 import android.os.Parcelable
+import com.example.user.jobche.Model.DateOfBirth
 import kotlinx.android.parcel.Parcelize
-import org.joda.time.LocalDate
 
 @Parcelize
 data class User(
-     val id: Int = 0,
+     var id: Int = 0,
      var firstName: String = "",
      var lastName: String = "",
      var password: String = "",

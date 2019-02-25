@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, HomeActivity::class.java))
         })
 
-        viewModel.signupEventLiveData.observe(this, Observer {
+        viewModel.signUpEventLiveData.observe(this, Observer {
             startActivity(Intent(this, SignupNameActivity::class.java))
         })
 
@@ -45,9 +45,9 @@ class LoginActivity : AppCompatActivity() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
-        editor.putString("EMAIL", viewModel.email)
-        editor.putString("PASSWORD", viewModel.password)
-        editor.putInt("ID", viewModel.id)
+        editor.putString("EMAIL", viewModel.user.email)
+        editor.putString("PASSWORD", viewModel.user.password)
+        editor.putInt("ID", viewModel.user.id)
         editor.putBoolean("IS_LOGGED", viewModel.isLogged)
         editor.apply()
     }

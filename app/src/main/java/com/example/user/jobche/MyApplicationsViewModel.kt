@@ -22,9 +22,8 @@ class MyApplicationsViewModel : ViewModel() {
 
     private lateinit var password: String
 
-    private var tasks = ArrayList<Task>()
+    var tasks = ArrayList<Task>()
 
-    private var appliers = ArrayList<UserProfile>()
 
     private var applications = ArrayList<Application>()
 
@@ -66,22 +65,6 @@ class MyApplicationsViewModel : ViewModel() {
         return Credentials.basic(getEmail(), getPassword())
     }
 
-    fun getTasks(): ArrayList<Task> {
-        return this.tasks
-    }
-
-    fun getAppliers() : ArrayList<UserProfile> {
-        return this.appliers
-    }
-
-    fun getApplications(): ArrayList<Application> {
-        return this.applications
-    }
-
-    fun setApplications(applications: ArrayList<Application> ) {
-        this.applications = applications
-    }
-
     val adapterEventData: LiveData<Any>
         get() = _adapterEventLiveData
 
@@ -101,11 +84,8 @@ class MyApplicationsViewModel : ViewModel() {
             override fun onResponse(call: Call<Applications>, response: Response<Applications>) {
                 Log.d("My Apply onSuccess", response.body().toString())
                 if (response.body() != null) {
-                    Log.d("ADDVAI", response.body().toString())
-                    setApplications(response.body()!!.applications)
-                    for (appl in getApplications()) {
-                        getTasks().add(appl.task)
-                        getAppliers().add(appl.applicant)
+                    for (appl in response.body()!!.applications) {
+                        tasks.add(appl.task)
                     }
                     if (getPage() == 0) {
                         _adapterEventLiveData.call()

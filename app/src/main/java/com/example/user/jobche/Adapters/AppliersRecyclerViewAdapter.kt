@@ -1,4 +1,4 @@
-package com.example.user.jobche.UI.RecylclerViewAdapters
+package com.example.user.jobche.Adapters
 
 import android.content.ContentValues.TAG
 import android.support.v7.widget.RecyclerView
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.view.LayoutInflater
 import com.example.user.jobche.Model.DateOfBirth
-import com.example.user.jobche.Model.UserProfile
 import com.example.user.jobche.R
 import org.joda.time.LocalDate
 import org.joda.time.Years

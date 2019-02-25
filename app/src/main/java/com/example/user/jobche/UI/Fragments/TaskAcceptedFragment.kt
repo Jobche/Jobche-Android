@@ -12,13 +12,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.example.user.jobche.UI.RecylclerViewAdapters.AppliersRecyclerViewAdapter
+import com.example.user.jobche.Adapters.AppliersRecyclerViewAdapter
 import com.example.user.jobche.TaskAcceptedViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.Task
 import com.example.user.jobche.databinding.FragmentTaskAcceptedBinding
-import java.util.*
 
 
 class TaskAcceptedFragment : Fragment() {
@@ -89,17 +87,17 @@ class TaskAcceptedFragment : Fragment() {
 
             builder.setTitle("Отбележете хората, които са дошли и ще работят.")
 
-            builder.setMultiChoiceItems(stringArray, booleanArray) { dialog, which, isChecked ->
+            builder.setMultiChoiceItems(stringArray, booleanArray) { _, which, isChecked ->
                 booleanArray[which] = isChecked
             }
 
-            builder.setPositiveButton("Start") { dialog, which ->
+            builder.setPositiveButton("Start") { _, _ ->
                 // Do something when click positive button
                 taskAppliersViewModel.startWork(booleanArray)
             }
 
 
-            builder.setNeutralButton("Cancel") { dialog, which ->
+            builder.setNeutralButton("Cancel") { _, _ ->
                 // Do something when click the neutral button
             }
 
