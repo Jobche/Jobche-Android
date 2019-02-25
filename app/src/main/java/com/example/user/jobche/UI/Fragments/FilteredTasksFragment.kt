@@ -11,21 +11,21 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.user.jobche.FilteredTasksViewModel
-import com.example.user.jobche.Filter
-import com.example.user.jobche.R
+import com.example.user.jobche.*
 import com.example.user.jobche.UI.HomeActivity
-import com.example.user.jobche.UI.RecylclerViewAdapters.TasksRecyclerViewAdapter
+import com.example.user.jobche.Adapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.FragmentFilteredTasksBinding
 
 
-class FilteredTasksFragment : Fragment() {
+class FilteredTasksFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private var page = 0
-
-
+    private lateinit var filteredTasksViewModel: FilteredTasksViewModel
     private lateinit var filter: Filter
+    private val newFragment = OpenedTaskFragment()
+    private val bundle: Bundle = Bundle()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +38,6 @@ class FilteredTasksFragment : Fragment() {
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
-
         val bundle = arguments
         if (bundle != null) {
             filter = bundle.getParcelable("Filter")!!
@@ -47,7 +46,7 @@ class FilteredTasksFragment : Fragment() {
         val binding: FragmentFilteredTasksBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_filtered_tasks, container, false)
 
-        val filteredTasksViewModel = FilteredTasksViewModel()
+        filteredTasksViewModel = FilteredTasksViewModel()
         binding.viewModel = filteredTasksViewModel
 
         filteredTasksViewModel.setEmail(sharedPreferences.getString("EMAIL", "")!!)
@@ -61,8 +60,8 @@ class FilteredTasksFragment : Fragment() {
 
         filteredTasksViewModel.adapterEventLiveData.observe(this, Observer {
             recyclerView.adapter = TasksRecyclerViewAdapter(
-                this,
-                filteredTasksViewModel.getTasks()
+                filteredTasksViewModel.tasks,
+                this
             )
         })
 
@@ -85,4 +84,12 @@ class FilteredTasksFragment : Fragment() {
         return binding.root
     }
 
+    override fun onClick(position: Int) {
+        bundle.putParcelable("Task", filteredTasksViewModel.tasks[position])
+        newFragment.arguments = bundle
+        activity!!.supportFragmentManager.beginTransaction().replace(
+            R.id.fragment_container, newFragment
+        ).addToBackStack(null).commit()
+
+    }
 }

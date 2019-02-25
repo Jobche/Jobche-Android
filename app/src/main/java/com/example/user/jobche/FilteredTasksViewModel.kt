@@ -17,7 +17,7 @@ class FilteredTasksViewModel : ViewModel() {
 
     private val size: Int = 20
 
-    private lateinit var tasks: ArrayList<Task>
+    var tasks =  ArrayList<Task>()
 
     private val _adapterEventLiveData = SingleLiveData<Any>()
 
@@ -53,14 +53,6 @@ class FilteredTasksViewModel : ViewModel() {
         this.password = password
     }
 
-    fun getTasks(): ArrayList<Task> {
-        return this.tasks
-    }
-
-    fun setTasks(tasks: ArrayList<Task>) {
-        this.tasks = tasks
-    }
-
     val adapterEventLiveData: LiveData<Any>
         get() = _adapterEventLiveData
 
@@ -88,7 +80,7 @@ class FilteredTasksViewModel : ViewModel() {
             override fun onResponse(call: Call<Tasks>, response: Response<Tasks>) {
                 Log.d("Search Task onSuccess:", response.body().toString())
                 if (response.body() != null) {
-                    setTasks(response.body()!!.tasks)
+                    tasks = (response.body()!!.tasks)
                     if (getPage() == 0) {
                         _adapterEventLiveData.call()
                     } else {
