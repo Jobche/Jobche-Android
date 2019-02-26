@@ -25,8 +25,6 @@ class MyApplicationsViewModel : ViewModel() {
     var tasks = ArrayList<Task>()
 
 
-    private var applications = ArrayList<Application>()
-
     private val _adapterEventLiveData = SingleLiveData<Any>()
 
     private val _updateAdapterEventLiveData = SingleLiveData<Any>()

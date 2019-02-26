@@ -24,13 +24,6 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
     private lateinit var homeViewModel: HomeViewModel
     private val bundle: Bundle = Bundle()
     private lateinit var newFragment: Fragment
-    private var page = 0
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +39,6 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
         if (activity is HomeActivity) {
             (activity as HomeActivity).supportActionBar!!.title = "Обяви"
             (activity as HomeActivity).showBackButton(false)
-
         }
 
         val binding: FragmentHomeBinding =
@@ -87,8 +79,8 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
-                    page += 1
-                    homeViewModel.setPage(page)
+                    Log.d("Home", "Scrooll")
+                    homeViewModel.page += 1
                     homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
                 }
             }

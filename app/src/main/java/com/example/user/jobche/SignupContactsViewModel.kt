@@ -74,4 +74,5 @@ class SignupContactsViewModel(val registerUser: RegisterUser) {
             })
         }
     }
+
 }

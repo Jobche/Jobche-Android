@@ -1,6 +1,7 @@
 package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import com.example.user.jobche.HomeViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.Adapters.TasksRecyclerViewAdapter
+import com.example.user.jobche.LoginViewModel
 import com.example.user.jobche.databinding.FragmentMyTasksBinding
 
 
@@ -46,8 +49,8 @@ class MyTasksFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener
 
         val binding: FragmentMyTasksBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_my_tasks, container, false)
-        val view: View = binding.root
-        homeViewModel = HomeViewModel()
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
         binding.viewModel = homeViewModel
 
         homeViewModel.setEmail(email)
@@ -78,12 +81,12 @@ class MyTasksFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     page += 1
-                    homeViewModel.setPage(page)
+                    homeViewModel.page += 1
                     homeViewModel.generateTasks(homeViewModel.getCallMyTasks())
                 }
             }
         })
-        return view
+        return binding.root
     }
     override fun onClick(position: Int) {
         newFragment = TaskWorkersFragment()

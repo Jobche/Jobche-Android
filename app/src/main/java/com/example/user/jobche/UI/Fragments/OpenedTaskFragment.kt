@@ -45,7 +45,7 @@ class OpenedTaskFragment : Fragment() {
 
 
         if (activity is HomeActivity) {
-            (activity as HomeActivity).supportActionBar!!.title = ""
+            (activity as HomeActivity).supportActionBar!!.title = task.title
             (activity as HomeActivity).showBackButton(true)
         }
 

@@ -1,6 +1,7 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.ViewModel
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
@@ -9,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel : BaseObservable(){
+class HomeViewModel : ViewModel() {
 
     private lateinit var email: String
 
@@ -17,7 +18,7 @@ class HomeViewModel : BaseObservable(){
 
     private val size: Int = 20
 
-    private var page: Int = 0
+    var page: Int = 0
 
     var tasks = ArrayList<Task>()
 
@@ -44,28 +45,16 @@ class HomeViewModel : BaseObservable(){
         this.password = password
     }
 
-    fun getPage(): Int {
-        return this.page
-    }
-
-    fun setPage(page: Int) {
-        this.page = page
-    }
-
-    fun getSize(): Int {
-        return this.size
-    }
-
     fun getAuthToken(): String {
         return Credentials.basic(getEmail(), getPassword())
     }
 
     fun getCallAllTasks(): Call<Tasks> {
-        return RetrofitClient().api.getTasks(getAuthToken(), getPage(), getSize())
+        return RetrofitClient().api.getTasks(getAuthToken(), page, size)
     }
 
     fun getCallMyTasks(): Call<Tasks> {
-        return RetrofitClient().api.getMyTasks(getAuthToken(), getPage(), getSize())
+        return RetrofitClient().api.getMyTasks(getAuthToken(), page, size)
     }
 
     val fabEventLiveData: LiveData<Any>
@@ -91,19 +80,21 @@ class HomeViewModel : BaseObservable(){
             override fun onResponse(call: Call<Tasks>, response: Response<Tasks>) {
                 Log.d("Get Tasks onSuccess:", response.body().toString())
 
-                if (response.body() != null) {
+                if (response.body()!!.tasks.isNotEmpty()) {
                     tasks = (response.body()!!.tasks)
-                    if (getPage() == 0) {
+                    if (page == 0) {
                         _adapterEventLiveData.call()
                     } else {
+                        Log.d("Updatevam", "Scrollnato e")
                         _updateAdapterEventLiveData.call()
                     }
-                } else if (getPage() == 0) {
+
+                } else if (page == 0) {
                     Log.d("RecylerView", "It's Empty!")
 
                 } else {
                     Log.d("RecylerView", "No more tasks to show!")
-                    setPage(getPage() - 1)
+                    page--
                 }
             }
         })
