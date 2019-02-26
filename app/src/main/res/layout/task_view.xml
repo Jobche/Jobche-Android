@@ -22,7 +22,7 @@
                 android:textColor="@android:color/black"/>
 
         <TextView
-                android:id="@+id/task_location"
+                android:id="@+id/task_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"

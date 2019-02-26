@@ -11,74 +11,57 @@ data class Tasks(val tasks: ArrayList<Task>)
 @Parcelize
 data class Task(
     val id: Int = 0,
-    var title: String = "",
-    val location: Location = Location(),
-    var payment: String = "",
-    var numberOfWorkers: String = "",
-    var description: String = "",
+    private var title: String = "",
+    private var city: String = "",
+    private var payment: String = "",
+    private var numberOfWorkers: String = "",
+    private var description: String = "",
     var dateTime: String = "",
     val creatorId: Int = 0,
-    var acceptedWorkersCount: Int = 0
+    private var acceptedWorkersCount: Int = 0
 ) : Parcelable, BaseObservable() {
 
+    var observedTitle: String
+        @Bindable get() = title
+        set(value) {
+            title = value
+            notifyPropertyChanged(BR.observedTitle)
+        }
 
-    var safeAcceptedWorkersCount: Int
+    var observedCity: String
+        @Bindable get() = city
+        set(value) {
+            city = value
+            notifyPropertyChanged(BR.observedCity)
+        }
+
+    var observedPayment: String
+        @Bindable get() = payment
+        set(value) {
+            payment = value
+            notifyPropertyChanged(BR.observedPayment)
+        }
+
+    var observedNumberOfWorkers: String
+        @Bindable get() = numberOfWorkers
+        set(value) {
+            numberOfWorkers = value
+            notifyPropertyChanged(BR.observedNumberOfWorkers)
+        }
+
+    var observedDescription: String
+        @Bindable get() = description
+        set(value) {
+            description = value
+            notifyPropertyChanged(BR.observedDescription)
+        }
+
+    var observedAcceptedWorkersCount: Int
         @Bindable get() = acceptedWorkersCount
         set(value) {
             acceptedWorkersCount = value
-            notifyPropertyChanged(BR.safeAcceptedWorkersCount)
+            notifyPropertyChanged(BR.observedAcceptedWorkersCount)
         }
 
 }
 
-class AddTask: BaseObservable() {
-
-    var title: String = ""
-        @Bindable get() = field
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.title)
-        }
-
-    var city: String = ""
-        @Bindable get() = field
-        set(value) {
-            field = value
-//            errorTask.errorCity = ""
-            notifyPropertyChanged(BR.city)
-        }
-
-    var payment: String = ""
-        @Bindable get() = field
-        set(value) {
-            field = value
-//            errorTask.errorPayment = ""
-            notifyPropertyChanged(BR.payment)
-        }
-
-    var numberOfWorkers: String = ""
-        @Bindable get() = field
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.numberOfWorkers)
-        }
-
-    var dateTime: String = ""
-
-    var description: String = ""
-        @Bindable get() = field
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.description)
-        }
-
-
-}
-
-
-@Parcelize
-data class Location(
-    val country: String = "България",
-    var city: String = "",
-    val neighborhood: String = ""
-) : Parcelable, BaseObservable()

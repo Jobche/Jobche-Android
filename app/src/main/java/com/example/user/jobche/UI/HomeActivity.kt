@@ -64,7 +64,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         drawer = binding.drawerLayout
-
         val navigation = binding.navView
         navigation.setNavigationItemSelectedListener(this)
         navigation.menu.getItem(0).isChecked = true

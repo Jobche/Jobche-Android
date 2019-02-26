@@ -17,7 +17,7 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{task.title}"
+                android:text="@{task.observedTitle}"
                 android:drawableEnd="@drawable/ic_keyboard_arrow_right_white_24dp"
                 android:background="@color/colorPrimary"
                 android:onClick="@{() -> viewModel.onTaskClick()}"

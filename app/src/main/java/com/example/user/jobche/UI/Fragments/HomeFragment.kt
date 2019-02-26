@@ -28,10 +28,17 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
     private val bundle: Bundle = Bundle()
     private lateinit var newFragment: Fragment
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater!!.inflate(R.menu.menu_toolbar_home, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //because of the custom menu for toolbar
+        setHasOptionsMenu(true)
 
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
@@ -44,6 +51,7 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
             (activity as HomeActivity).supportActionBar!!.title = "Обяви"
             (activity as HomeActivity).showBackButton(false)
         }
+
         //clear all backStacks
         fragmentManager!!.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
@@ -96,11 +104,6 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater!!.inflate(R.menu.menu_toolbar_home, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-
-    }
 
     override fun onClick(position: Int) {
         newFragment = OpenedTaskFragment()

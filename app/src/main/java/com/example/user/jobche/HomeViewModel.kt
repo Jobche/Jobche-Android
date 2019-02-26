@@ -85,7 +85,6 @@ class HomeViewModel : ViewModel() {
                     if (page == 0) {
                         _adapterEventLiveData.call()
                     } else {
-                        Log.d("Updatevam", "Scrollnato e")
                         _updateAdapterEventLiveData.call()
                     }
 

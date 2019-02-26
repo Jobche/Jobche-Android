@@ -26,14 +26,14 @@ class TasksRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: called.")
-        holder.title.text = tasks[position].title
-        holder.location.text = tasks[position].location.city
+        holder.title.text = tasks[position].observedTitle
+        holder.city.text = tasks[position].observedCity
         holder.date.text =
             ((tasks[position].dateTime).substring(8, 10) + "." + (tasks[position].dateTime).substring(5, 7))
         holder.time.text = (tasks[position].dateTime).substring(11, 16)
-        holder.payment.text = tasks[position].payment
-        holder.numberOfWorkers.text = tasks[position].numberOfWorkers
-        holder.acceptedWorkersCount.text = tasks[position].safeAcceptedWorkersCount.toString()
+        holder.payment.text = tasks[position].observedPayment
+        holder.numberOfWorkers.text = tasks[position].observedNumberOfWorkers
+        holder.acceptedWorkersCount.text = tasks[position].observedAcceptedWorkersCount.toString()
     }
 
     class ViewHolder(itemView: View, val onTaskClickListener: OnTaskClickListener) : RecyclerView.ViewHolder(itemView),
@@ -48,7 +48,7 @@ class TasksRecyclerViewAdapter(
         }
 
         val title: TextView = itemView.findViewById(R.id.task_title)
-        val location: TextView = itemView.findViewById(R.id.task_location)
+        val city: TextView = itemView.findViewById(R.id.task_city)
         val date: TextView = itemView.findViewById(R.id.task_date)
         val time: TextView = itemView.findViewById(R.id.task_start_time)
         val payment: TextView = itemView.findViewById(R.id.task_payment)

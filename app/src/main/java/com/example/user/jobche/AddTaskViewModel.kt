@@ -14,7 +14,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddTaskViewModel(val task: AddTask, private val email: String, private val password: String) : BaseObservable() {
+
+
+class AddTaskViewModel(val task: Task, private val email: String, private val password: String) : BaseObservable() {
 
     val errorMsg: String = "Моля попълнете полето."
 
@@ -99,27 +101,21 @@ class AddTaskViewModel(val task: AddTask, private val email: String, private val
 
     }
 
+
     fun onClickAddTask() {
 
         onClicked = true
-        if (task.title.isNotEmpty() && task.city.isNotEmpty() && task.payment.isNotEmpty() && task.numberOfWorkers.isNotEmpty()
-            && task.description.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
+        if (task.observedTitle.isNotEmpty() && task.observedCity.isNotEmpty() && task.observedPayment.isNotEmpty()
+            && task.observedNumberOfWorkers.isNotEmpty() && task.observedDescription.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
 
             val paramObject = JsonObject()
-            paramObject.addProperty("title", task.title)
-            paramObject.addProperty("payment", task.payment.toInt())
-            paramObject.addProperty("numberOfWorkers", task.numberOfWorkers.toInt())
-            paramObject.addProperty("description", task.description)
+            paramObject.addProperty("title", task.observedTitle)
+            paramObject.addProperty("city", task.observedCity)
+            paramObject.addProperty("payment", task.observedPayment.toInt())
+            paramObject.addProperty("numberOfWorkers", task.observedNumberOfWorkers.toInt())
+            paramObject.addProperty("description", task.observedDescription)
             paramObject.addProperty("dateTime", getDateTime(localDate!!, localTime!!).toString())
-            paramObject.add(
-                "location", Gson().toJsonTree(
-                    Location(
-                        "България",
-                        task.city,
-                        ""
-                    )
-                )
-            )
+
 
             val call: Call<Task> = RetrofitClient().api
                 .createTask(Credentials.basic(email, password), paramObject)

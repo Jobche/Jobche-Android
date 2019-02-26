@@ -35,6 +35,9 @@ class SignupContactsViewModel(val registerUser: RegisterUser) {
         } else if (registerUser.phoneNum.length != 10) {
             toastMsg = "Неправилно въведен Телефон."
         }
+        else {
+            toastMsg = ""
+        }
 
         if (toastMsg != "") {
             _toastEventLiveData.call()
