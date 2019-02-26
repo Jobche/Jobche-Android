@@ -1,6 +1,7 @@
 package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -22,6 +23,7 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
+    private  var userId: Int = 0
     private lateinit var homeViewModel: HomeViewModel
     private val bundle: Bundle = Bundle()
     private lateinit var newFragment: Fragment
@@ -36,6 +38,7 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
 
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
+        userId = sharedPreferences.getInt("ID", 0)
 
         if (activity is HomeActivity) {
             (activity as HomeActivity).supportActionBar!!.title = "Обяви"
@@ -46,8 +49,9 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
 
         val binding: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        homeViewModel = HomeViewModel()
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         binding.viewModel = homeViewModel
+
 
         homeViewModel.setEmail(email)
         homeViewModel.setPassword(password)

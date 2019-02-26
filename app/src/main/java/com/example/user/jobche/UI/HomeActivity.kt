@@ -20,12 +20,16 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import com.example.user.jobche.UI.Fragments.*
+import com.example.user.jobche.databinding.HeaderBinding
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
     private var isLoaded: Boolean = false
+    private var userId: Int = 0
+    private lateinit var email: String
+    private lateinit var password: String
     private var mToolBarNavigationListenerIsRegistered = false
     private lateinit var toggle: ActionBarDrawerToggle
     private var doubleBackToExitPressedOnce = false
@@ -36,6 +40,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
         isLoaded = sharedPreferences.getBoolean("IS_LOGGED", false)
+        userId = sharedPreferences.getInt("ID", 0)
+        email = sharedPreferences.getString("EMAIL", "")!!
+        password = sharedPreferences.getString("PASSWORD", "")!!
 
         if (!isLoaded) {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -44,6 +51,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         val binding: ActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+        val headerBinding = HeaderBinding.bind(binding.navView.getHeaderView(0))
+
+        val profileViewModel = ProfileViewModel()
+        headerBinding.viewModel = profileViewModel
+        profileViewModel.setEmail(email)
+        profileViewModel.setPassword(password)
+        profileViewModel.setUserId(userId)
+        profileViewModel.getUser()
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -150,7 +165,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         this.doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Моля, натиснете НАЗАД, за да излезете", Toast.LENGTH_SHORT).show()
 
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
