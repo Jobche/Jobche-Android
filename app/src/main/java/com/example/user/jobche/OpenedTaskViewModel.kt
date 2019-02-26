@@ -28,7 +28,7 @@ class OpenedTaskViewModel(val task: Task, private val email: String, private val
         val paramObject = JsonObject()
         paramObject.addProperty("taskId", task.id)
 
-        val call: Call<Application> = RetrofitClient().getApi()
+        val call: Call<Application> = RetrofitClient().api
             .applyForTask(Credentials.basic(email, password), paramObject)
 
         call.enqueue(object : Callback<Application> {

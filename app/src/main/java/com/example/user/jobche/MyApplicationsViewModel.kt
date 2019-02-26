@@ -73,7 +73,7 @@ class MyApplicationsViewModel : ViewModel() {
 
 
     fun getAppliedTasks() {
-        val call: Call<Applications> = RetrofitClient().getApi()
+        val call: Call<Applications> = RetrofitClient().api
             .getMyApplications(getAuthToken(), getPage(), getSize())
 
         call.enqueue(object : Callback<Applications> {

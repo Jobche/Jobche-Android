@@ -14,7 +14,7 @@ interface ApiRequests {
     @Headers("Content-Type: application/json")
 
     @POST("users")
-    fun createUser(@Body body:JsonObject): Call<User>
+    fun createUser(@Body registerUser:JsonObject): Call<User>
 
     @POST("users/login")
     fun loginUser(@Body body:JsonObject): Call<User>

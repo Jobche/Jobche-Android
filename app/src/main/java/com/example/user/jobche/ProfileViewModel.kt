@@ -100,7 +100,7 @@ class ProfileViewModel : BaseObservable() {
     }
 
     fun getUser() {
-        val call: Call<UserProfile> = RetrofitClient().getApi()
+        val call: Call<UserProfile> = RetrofitClient().api
             .getUser(getAuthToken(), getUserId())
 
         call.enqueue(object : Callback<UserProfile> {
@@ -127,7 +127,7 @@ class ProfileViewModel : BaseObservable() {
     }
 
     fun onAccept() {
-        val call: Call<Application> = RetrofitClient().getApi()
+        val call: Call<Application> = RetrofitClient().api
             .acceptApplier(getAuthToken(), getApplicationId())
 
         call.enqueue(object : Callback<Application> {

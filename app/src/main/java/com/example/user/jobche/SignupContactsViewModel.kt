@@ -58,7 +58,7 @@ class SignupContactsViewModel(val registerUser: RegisterUser) {
             paramObject.addProperty("phoneNum", registerUser.phoneNum)
 
 
-            val call: Call<User> = RetrofitClient().getApi()
+            val call: Call<User> = RetrofitClient().api
                 .createUser(paramObject)
 
             call.enqueue(object : Callback<User> {

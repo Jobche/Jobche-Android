@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import com.example.user.jobche.Task
 import com.example.user.jobche.R
 
-@Suppress("UNUSED_EXPRESSION")
 class TasksRecyclerViewAdapter(
     private val tasks: ArrayList<Task>,
     private val onTaskClickListener: OnTaskClickListener
@@ -37,7 +36,7 @@ class TasksRecyclerViewAdapter(
         holder.acceptedWorkersCount.text = tasks[position].safeAcceptedWorkersCount.toString()
     }
 
-    class ViewHolder(itemView: View, var onTaskClickListener: OnTaskClickListener) : RecyclerView.ViewHolder(itemView),
+    class ViewHolder(itemView: View, val onTaskClickListener: OnTaskClickListener) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
         override fun onClick(v: View?) {
@@ -48,13 +47,13 @@ class TasksRecyclerViewAdapter(
             itemView.setOnClickListener(this)
         }
 
-        var title: TextView = itemView.findViewById(R.id.task_title)
-        var location: TextView = itemView.findViewById(R.id.task_location)
-        var date: TextView = itemView.findViewById(R.id.task_date)
-        var time: TextView = itemView.findViewById(R.id.task_start_time)
-        var payment: TextView = itemView.findViewById(R.id.task_payment)
-        var numberOfWorkers: TextView = itemView.findViewById(R.id.task_numberOfWorkers)
-        var acceptedWorkersCount: TextView = itemView.findViewById(R.id.task_numberOfAccepted)
+        val title: TextView = itemView.findViewById(R.id.task_title)
+        val location: TextView = itemView.findViewById(R.id.task_location)
+        val date: TextView = itemView.findViewById(R.id.task_date)
+        val time: TextView = itemView.findViewById(R.id.task_start_time)
+        val payment: TextView = itemView.findViewById(R.id.task_payment)
+        val numberOfWorkers: TextView = itemView.findViewById(R.id.task_numberOfWorkers)
+        val acceptedWorkersCount: TextView = itemView.findViewById(R.id.task_numberOfAccepted)
     }
 
     interface OnTaskClickListener {

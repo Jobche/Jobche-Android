@@ -61,11 +61,11 @@ class HomeViewModel : BaseObservable(){
     }
 
     fun getCallAllTasks(): Call<Tasks> {
-        return RetrofitClient().getApi().getTasks(getAuthToken(), getPage(), getSize())
+        return RetrofitClient().api.getTasks(getAuthToken(), getPage(), getSize())
     }
 
     fun getCallMyTasks(): Call<Tasks> {
-        return RetrofitClient().getApi().getMyTasks(getAuthToken(), getPage(), getSize())
+        return RetrofitClient().api.getMyTasks(getAuthToken(), getPage(), getSize())
     }
 
     val fabEventLiveData: LiveData<Any>

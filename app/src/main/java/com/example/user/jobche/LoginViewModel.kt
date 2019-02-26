@@ -37,7 +37,7 @@ class LoginViewModel: ViewModel() {
         paramObject.addProperty("email", user.email)
         paramObject.addProperty("password", user.password)
 
-        val call: Call<User> = RetrofitClient().getApi()
+        val call: Call<User> = RetrofitClient().api
             .loginUser(paramObject)
 
         call.enqueue(object : Callback<User> {

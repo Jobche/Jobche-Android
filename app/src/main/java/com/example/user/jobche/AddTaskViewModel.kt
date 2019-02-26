@@ -121,7 +121,7 @@ class AddTaskViewModel(val task: AddTask, private val email: String, private val
                 )
             )
 
-            val call: Call<Task> = RetrofitClient().getApi()
+            val call: Call<Task> = RetrofitClient().api
                 .createTask(Credentials.basic(email, password), paramObject)
 
             call.enqueue(object : Callback<Task> {

@@ -76,7 +76,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
         paramObject.addProperty("taskId", task.id)
         paramObject.add("workers", Gson().toJsonTree(startWorkersIds))
 
-        val call = RetrofitClient().getApi()
+        val call = RetrofitClient().api
             .startWork(Credentials.basic(email, password), paramObject)
 
         call.enqueue(object : Callback<ResponseBody> {
@@ -93,7 +93,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
 
     fun getTaskAppliers() {
-        val call = RetrofitClient().getApi()
+        val call = RetrofitClient().api
             .getAppliers(Credentials.basic(email, password), task.id, page, size)
 
         call.enqueue(object : Callback<Applications> {

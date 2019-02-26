@@ -66,7 +66,7 @@ class FilteredTasksViewModel : ViewModel() {
 
     fun filterTasks(filter: Filter) {
 
-        val call: Call<Tasks> = RetrofitClient().getApi()
+        val call: Call<Tasks> = RetrofitClient().api
             .getFilteredTasks(
                 getAuthToken(), filter.title, filter.city, filter.dateStart, filter.dateEnd,
                 filter.numWStart?.toIntOrNull() , filter.pStart?.toIntOrNull(), getPage(), getSize()
