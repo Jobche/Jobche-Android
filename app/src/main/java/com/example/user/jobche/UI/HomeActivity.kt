@@ -13,21 +13,22 @@ import android.support.v7.widget.Toolbar
 import com.example.user.jobche.*
 import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import com.example.user.jobche.databinding.ActivityHomeBinding
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import com.example.user.jobche.UI.Fragments.*
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
-    private lateinit var email: String
-    private lateinit var password: String
     private var isLoaded: Boolean = false
     private var mToolBarNavigationListenerIsRegistered = false
     private lateinit var toggle: ActionBarDrawerToggle
+    private var doubleBackToExitPressedOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,22 +36,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
         isLoaded = sharedPreferences.getBoolean("IS_LOGGED", false)
-        if (isLoaded) {
-            email = sharedPreferences.getString("EMAIL", "")!!
-            password = sharedPreferences.getString("PASSWORD", "")!!
-        } else {
+
+        if (!isLoaded) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
             return
         }
 
         val binding: ActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
-        val homeViewModel = HomeViewModel()
-        binding.viewModel = homeViewModel
-
-        homeViewModel.setEmail(email)
-        homeViewModel.setPassword(password)
-
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -145,5 +138,20 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             toggle.toolbarNavigationClickListener = null
             mToolBarNavigationListenerIsRegistered = false
         }
+    }
+
+    //when back button is pressed and drawer is open, close the drawer
+    override fun onBackPressed() {
+        if(drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        }else if (doubleBackToExitPressedOnce || supportFragmentManager.backStackEntryCount != 0) {
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 }

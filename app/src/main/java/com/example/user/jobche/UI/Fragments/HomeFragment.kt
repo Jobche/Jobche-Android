@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -40,6 +41,8 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
             (activity as HomeActivity).supportActionBar!!.title = "Обяви"
             (activity as HomeActivity).showBackButton(false)
         }
+        //clear all backStacks
+        fragmentManager!!.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
         val binding: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
