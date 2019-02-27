@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,11 +39,10 @@ class ProfileFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         val view: View = binding.root
         val profileViewModel = ProfileViewModel()
-        profileViewModel.setUserId(userId)
         binding.viewModel = profileViewModel
-
-        profileViewModel.setEmail(email)
-        profileViewModel.setPassword(password)
+        profileViewModel.userId = userId
+        profileViewModel.email = email
+        profileViewModel.password = password
         profileViewModel.getUser()
         return view
     }

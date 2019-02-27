@@ -1,5 +1,6 @@
 package com.example.user.jobche.Adapters
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -29,8 +30,8 @@ class TasksRecyclerViewAdapter(
         holder.title.text = tasks[position].observedTitle
         holder.city.text = tasks[position].observedCity
         holder.date.text =
-            ((tasks[position].dateTime).substring(8, 10) + "." + (tasks[position].dateTime).substring(5, 7))
-        holder.time.text = (tasks[position].dateTime).substring(11, 16)
+            (tasks[position].dateTime.substring(8, 10) + "." + (tasks[position].dateTime).substring(5, 7))
+        holder.time.text = tasks[position].dateTime.substring(11, 16)
         holder.payment.text = tasks[position].observedPayment
         holder.numberOfWorkers.text = tasks[position].observedNumberOfWorkers
         holder.acceptedWorkersCount.text = tasks[position].observedAcceptedWorkersCount.toString()

@@ -54,14 +54,14 @@ class OpenedTaskFragment : Fragment() {
 
         val openedTaskViewModel = OpenedTaskViewModel(task, email, password, userId)
         val profileViewModel = ProfileViewModel()
-        profileViewModel.setUserId(task.creatorId)
         binding.viewModel = openedTaskViewModel
         binding.frameOpenedTask.viewModel = openedTaskViewModel
         binding.frameOpenedTask.task = task
         binding.creatorInfo.viewModel = profileViewModel
 
-        profileViewModel.setEmail(email)
-        profileViewModel.setPassword(password)
+        profileViewModel.userId = task.creatorId
+        profileViewModel.email = email
+        profileViewModel.password = password
         profileViewModel.getUser()
 
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {

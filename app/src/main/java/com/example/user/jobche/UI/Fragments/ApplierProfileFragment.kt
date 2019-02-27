@@ -46,12 +46,12 @@ class ApplierProfileFragment : Fragment() {
         val binding: FragmentApplierProfileBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_applier_profile, container, false)
         val profileViewModel = ProfileViewModel()
-        profileViewModel.setUserId(applierId)
-        profileViewModel.setApplicationId(applicationId)
+        profileViewModel.userId = (applierId)
+        profileViewModel.applicationId = applicationId
         binding.viewModel = profileViewModel
         binding.profileInfo.viewModel = profileViewModel
-        profileViewModel.setEmail(email)
-        profileViewModel.setPassword(password)
+        profileViewModel.email = email
+        profileViewModel.password = password
         profileViewModel.getUser()
 
         return binding.root

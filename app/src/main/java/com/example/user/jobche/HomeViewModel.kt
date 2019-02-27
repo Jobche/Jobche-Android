@@ -12,9 +12,9 @@ import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
 
-    private lateinit var email: String
+    lateinit var email: String
 
-    private lateinit var password: String
+    lateinit var password: String
 
     private val size: Int = 20
 
@@ -29,24 +29,8 @@ class HomeViewModel : ViewModel() {
     private val _updateAdapterEventLiveData = SingleLiveData<Any>()
 
 
-    fun getEmail(): String {
-        return this.email
-    }
-
-    fun setEmail(email: String) {
-        this.email = email
-    }
-
-    fun getPassword(): String {
-        return this.password
-    }
-
-    fun setPassword(password: String) {
-        this.password = password
-    }
-
     fun getAuthToken(): String {
-        return Credentials.basic(getEmail(), getPassword())
+        return Credentials.basic(email, password)
     }
 
     fun getCallAllTasks(): Call<Tasks> {
@@ -79,21 +63,22 @@ class HomeViewModel : ViewModel() {
 
             override fun onResponse(call: Call<Tasks>, response: Response<Tasks>) {
                 Log.d("Get Tasks onSuccess:", response.body().toString())
+                if (response.body() != null) {
+                    if (response.body()!!.tasks.isNotEmpty()) {
+                        tasks = (response.body()!!.tasks)
+                        if (page == 0) {
+                            _adapterEventLiveData.call()
+                        } else {
+                            _updateAdapterEventLiveData.call()
+                        }
 
-                if (response.body()!!.tasks.isNotEmpty()) {
-                    tasks = (response.body()!!.tasks)
-                    if (page == 0) {
-                        _adapterEventLiveData.call()
+                    } else if (page == 0) {
+                        Log.d("RecylerView", "It's Empty!")
+
                     } else {
-                        _updateAdapterEventLiveData.call()
+                        Log.d("RecylerView", "No more tasks to show!")
+                        page--
                     }
-
-                } else if (page == 0) {
-                    Log.d("RecylerView", "It's Empty!")
-
-                } else {
-                    Log.d("RecylerView", "No more tasks to show!")
-                    page--
                 }
             }
         })

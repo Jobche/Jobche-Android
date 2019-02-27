@@ -52,9 +52,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val profileViewModel = ProfileViewModel()
         headerBinding.viewModel = profileViewModel
-        profileViewModel.setEmail(email)
-        profileViewModel.setPassword(password)
-        profileViewModel.setUserId(userId)
+        profileViewModel.email = email
+        profileViewModel.password = password
+        profileViewModel.userId = userId
         profileViewModel.getUser()
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -113,14 +113,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item.itemId == R.id.action_search) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, FilterFragment()).addToBackStack(null).commit()
-//            return true
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_search) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, FilterFragment()).addToBackStack(null).commit()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     fun showBackButton(show: Boolean) {
         //lock swipe for drawer

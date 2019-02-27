@@ -4,7 +4,8 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.util.*
+import org.joda.time.DateTime
+import org.joda.time.LocalDateTime
 
 data class Tasks(val tasks: ArrayList<Task>)
 

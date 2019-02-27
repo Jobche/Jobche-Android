@@ -29,14 +29,14 @@
                     android:id="@+id/drawer_firstname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.firstName}"
+                    android:text="@{viewModel.userProfile.firstName}"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"/>
             <TextView
                     android:id="@+id/drawer_lastname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.lastName}"
+                    android:text="@{viewModel.userProfile.lastName}"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:layout_marginStart="5dp"/>

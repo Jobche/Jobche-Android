@@ -23,7 +23,7 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
-    private  var userId: Int = 0
+    private var userId: Int = 0
     private lateinit var homeViewModel: HomeViewModel
     private val bundle: Bundle = Bundle()
     private lateinit var newFragment: Fragment
@@ -71,8 +71,8 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
         binding.viewModel = homeViewModel
 
 
-        homeViewModel.setEmail(email)
-        homeViewModel.setPassword(password)
+        homeViewModel.email = email
+        homeViewModel.password = password
 
         recyclerView = binding.listOfTasks
         val layoutManager = LinearLayoutManager(activity!!)

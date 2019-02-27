@@ -1,7 +1,6 @@
 package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
@@ -12,16 +11,18 @@ import com.example.user.jobche.Model.Work
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.Credentials
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TaskAcceptedViewModel(val task: Task, private val email: String, private val password: String) : BaseObservable() {
+class TaskAcceptedViewModel(val task: Task, private val email: String, private val password: String) :
+    BaseObservable() {
 
     var page: Int = 0
 
     val size: Int = 20
+
+    var workId: Long = 0
 
     @Bindable
     var started = false
@@ -68,13 +69,34 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
     }
 
     fun onStart() {
-        _onStartEventLiveData.call()
+        if (!started) {
+            _onStartEventLiveData.call()
+        } else {
+            endWork()
+        }
+    }
+
+    fun endWork() {
+
+        val call = RetrofitClient().api
+            .endWork(Credentials.basic(email, password), workId)
+
+        call.enqueue(object : Callback<Work> {
+            override fun onFailure(call: Call<Work>, t: Throwable) {
+                Log.d("End work onFailure ", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Work>, response: Response<Work>) {
+                Log.d("End work onSuccess", response.body().toString())
+
+            }
+        })
 
     }
 
     fun startWork(booleanArray: BooleanArray) {
         started = true
-        Log.d("POCHME LI", started.toString())
+
         for (i in booleanArray.indices) {
             val checked = booleanArray[i]
             if (checked) {
@@ -89,13 +111,21 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
         val call = RetrofitClient().api
             .startWork(Credentials.basic(email, password), paramObject)
 
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+        call.enqueue(object : Callback<Work> {
+            override fun onFailure(call: Call<Work>, t: Throwable) {
                 Log.d("On Start onFailure ", t.message.toString())
+                started = false
             }
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<Work>, response: Response<Work>) {
                 Log.d("On Start onSuccess", response.body().toString())
+                if (response.body() != null) {
+                    workId = response.body()!!.id
+                }
+                else {
+                    started = false
+                    Log.d("Response:", "null")
+                }
             }
         })
 
@@ -118,7 +148,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                     for (appl in applications) {
                         if (appl.accepted) {
                             acceptedApplications.add(appl)
-                            acceptedNames.add(appl.applicant.firstName + " " + appl.applicant.lastName)
+                            acceptedNames.add(appl.applicant.firstName + " " + appl.applicant.firstName)
 //                            applications.remove(appl)
                         }
                         appliers.add(appl.applicant)

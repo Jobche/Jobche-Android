@@ -2,12 +2,12 @@ package com.example.user.jobche.Model
 
 
 data class UserProfile(
-    val id: Int,
-    val firstName: String,
-    val lastName: String,
-    val phoneNum: String,
-    val dateOfBirth: DateOfBirth,
-    val reviews: ArrayList<Review>
+    var id: Int = 0,
+    var firstName: String = "",
+    var lastName: String = "",
+    var phoneNum: String = "",
+    var dateOfBirth: DateOfBirth? = null,
+    val reviews: ArrayList<Review> = ArrayList()
 )
 
 data class Review(

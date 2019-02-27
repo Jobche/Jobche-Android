@@ -53,8 +53,8 @@ class MyTasksFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener
 
         binding.viewModel = homeViewModel
 
-        homeViewModel.setEmail(email)
-        homeViewModel.setPassword(password)
+        homeViewModel.email = email
+        homeViewModel.password = password
 
         recyclerView = binding.listOfMyTasks
         val layoutManager = LinearLayoutManager(activity!!)

@@ -45,7 +45,7 @@ class AppliersRecyclerViewAdapter(
         Log.d(TAG, "onBindViewHolder: called.")
         holder.firstname.text = applications[position].applicant.firstName
         holder.lastname.text = applications[position].applicant.lastName
-        holder.years.text = dateTimeToYears(applications[position].applicant.dateOfBirth)
+        holder.years.text = dateTimeToYears(applications[position].applicant.dateOfBirth!!)
 
         holder.itemView.setOnClickListener {
             bundle.putInt("ApplicationId", applications[position].id)

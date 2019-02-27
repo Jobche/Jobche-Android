@@ -36,7 +36,7 @@
                             android:id="@+id/user_firstname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewModel.firstName}"
+                            android:text="@{viewModel.userProfile.firstName}"
                             android:layout_marginStart="7dp"
                             android:textColor="@android:color/black"
                             android:textSize="12sp"/>
@@ -44,41 +44,12 @@
                             android:id="@+id/user_lastname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewModel.lastName}"
+                            android:text="@{viewModel.userProfile.lastName}"
                             android:layout_marginStart="7dp"
                             android:textColor="@android:color/black"
                             android:textSize="12sp"/>
                 </LinearLayout>
 
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="5dp">
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sofia"
-                            android:layout_marginStart="7dp"
-                            android:textColor="@android:color/black"
-                            android:textSize="12sp"/>
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=","
-                            android:textColor="@android:color/black"
-                            android:textSize="12sp"/>
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Bulgaria"
-                            android:layout_marginStart="7dp"
-                            android:textColor="@android:color/black"
-                            android:textSize="12sp"/>
-                </LinearLayout>
                 <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
