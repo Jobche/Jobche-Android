@@ -4,10 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
-import com.example.user.jobche.Model.Application
-import com.example.user.jobche.Model.Applications
-import com.example.user.jobche.Model.UserProfile
-import com.example.user.jobche.Model.Work
+import com.example.user.jobche.Model.*
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.Credentials
@@ -79,7 +76,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
     fun endWork() {
 
         val call = RetrofitClient().api
-            .endWork(Credentials.basic(email, password), workId)
+            .endWork(Credentials.basic(email, password), workId, Status.ENDED)
 
         call.enqueue(object : Callback<Work> {
             override fun onFailure(call: Call<Work>, t: Throwable) {
@@ -124,7 +121,6 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                 }
                 else {
                     started = false
-                    Log.d("Response:", "null")
                 }
             }
         })
@@ -148,7 +144,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                     for (appl in applications) {
                         if (appl.accepted) {
                             acceptedApplications.add(appl)
-                            acceptedNames.add(appl.applicant.firstName + " " + appl.applicant.firstName)
+                            acceptedNames.add(appl.applicant.firstName + " " + appl.applicant.lastName)
 //                            applications.remove(appl)
                         }
                         appliers.add(appl.applicant)

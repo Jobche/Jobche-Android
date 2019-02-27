@@ -81,5 +81,5 @@ interface ApiRequests {
     fun startWork(@Header("Authorization") auth: String, @Body body: JsonObject): Call<Work>
 
     @PATCH("work/{id}")
-    fun endWork(@Header("Authorization") auth: String, @Path("id") id: Long): Call<Work>
+    fun endWork(@Header("Authorization") auth: String, @Path("id") id: Long,  @Body body: Status): Call<Work>
 }
