@@ -50,8 +50,8 @@ class TaskAcceptedFragment : Fragment() {
 
         val binding: FragmentTaskAcceptedBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_task_accepted, container, false)
-        val taskAppliersViewModel = TaskAcceptedViewModel(task, email, password)
-        binding.viewModel = taskAppliersViewModel
+        val taskAcceptedViewModel = TaskAcceptedViewModel(task, email, password)
+        binding.viewModel = taskAcceptedViewModel
         binding.task = task
 
         recyclerView = binding.listOfAppliers
@@ -59,15 +59,15 @@ class TaskAcceptedFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
 
-        taskAppliersViewModel.getTaskAppliers()
+        taskAcceptedViewModel.getTaskAppliers()
 
-        taskAppliersViewModel.adapterEventData.observe(this, Observer {
+        taskAcceptedViewModel.adapterEventData.observe(this, Observer {
             recyclerView.adapter = AppliersRecyclerViewAdapter(
                 this,
-                taskAppliersViewModel.acceptedApplications
+                taskAcceptedViewModel.acceptedApplications
             )
         })
-        taskAppliersViewModel.onClickEventLiveData.observe(this, Observer {
+        taskAcceptedViewModel.onClickEventLiveData.observe(this, Observer {
             newFragment = OpenedTaskFragment()
             this.bundle.putParcelable("Task", task)
             newFragment.arguments = bundle
@@ -77,10 +77,10 @@ class TaskAcceptedFragment : Fragment() {
 
         })
 
-        taskAppliersViewModel.onStartEventLiveData.observe(this, Observer {
-            val stringArray = taskAppliersViewModel.acceptedNames.toTypedArray()
-            val booleanArray = BooleanArray(taskAppliersViewModel.acceptedNames.size)
-            for(i in taskAppliersViewModel.acceptedNames.indices) {
+        taskAcceptedViewModel.onStartEventLiveData.observe(this, Observer {
+            val stringArray = taskAcceptedViewModel.acceptedNames.toTypedArray()
+            val booleanArray = BooleanArray(taskAcceptedViewModel.acceptedNames.size)
+            for(i in taskAcceptedViewModel.acceptedNames.indices) {
                 booleanArray[i] = false
             }
             val builder = AlertDialog.Builder(activity!!)
@@ -93,7 +93,7 @@ class TaskAcceptedFragment : Fragment() {
 
             builder.setPositiveButton("Start") { _, _ ->
                 // Do something when click positive button
-                taskAppliersViewModel.startWork(booleanArray)
+                taskAcceptedViewModel.startWork(booleanArray)
             }
 
 
@@ -106,7 +106,7 @@ class TaskAcceptedFragment : Fragment() {
             dialog.show()
         })
 
-        taskAppliersViewModel.updateAdapterEventLiveData.observe(this, Observer {
+        taskAcceptedViewModel.updateAdapterEventLiveData.observe(this, Observer {
             recyclerView.adapter!!.notifyDataSetChanged()
 
         })
@@ -116,8 +116,8 @@ class TaskAcceptedFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     page += 1
-                    taskAppliersViewModel.page = page
-                    taskAppliersViewModel.getTaskAppliers()
+                    taskAcceptedViewModel.page = page
+                    taskAcceptedViewModel.getTaskAppliers()
                 }
             }
         })

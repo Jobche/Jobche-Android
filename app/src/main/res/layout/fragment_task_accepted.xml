@@ -32,8 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_gravity="center"
-                android:text="Начало на работата"
-                android:background="@color/colorAccent"
+                android:text='@{viewModel.started ? "Край на работата" : "Начало на работата"}'
+                android:background='@{viewModel.started ? @android:color/holo_red_light : @color/colorAccent}'
                 android:onClick="@{() -> viewModel.onStart()}"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"

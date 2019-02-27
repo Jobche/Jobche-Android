@@ -2,6 +2,8 @@ package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import android.util.Log
 import com.example.user.jobche.Model.Application
 import com.example.user.jobche.Model.Applications
@@ -15,12 +17,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TaskAcceptedViewModel(val task: Task, private val email: String, private val password: String) : ViewModel() {
+class TaskAcceptedViewModel(val task: Task, private val email: String, private val password: String) : BaseObservable() {
 
     var page: Int = 0
 
     val size: Int = 20
 
+    @Bindable
+    var started = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.started)
+        }
     var appliers = ArrayList<UserProfile>()
 
     var acceptedNames = ArrayList<String>()
@@ -61,10 +69,12 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     fun onStart() {
         _onStartEventLiveData.call()
+
     }
 
     fun startWork(booleanArray: BooleanArray) {
-
+        started = true
+        Log.d("POCHME LI", started.toString())
         for (i in booleanArray.indices) {
             val checked = booleanArray[i]
             if (checked) {

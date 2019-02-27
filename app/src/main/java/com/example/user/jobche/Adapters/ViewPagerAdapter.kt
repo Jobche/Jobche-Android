@@ -23,7 +23,7 @@ class ViewPagerAdapter(fm: FragmentManager?, val task: Task) :
         }
     }
 
-    fun goToFragment(fragment: Fragment): Fragment {
+   private fun goToFragment(fragment: Fragment): Fragment {
         newFragment = fragment
         bundle.putParcelable("Task", task)
         newFragment.arguments = bundle

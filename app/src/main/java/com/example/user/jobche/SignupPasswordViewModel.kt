@@ -23,6 +23,8 @@ class SignupPasswordViewModel(val registerUser: RegisterUser) {
             toastMsg = "Паролата не съвпада с потвърдената."
         } else if (registerUser.password.length < 6) {
             toastMsg = "Паролата трябва да съдържа поне 6 символа."
+        }else {
+            toastMsg = ""
         }
 
         if (toastMsg != "") {

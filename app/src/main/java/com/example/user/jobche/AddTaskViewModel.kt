@@ -20,33 +20,34 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
 
     val errorMsg: String = "Моля попълнете полето."
 
+    @Bindable
     var onClicked: Boolean = false
-        @Bindable get() = field
         set(value) {
             field = value
             notifyPropertyChanged(BR.onClicked)
         }
-
 
     var localDate: LocalDate? = null
         set(value) {
             date = (formatDate(value!!))
             field = value
         }
+
     var localTime: LocalTime? = null
         set(value) {
             time = (formatTime(value!!))
             field = value
         }
+
+    @Bindable
     var date: String = ""
-        @Bindable get() = field
         set(value) {
             field = value
             notifyPropertyChanged(BR.date)
         }
 
+    @Bindable
     var time: String = ""
-        @Bindable get() = field
         set(value) {
             field = value
             notifyPropertyChanged(BR.time)
@@ -56,8 +57,6 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
     private val _timeEventLiveData = SingleLiveData<Any>()
 
     private val _addTaskEventLiveData = SingleLiveData<Any>()
-
-    private val _toastEventLiveData = SingleLiveData<Any>()
 
     private fun formatDate(localDate: LocalDate): String {
         return String.format("%02d", localDate.dayOfMonth) + "." + String.format(
@@ -89,9 +88,6 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
     val addTaskEventLiveData: LiveData<Any>
         get() = _addTaskEventLiveData
 
-    val toastEventLiveData: LiveData<Any>
-        get() = _toastEventLiveData
-
     fun onClickDate() {
         _dateEventLiveData.call()
     }
@@ -105,6 +101,7 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
     fun onClickAddTask() {
 
         onClicked = true
+
         if (task.observedTitle.isNotEmpty() && task.observedCity.isNotEmpty() && task.observedPayment.isNotEmpty()
             && task.observedNumberOfWorkers.isNotEmpty() && task.observedDescription.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
 

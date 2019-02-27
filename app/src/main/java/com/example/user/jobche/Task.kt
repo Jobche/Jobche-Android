@@ -10,12 +10,12 @@ data class Tasks(val tasks: ArrayList<Task>)
 
 @Parcelize
 data class Task(
-    val id: Int = 0,
     private var title: String = "",
     private var city: String = "",
+    private var description: String = "",
     private var payment: String = "",
     private var numberOfWorkers: String = "",
-    private var description: String = "",
+    val id: Int = 0,
     var dateTime: String = "",
     val creatorId: Int = 0,
     private var acceptedWorkersCount: Int = 0

@@ -33,6 +33,16 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
         super.onCreateOptionsMenu(menu, inflater)
 
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_search) {
+            activity!!.supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, FilterFragment()).addToBackStack(null).commit()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

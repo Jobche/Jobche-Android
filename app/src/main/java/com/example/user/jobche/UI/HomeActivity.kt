@@ -8,15 +8,12 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.example.user.jobche.*
-import com.example.user.jobche.HomeViewModel
 import android.databinding.DataBindingUtil
 import android.os.Handler
 import android.support.design.widget.NavigationView
 import com.example.user.jobche.databinding.ActivityHomeBinding
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import com.example.user.jobche.UI.Fragments.*
@@ -116,14 +113,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_search) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, FilterFragment()).addToBackStack(null).commit()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if (item.itemId == R.id.action_search) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, FilterFragment()).addToBackStack(null).commit()
+//            return true
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
     fun showBackButton(show: Boolean) {
         //lock swipe for drawer
