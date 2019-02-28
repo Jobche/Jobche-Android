@@ -16,7 +16,7 @@ data class Task(
     private var description: String = "",
     private var payment: String = "",
     private var numberOfWorkers: String = "",
-    val id: Int = 0,
+    val id: Long = 0,
     var dateTime: String = "",
     val creatorId: Int = 0,
     private var acceptedWorkersCount: Int = 0

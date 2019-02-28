@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,8 @@ class TaskAcceptedFragment : Fragment() {
     private lateinit var email: String
     private lateinit var password: String
     private var started: Boolean = false
+    private var workId: Long = 0
+    private var startedTaskId: Long = 0
     private var page = 0
     private var task: Task = Task()
     private val bundle: Bundle = Bundle()
@@ -46,6 +49,8 @@ class TaskAcceptedFragment : Fragment() {
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
         started = sharedPreferences.getBoolean("TASK_STARTED", false)
+        workId = sharedPreferences.getLong("WORK_ID", 0)
+        startedTaskId = sharedPreferences.getLong("TASK_STARTED_ID", 0)
 
         val bundle = arguments
         if (bundle != null) {
@@ -58,7 +63,10 @@ class TaskAcceptedFragment : Fragment() {
         binding.viewModel = taskAcceptedViewModel
         binding.task = task
 
-        taskAcceptedViewModel.started = started
+        if(startedTaskId == task.id) {
+            taskAcceptedViewModel.started = started
+            taskAcceptedViewModel.workId = workId
+        }
         recyclerView = binding.listOfAppliers
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
@@ -84,6 +92,8 @@ class TaskAcceptedFragment : Fragment() {
 
         taskAcceptedViewModel.hasStartedEventLiveData.observe(this, Observer {
             editor.putBoolean("TASK_STARTED", taskAcceptedViewModel.started)
+            Log.d("Kakvo sym", taskAcceptedViewModel.started.toString())
+            editor.putLong("WORK_ID", taskAcceptedViewModel.workId)
             editor.apply()
 
         })
@@ -106,6 +116,8 @@ class TaskAcceptedFragment : Fragment() {
             builder.setPositiveButton("Start") { _, _ ->
                 // Do something when click positive button
                 taskAcceptedViewModel.startWork(booleanArray)
+                editor.putLong("TASK_STARTED_ID", task.id)
+
             }
 
 

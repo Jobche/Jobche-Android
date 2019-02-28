@@ -28,7 +28,6 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
             _hasStartedEventLiveData.call()
             notifyPropertyChanged(BR.started)
         }
-    var appliers = ArrayList<UserProfile>()
 
     var acceptedNames = ArrayList<String>()
 
@@ -49,6 +48,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     private val _hasStartedEventLiveData = SingleLiveData<Any>()
 
+    private val _onReviewsEventLiveData = SingleLiveData<Any>()
 
 
     val adapterEventData: LiveData<Any>
@@ -56,7 +56,6 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     val updateAdapterEventLiveData: LiveData<Any>
         get() = _updateAdapterEventLiveData
-
 
     val onClickEventLiveData: LiveData<Any>
         get() = _onClickEventLiveData
@@ -66,6 +65,9 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     val hasStartedEventLiveData: LiveData<Any>
         get() = _hasStartedEventLiveData
+
+    val onReviewsEventLiveData: LiveData<Any>
+        get() = _onReviewsEventLiveData
 
 
     fun onTaskClick() {
@@ -95,11 +97,11 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
             }
         })
-
+        started = false
+        _onReviewsEventLiveData.call()
     }
 
     fun startWork(booleanArray: BooleanArray) {
-        started = true
 
         for (i in booleanArray.indices) {
             val checked = booleanArray[i]
@@ -125,6 +127,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                 Log.d("On Start onSuccess", response.body().toString())
                 if (response.body() != null) {
                     workId = response.body()!!.id
+                    started = true
                 }
                 else {
                     started = false
@@ -147,14 +150,13 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
             override fun onResponse(call: retrofit2.Call<Applications>, response: Response<Applications>) {
                 Log.d("My Apply onSuccess", response.body().toString())
                 if (response.body() != null) {
-                    applications = response.body()!!.applications
-                    for (appl in applications) {
+                    for (appl in response.body()!!.applications) {
                         if (appl.accepted) {
                             acceptedApplications.add(appl)
                             acceptedNames.add(appl.applicant.firstName + " " + appl.applicant.lastName)
-//                            applications.remove(appl)
+                        }else {
+                            applications.add(appl)
                         }
-                        appliers.add(appl.applicant)
                     }
                     if (page == 0) {
                         _adapterEventLiveData.call()

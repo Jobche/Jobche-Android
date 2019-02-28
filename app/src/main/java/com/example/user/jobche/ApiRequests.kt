@@ -66,7 +66,7 @@ interface ApiRequests {
     @GET("tasks/{taskId}/applications")
     fun getAppliers(
         @Header("Authorization") auth: String,
-        @Path("taskId") taskId: Int,
+        @Path("taskId") taskId: Long,
         @Query("page") page: Int,
         @Query("size") size: Int
     ): Call<Applications>
