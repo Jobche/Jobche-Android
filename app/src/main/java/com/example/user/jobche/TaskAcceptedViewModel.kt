@@ -25,6 +25,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
     var started = false
         set(value) {
             field = value
+            _hasStartedEventLiveData.call()
             notifyPropertyChanged(BR.started)
         }
     var appliers = ArrayList<UserProfile>()
@@ -46,6 +47,9 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     private val _onStartEventLiveData = SingleLiveData<Any>()
 
+    private val _hasStartedEventLiveData = SingleLiveData<Any>()
+
+
 
     val adapterEventData: LiveData<Any>
         get() = _adapterEventLiveData
@@ -59,6 +63,9 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     val onStartEventLiveData: LiveData<Any>
         get() = _onStartEventLiveData
+
+    val hasStartedEventLiveData: LiveData<Any>
+        get() = _hasStartedEventLiveData
 
 
     fun onTaskClick() {

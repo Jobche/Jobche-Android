@@ -48,7 +48,7 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
         savedInstanceState: Bundle?
     ): View? {
         //because of the custom menu for toolbar
-        setHasOptionsMenu(true)
+//        setHasOptionsMenu(true)
 
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)

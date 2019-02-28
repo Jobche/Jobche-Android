@@ -21,13 +21,16 @@ import com.example.user.jobche.databinding.FragmentTaskAcceptedBinding
 
 class TaskAcceptedFragment : Fragment() {
 
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
+    private var started: Boolean = false
     private var page = 0
     private var task: Task = Task()
     private val bundle: Bundle = Bundle()
     private lateinit var newFragment: Fragment
+    private lateinit var taskAcceptedViewModel: TaskAcceptedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +41,11 @@ class TaskAcceptedFragment : Fragment() {
 
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
-
+        started = sharedPreferences.getBoolean("TASK_STARTED", false)
 
         val bundle = arguments
         if (bundle != null) {
@@ -50,10 +54,11 @@ class TaskAcceptedFragment : Fragment() {
 
         val binding: FragmentTaskAcceptedBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_task_accepted, container, false)
-        val taskAcceptedViewModel = TaskAcceptedViewModel(task, email, password)
+        taskAcceptedViewModel = TaskAcceptedViewModel(task, email, password)
         binding.viewModel = taskAcceptedViewModel
         binding.task = task
 
+        taskAcceptedViewModel.started = started
         recyclerView = binding.listOfAppliers
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
@@ -77,10 +82,17 @@ class TaskAcceptedFragment : Fragment() {
 
         })
 
+        taskAcceptedViewModel.hasStartedEventLiveData.observe(this, Observer {
+            editor.putBoolean("TASK_STARTED", taskAcceptedViewModel.started)
+            editor.apply()
+
+        })
+
         taskAcceptedViewModel.onStartEventLiveData.observe(this, Observer {
+
             val stringArray = taskAcceptedViewModel.acceptedNames.toTypedArray()
             val booleanArray = BooleanArray(taskAcceptedViewModel.acceptedNames.size)
-            for(i in taskAcceptedViewModel.acceptedNames.indices) {
+            for (i in taskAcceptedViewModel.acceptedNames.indices) {
                 booleanArray[i] = false
             }
             val builder = AlertDialog.Builder(activity!!)
@@ -124,5 +136,4 @@ class TaskAcceptedFragment : Fragment() {
 
         return binding.root
     }
-
 }
