@@ -97,7 +97,6 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
 
         taskAcceptedViewModel.hasStartedEventLiveData.observe(this, Observer {
             editor.putBoolean("TASK_STARTED", taskAcceptedViewModel.started)
-            Log.d("Kakvo sym", taskAcceptedViewModel.started.toString())
             editor.putLong("WORK_ID", taskAcceptedViewModel.workId)
             editor.apply()
 
@@ -106,7 +105,7 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
         taskAcceptedViewModel.onReviewsEventLiveData.observe(this, Observer {
             val newBundle = Bundle()
             newFragment = ReviewsFragment()
-            newBundle.putParcelableArrayList("ReviewWorkers", taskAcceptedViewModel.reviewWorkers)
+            newBundle.putLong("WorkId", taskAcceptedViewModel.workId)
             newFragment.arguments = newBundle
             activity!!.supportFragmentManager.beginTransaction().replace(
                 com.example.user.jobche.R.id.fragment_container, newFragment

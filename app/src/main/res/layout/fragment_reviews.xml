@@ -6,12 +6,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_container"
-            tools:context=".UI.Fragments.TaskAppliedFragment">
+            tools:context=".UI.Fragments.ReviewsFragment">
 
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/listOfWorkers"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </FrameLayout>

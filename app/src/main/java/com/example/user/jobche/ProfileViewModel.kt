@@ -41,11 +41,6 @@ class ProfileViewModel : BaseObservable() {
             notifyPropertyChanged(BR.yearsOld)
         }
 
-    private val _acceptUserEventLiveData = SingleLiveData<Any>()
-
-
-    val acceptUserEventLiveData: LiveData<Any>
-        get() = _acceptUserEventLiveData
 
     fun getAuthToken(): String {
         return Credentials.basic(email, password)
@@ -93,8 +88,6 @@ class ProfileViewModel : BaseObservable() {
 
             override fun onResponse(call: Call<Application>, response: Response<Application>) {
                 Log.d("Accept applier Success", response.body().toString())
-                task = response.body()!!.task
-                _acceptUserEventLiveData.call()
             }
         })
     }

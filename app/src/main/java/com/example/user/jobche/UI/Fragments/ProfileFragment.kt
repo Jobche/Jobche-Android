@@ -30,7 +30,7 @@ class ProfileFragment : Fragment() {
         }
 
         val sharedPreferences: SharedPreferences =
-            this.activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
+            activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
         userId = sharedPreferences.getInt("ID", 0)
         email = sharedPreferences.getString("EMAIL", "")!!
@@ -45,16 +45,6 @@ class ProfileFragment : Fragment() {
         profileViewModel.email = email
         profileViewModel.password = password
         profileViewModel.getUser()
-
-        profileViewModel.acceptUserEventLiveData.observe(this, Observer {
-            val bundle = Bundle()
-            val newFragment = TaskAcceptedFragment()
-            bundle.putParcelable("Task", profileViewModel.task)
-            newFragment.arguments = bundle
-            activity!!.supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container, newFragment
-            ).commit()
-        })
 
         return view
     }

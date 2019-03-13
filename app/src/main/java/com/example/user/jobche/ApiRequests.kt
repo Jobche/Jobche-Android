@@ -80,6 +80,10 @@ interface ApiRequests {
     @POST("work")
     fun startWork(@Header("Authorization") auth: String, @Body body: JsonObject): Call<Work>
 
+    @GET("work/{id}")
+    fun getWork(@Header("Authorization") auth: String, @Path("id") workId: Long): Call<Work>
+
+
     @PATCH("work/{id}")
     fun endWork(@Header("Authorization") auth: String, @Path("id") id: Long,  @Body body: Status): Call<Work>
 }
