@@ -93,7 +93,7 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
 
         builder.setPositiveButton("Избери") { _, _ ->
             Toast.makeText(activity!!, "Rating is " + ratingBar.rating, Toast.LENGTH_SHORT).show()
-            reviewsViewModel.reviewUser(ratingBar.rating.toInt(), reviewsViewModel.workers[position].id - 1, workId)
+            reviewsViewModel.reviewUser(ratingBar.rating.toInt(), reviewsViewModel.workers[position].id, workId)
         }
 
         builder.setNeutralButton("Cancel") { _, _ ->
