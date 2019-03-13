@@ -1,5 +1,6 @@
 package com.example.user.jobche
 
+import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
@@ -16,6 +17,7 @@ import org.joda.time.Years
 
 class ProfileViewModel : BaseObservable() {
 
+
     @Bindable
     var userProfile: UserProfile = UserProfile()
         set(value) {
@@ -25,6 +27,8 @@ class ProfileViewModel : BaseObservable() {
     lateinit var email: String
 
     lateinit var password: String
+
+    lateinit var task: Task
 
     var applicationId: Int = 0
 
@@ -36,6 +40,12 @@ class ProfileViewModel : BaseObservable() {
             field = value
             notifyPropertyChanged(BR.yearsOld)
         }
+
+    private val _acceptUserEventLiveData = SingleLiveData<Any>()
+
+
+    val acceptUserEventLiveData: LiveData<Any>
+        get() = _acceptUserEventLiveData
 
     fun getAuthToken(): String {
         return Credentials.basic(email, password)
@@ -83,6 +93,8 @@ class ProfileViewModel : BaseObservable() {
 
             override fun onResponse(call: Call<Application>, response: Response<Application>) {
                 Log.d("Accept applier Success", response.body().toString())
+                task = response.body()!!.task
+                _acceptUserEventLiveData.call()
             }
         })
     }

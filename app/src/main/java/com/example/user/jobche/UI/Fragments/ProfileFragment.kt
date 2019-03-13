@@ -1,5 +1,6 @@
 package com.example.user.jobche.UI.Fragments
 
+import android.arch.lifecycle.Observer
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -44,6 +45,17 @@ class ProfileFragment : Fragment() {
         profileViewModel.email = email
         profileViewModel.password = password
         profileViewModel.getUser()
+
+        profileViewModel.acceptUserEventLiveData.observe(this, Observer {
+            val bundle = Bundle()
+            val newFragment = TaskAcceptedFragment()
+            bundle.putParcelable("Task", profileViewModel.task)
+            newFragment.arguments = bundle
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container, newFragment
+            ).commit()
+        })
+
         return view
     }
 }
