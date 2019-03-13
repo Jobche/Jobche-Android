@@ -41,7 +41,7 @@ class ProfileFragment : Fragment() {
         val view: View = binding.root
         val profileViewModel = ProfileViewModel()
         binding.viewModel = profileViewModel
-        profileViewModel.userId = userId
+        profileViewModel.userId = userId.toLong()
         profileViewModel.email = email
         profileViewModel.password = password
         profileViewModel.getUser()

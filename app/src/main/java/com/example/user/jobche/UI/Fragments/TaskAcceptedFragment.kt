@@ -168,8 +168,8 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
     override fun onClick(position: Int) {
         bundle = Bundle()
         newFragment = ApplierProfileFragment()
-        bundle.putInt("ApplicationId", taskAcceptedViewModel.acceptedApplications[position].id)
-        bundle.putInt("ApplierId", appliers[position].id)
+        bundle.putLong("ApplicationId", taskAcceptedViewModel.acceptedApplications[position].id)
+        bundle.putLong("ApplierId", appliers[position].id)
         bundle.putString("Name", appliers[position].firstName)
         newFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction().replace(

@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class UserProfile(
-    var id: Int = 0,
+    var id: Long = 0,
     var firstName: String = "",
     var lastName: String = "",
     var phoneNum: String = "",
@@ -15,9 +15,9 @@ data class UserProfile(
 
 @Parcelize
 data class Review(
-    val id: Int,
+    val id: Long,
     val reviewGrade: ReviewGrade,
-    val workId: Int
+    val workId: Long
 ): Parcelable
 
 enum class ReviewGrade {

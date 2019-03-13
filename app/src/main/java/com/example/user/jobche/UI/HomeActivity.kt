@@ -54,7 +54,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         headerBinding.viewModel = profileViewModel
         profileViewModel.email = email
         profileViewModel.password = password
-        profileViewModel.userId = userId
+        profileViewModel.userId = userId.toLong()
         profileViewModel.getUser()
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)

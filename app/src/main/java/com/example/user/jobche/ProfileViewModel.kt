@@ -30,9 +30,9 @@ class ProfileViewModel : BaseObservable() {
 
     lateinit var task: Task
 
-    var applicationId: Int = 0
+    var applicationId: Long = 0
 
-    var userId: Int = 0
+    var userId: Long = 0
 
     @Bindable
     var yearsOld: String = ""

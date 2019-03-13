@@ -3,8 +3,11 @@ package com.example.user.jobche
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
+import com.example.user.jobche.Model.Review
+import com.example.user.jobche.Model.ReviewGrade
 import com.example.user.jobche.Model.UserProfile
 import com.example.user.jobche.Model.Work
+import com.google.gson.JsonObject
 import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,4 +44,26 @@ class ReviewsViewModel : ViewModel(){
         })
     }
 
+    fun reviewUser(ratingStars: Int, userId: Long, workId: Long) {
+
+        val paramObject = JsonObject()
+        paramObject.addProperty("reviewGrade", ReviewGrade.values()[ratingStars].toString())
+        paramObject.addProperty("userId", userId)
+        paramObject.addProperty("workId", workId)
+
+        val call: Call<Review> = RetrofitClient().api
+            .reviewUser(Credentials.basic(email, password), paramObject)
+
+        call.enqueue(object : Callback<Review> {
+            override fun onFailure(call: Call<Review>, t: Throwable) {
+                Log.d("Post review onFailure ", t.message.toString())
+
+            }
+
+            override fun onResponse(call: Call<Review>, response: Response<Review>) {
+                Log.d("Post review onSuccess", response.body().toString())
+
+            }
+        })
+    }
 }

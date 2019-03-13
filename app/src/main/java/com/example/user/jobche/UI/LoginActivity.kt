@@ -22,8 +22,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         binding.viewModel = viewModel
         saveData()//to reset SharedProPreferences
 
@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
         editor.putString("EMAIL", viewModel.user.email)
         editor.putString("PASSWORD", viewModel.user.password)
-        editor.putInt("ID", viewModel.user.id)
+        editor.putInt("ID", viewModel.user.id.toInt())
         editor.putBoolean("IS_LOGGED", viewModel.isLogged)
         editor.apply()
     }

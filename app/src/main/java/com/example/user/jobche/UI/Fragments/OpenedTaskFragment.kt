@@ -52,7 +52,7 @@ class OpenedTaskFragment : Fragment() {
         val binding: FragmentOpenedTaskBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_opened_task, container, false)
 
-        val openedTaskViewModel = OpenedTaskViewModel(task, email, password, userId)
+        val openedTaskViewModel = OpenedTaskViewModel(task, email, password, userId.toLong())
         val profileViewModel = ProfileViewModel()
         binding.viewModel = openedTaskViewModel
         binding.frameOpenedTask.viewModel = openedTaskViewModel

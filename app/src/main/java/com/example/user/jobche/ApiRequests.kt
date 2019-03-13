@@ -48,13 +48,13 @@ interface ApiRequests {
     ): Call<Tasks>
 
     @GET("tasks/{id}")
-    fun getTask(@Header("Authorization") auth: String, @Path("id") id: Int): Call<Task>
+    fun getTask(@Header("Authorization") auth: String, @Path("id") id: Long): Call<Task>
 
     @POST("application")
     fun applyForTask(@Header("Authorization") auth: String, @Body taskId: JsonObject): Call<Application>
 
     @GET("users/{id}")
-    fun getUser(@Header("Authorization") auth: String, @Path("id") id: Int): Call<UserProfile>
+    fun getUser(@Header("Authorization") auth: String, @Path("id") id: Long): Call<UserProfile>
 
     @GET("users/me/applications")
     fun getMyApplications(
@@ -74,7 +74,7 @@ interface ApiRequests {
     @GET("application/approve/{id}")
     fun acceptApplier(
         @Header("Authorization") auth: String,
-        @Path("id") id: Int
+        @Path("id") id: Long
     ): Call<Application>
 
     @POST("work")
@@ -83,7 +83,10 @@ interface ApiRequests {
     @GET("work/{id}")
     fun getWork(@Header("Authorization") auth: String, @Path("id") workId: Long): Call<Work>
 
-
     @PATCH("work/{id}")
     fun endWork(@Header("Authorization") auth: String, @Path("id") id: Long,  @Body body: Status): Call<Work>
+
+    @POST("reviews")
+    fun reviewUser(@Header("Authorization") auth: String, @Body body: JsonObject): Call<Review>
+
 }

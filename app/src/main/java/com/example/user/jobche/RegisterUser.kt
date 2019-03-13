@@ -8,7 +8,7 @@ import org.joda.time.LocalDate
 
 @Parcelize
 data class RegisterUser(
-    private val _id: Int = 0,
+    private val _id: Long = 0,
     private var _firstName: String = "",
     private var _lastName: String = "",
     private var _password: String = "",
@@ -18,7 +18,7 @@ data class RegisterUser(
     private var _phoneNum: String = ""
 ) : Parcelable, BaseObservable() {
 
-    val id: Int
+    val id: Long
         get() = _id
 
     var firstName: String

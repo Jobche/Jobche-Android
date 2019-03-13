@@ -18,7 +18,7 @@ data class Task(
     private var numberOfWorkers: String = "",
     val id: Long = 0,
     var dateTime: String = "",
-    val creatorId: Int = 0,
+    val creatorId: Long = 0,
     private var acceptedWorkersCount: Int = 0
 ) : Parcelable, BaseObservable() {
 

@@ -31,14 +31,13 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     var acceptedNames = ArrayList<String>()
 
-    var startWorkersIds = ArrayList<Int>()
+    var startWorkersIds = ArrayList<Long>()
 
     var reviewWorkers = ArrayList<UserProfile>()
 
     var applications = ArrayList<Application>()
 
     var acceptedApplications = ArrayList<Application>()
-
 
     private val _adapterEventLiveData = SingleLiveData<Any>()
 
@@ -153,6 +152,9 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
             override fun onResponse(call: retrofit2.Call<Applications>, response: Response<Applications>) {
                 Log.d("My Apply onSuccess", response.body().toString())
                 if (response.body() != null) {
+                    acceptedApplications.clear()
+                    applications.clear()
+                    acceptedNames.clear()
                     for (appl in response.body()!!.applications) {
                         if (appl.accepted) {
                             acceptedApplications.add(appl)
