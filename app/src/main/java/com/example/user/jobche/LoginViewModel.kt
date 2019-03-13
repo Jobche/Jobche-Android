@@ -49,12 +49,11 @@ class LoginViewModel: ViewModel() {
 
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 Log.d("Login user Success:", response.body().toString())
-                val responseUser: User? = response.body()
-                if (responseUser == null) {
+                if (response.body() == null) {
                     toastMsg = "Невалидно въведени данни! Опитайте пак."
                     _failEventLiveData.call()
                 } else {
-                    user.id = responseUser.id
+                    user.id = response.body()!!.id
                     isLogged = true
                     _loginEventLiveData.call()
 

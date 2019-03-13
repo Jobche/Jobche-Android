@@ -21,7 +21,7 @@ class AppliersRecyclerViewAdapter(
     private val appliers: ArrayList<UserProfile>,
     private val onApplierClickListener: OnApplierClickListener
 ) : RecyclerView.Adapter<AppliersRecyclerViewAdapter.ViewHolder>() {
-    
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.user_opened_task, parent, false)

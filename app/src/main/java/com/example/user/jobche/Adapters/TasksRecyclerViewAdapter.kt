@@ -1,6 +1,5 @@
 package com.example.user.jobche.Adapters
 
-import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.support.v7.widget.RecyclerView
 import android.util.Log

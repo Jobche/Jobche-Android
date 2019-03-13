@@ -33,6 +33,8 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     var startWorkersIds = ArrayList<Int>()
 
+    var reviewWorkers = ArrayList<UserProfile>()
+
     var applications = ArrayList<Application>()
 
     var acceptedApplications = ArrayList<Application>()
@@ -128,6 +130,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                 if (response.body() != null) {
                     workId = response.body()!!.id
                     started = true
+                    reviewWorkers = response.body()!!.workers
                 }
                 else {
                     started = false
