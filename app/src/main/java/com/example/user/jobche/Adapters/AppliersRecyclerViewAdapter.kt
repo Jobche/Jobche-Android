@@ -14,19 +14,18 @@ import org.joda.time.Years
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.example.user.jobche.Model.Application
+import com.example.user.jobche.Model.UserProfile
 import com.example.user.jobche.UI.Fragments.ApplierProfileFragment
 
 class AppliersRecyclerViewAdapter(
-    private val fragment: Fragment,
-    private val applications: ArrayList<Application>
+    private val appliers: ArrayList<UserProfile>,
+    private val onApplierClickListener: OnApplierClickListener
 ) : RecyclerView.Adapter<AppliersRecyclerViewAdapter.ViewHolder>() {
-
-    private val bundle:Bundle = Bundle()
-    private val newFragment = ApplierProfileFragment()
+    
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.user_opened_task, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, onApplierClickListener)
     }
 
     fun dateTimeToYears(dateOfBirth: DateOfBirth): String {
@@ -38,29 +37,32 @@ class AppliersRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        return applications.size
+        return appliers.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: called.")
-        holder.firstname.text = applications[position].applicant.firstName
-        holder.lastname.text = applications[position].applicant.lastName
-        holder.years.text = dateTimeToYears(applications[position].applicant.dateOfBirth!!)
-
-        holder.itemView.setOnClickListener {
-            bundle.putInt("ApplicationId", applications[position].id)
-            bundle.putInt("ApplierId", applications[position].applicant.id)
-            bundle.putString("Name", applications[position].applicant.firstName)
-            newFragment.arguments = bundle
-            fragment.activity!!.supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container, newFragment
-            ).addToBackStack(null).commit()
-        }
+        holder.firstname.text = appliers[position].firstName
+        holder.lastname.text = appliers[position].lastName
+        holder.years.text = dateTimeToYears(appliers[position].dateOfBirth!!)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, val onАpplierClickListener: OnApplierClickListener) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+        override fun onClick(v: View?) {
+            onАpplierClickListener.onClick(adapterPosition)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         var firstname: TextView = itemView.findViewById(R.id.user_firstname)
         var lastname: TextView = itemView.findViewById(R.id.user_lastname)
         var years: TextView = itemView.findViewById(R.id.user_years)
+    }
+
+    interface OnApplierClickListener {
+        fun onClick(position: Int)
     }
 }
