@@ -100,6 +100,7 @@ class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCli
         bundle.putLong("ApplicationId", taskAppliersViewModel.applications[position].id)
         bundle.putLong("ApplierId", appliers[position].id)
         bundle.putString("Name", appliers[position].firstName)
+        bundle.putParcelable("Task", task)
         newFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container, newFragment

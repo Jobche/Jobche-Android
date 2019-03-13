@@ -1,5 +1,6 @@
 package com.example.user.jobche.UI.Fragments
 
+import android.arch.lifecycle.Observer
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -10,16 +11,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.ProfileViewModel
 import com.example.user.jobche.R
+import com.example.user.jobche.Task
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentApplierProfileBinding
 
 class ApplierProfileFragment : Fragment() {
 
-    private lateinit var email:String
-    private lateinit var password:String
+    private lateinit var email: String
+    private lateinit var password: String
     private var applicationId: Long = 0
     private var applierId: Long = 0
-    private lateinit var name:String
+    private lateinit var name: String
+    private lateinit var task: Task
+    private lateinit var newFragment: Fragment
+    private var bundle: Bundle = Bundle()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +39,7 @@ class ApplierProfileFragment : Fragment() {
             applicationId = bundle.getLong("ApplicationId")
             applierId = bundle.getLong("ApplierId")
             name = bundle.getString("Name")!!
+            task = bundle.getParcelable("Task")!!
         }
 
         if (activity is HomeActivity) {
@@ -53,6 +60,15 @@ class ApplierProfileFragment : Fragment() {
         profileViewModel.email = email
         profileViewModel.password = password
         profileViewModel.getUser()
+
+        profileViewModel.acceptUserEventLiveData.observe(this, Observer {
+            newFragment = TaskWorkersFragment()
+            bundle!!.putParcelable("Task", task)
+            newFragment.arguments = bundle
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container, newFragment
+            ).addToBackStack(null).commit()
+        })
 
         return binding.root
     }
