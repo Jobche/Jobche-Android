@@ -15,17 +15,20 @@ import com.example.user.jobche.R
 import com.example.user.jobche.Task
 import com.example.user.jobche.TaskAcceptedViewModel
 import com.example.user.jobche.Adapters.AppliersRecyclerViewAdapter
+import com.example.user.jobche.Model.UserProfile
 import com.example.user.jobche.databinding.FragmentTaskAppliedBinding
 
 
-class TaskAppliedFragment : Fragment() {
+class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
+    private lateinit var taskAppliersViewModel: TaskAcceptedViewModel
     private var page = 0
     private var task: Task = Task()
-    private val bundle: Bundle = Bundle()
+    private var bundle: Bundle = Bundle()
+    private val appliers = ArrayList<UserProfile>()
     private lateinit var newFragment: Fragment
 
     override fun onCreateView(
@@ -45,7 +48,7 @@ class TaskAppliedFragment : Fragment() {
         }
 
         val binding: FragmentTaskAppliedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_applied, container, false)
-        val taskAppliersViewModel = TaskAcceptedViewModel(task, email, password)
+        taskAppliersViewModel = TaskAcceptedViewModel(task, email, password)
         recyclerView = binding.listOfAppliers
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
@@ -54,9 +57,12 @@ class TaskAppliedFragment : Fragment() {
         taskAppliersViewModel.getTaskAppliers()
 
         taskAppliersViewModel.adapterEventData.observe(this, Observer {
+            for (application in taskAppliersViewModel.applications) {
+                appliers.add(application.applicant)
+            }
             recyclerView.adapter = AppliersRecyclerViewAdapter(
-                this,
-                taskAppliersViewModel.applications
+               appliers,
+                this
             )
         })
         taskAppliersViewModel.onClickEventLiveData.observe(this, Observer {
@@ -88,4 +94,15 @@ class TaskAppliedFragment : Fragment() {
         return binding.root
     }
 
+    override fun onClick(position: Int) {
+        bundle = Bundle()
+        newFragment = ApplierProfileFragment()
+        bundle.putInt("ApplicationId", taskAppliersViewModel.applications[position].id)
+        bundle.putInt("ApplierId", appliers[position].id)
+        bundle.putString("Name", appliers[position].firstName)
+        newFragment.arguments = bundle
+        activity!!.supportFragmentManager.beginTransaction().replace(
+            R.id.fragment_container, newFragment
+        ).addToBackStack(null).commit()
+    }
 }

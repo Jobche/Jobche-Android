@@ -14,13 +14,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.Adapters.AppliersRecyclerViewAdapter
+import com.example.user.jobche.Model.UserProfile
 import com.example.user.jobche.TaskAcceptedViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.Task
 import com.example.user.jobche.databinding.FragmentTaskAcceptedBinding
 
 
-class TaskAcceptedFragment : Fragment() {
+class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickListener {
 
 
     private lateinit var recyclerView: RecyclerView
@@ -31,7 +32,8 @@ class TaskAcceptedFragment : Fragment() {
     private var startedTaskId: Long = 0
     private var page = 0
     private var task: Task = Task()
-    private val bundle: Bundle = Bundle()
+    private var bundle: Bundle = Bundle()
+    private val appliers = ArrayList<UserProfile>()
     private lateinit var newFragment: Fragment
     private lateinit var taskAcceptedViewModel: TaskAcceptedViewModel
 
@@ -63,7 +65,7 @@ class TaskAcceptedFragment : Fragment() {
         binding.viewModel = taskAcceptedViewModel
         binding.task = task
 
-        if(startedTaskId == task.id) {
+        if (startedTaskId == task.id) {
             taskAcceptedViewModel.started = started
             taskAcceptedViewModel.workId = workId
         }
@@ -75,9 +77,12 @@ class TaskAcceptedFragment : Fragment() {
         taskAcceptedViewModel.getTaskAppliers()
 
         taskAcceptedViewModel.adapterEventData.observe(this, Observer {
+            for (application in taskAcceptedViewModel.acceptedApplications) {
+                appliers.add(application.applicant)
+            }
             recyclerView.adapter = AppliersRecyclerViewAdapter(
-                this,
-                taskAcceptedViewModel.acceptedApplications
+                appliers,
+                this
             )
         })
         taskAcceptedViewModel.onClickEventLiveData.observe(this, Observer {
@@ -95,6 +100,18 @@ class TaskAcceptedFragment : Fragment() {
             Log.d("Kakvo sym", taskAcceptedViewModel.started.toString())
             editor.putLong("WORK_ID", taskAcceptedViewModel.workId)
             editor.apply()
+
+        })
+
+        taskAcceptedViewModel.onReviewsEventLiveData.observe(this, Observer {
+            val newBundle = Bundle()
+            newFragment = ReviewsFragment()
+            newBundle.putParcelableArrayList("ReviewWorkers", taskAcceptedViewModel.reviewWorkers)
+            newFragment.arguments = newBundle
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                com.example.user.jobche.R.id.fragment_container, newFragment
+            ).commit()
+
 
         })
 
@@ -147,5 +164,17 @@ class TaskAcceptedFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    override fun onClick(position: Int) {
+        bundle = Bundle()
+        newFragment = ApplierProfileFragment()
+        bundle.putInt("ApplicationId", taskAcceptedViewModel.acceptedApplications[position].id)
+        bundle.putInt("ApplierId", appliers[position].id)
+        bundle.putString("Name", appliers[position].firstName)
+        newFragment.arguments = bundle
+        activity!!.supportFragmentManager.beginTransaction().replace(
+            R.id.fragment_container, newFragment
+        ).addToBackStack(null).commit()
     }
 }
