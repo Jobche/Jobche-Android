@@ -1,6 +1,7 @@
 package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -66,6 +67,8 @@ class OpenedTaskFragment : Fragment() {
 
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {
             Toast.makeText(activity, "You Applied Successfully", Toast.LENGTH_LONG).show()
+            startActivity(Intent(activity, HomeActivity::class.java))
+
         })
 
         return binding.root

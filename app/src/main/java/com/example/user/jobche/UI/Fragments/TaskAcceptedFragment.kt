@@ -123,27 +123,33 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
             }
             val builder = AlertDialog.Builder(activity!!)
 
-            builder.setTitle("Отбележете хората, които са дошли и ще работят.")
+            if (taskAcceptedViewModel.acceptedApplications.isEmpty()) {
+                builder.setTitle("Няма одобрени кандидати за работата.")
+                builder.setNeutralButton("Cancel") { _, _ -> }
+            } else {
 
-            builder.setMultiChoiceItems(stringArray, booleanArray) { _, which, isChecked ->
-                booleanArray[which] = isChecked
+                builder.setTitle("Отбележете хората, които са дошли и ще работят.")
+
+                builder.setMultiChoiceItems(stringArray, booleanArray) { _, which, isChecked ->
+                    booleanArray[which] = isChecked
+                }
+
+                builder.setPositiveButton("Start") { _, _ ->
+                    // Do something when click positive button
+                    taskAcceptedViewModel.startWork(booleanArray)
+                    editor.putLong("TASK_STARTED_ID", task.id)
+
+                }
+
+
+                builder.setNeutralButton("Cancel") { _, _ ->
+                    // Do nothing when click the neutral button
+                }
+
             }
-
-            builder.setPositiveButton("Start") { _, _ ->
-                // Do something when click positive button
-                taskAcceptedViewModel.startWork(booleanArray)
-                editor.putLong("TASK_STARTED_ID", task.id)
-
-            }
-
-
-            builder.setNeutralButton("Cancel") { _, _ ->
-                // Do something when click the neutral button
-            }
-
-            val dialog = builder.create()
-            // Display the alert dialog on interface
-            dialog.show()
+                val dialog = builder.create()
+                // Display the alert dialog on interface
+                dialog.show()
         })
 
         taskAcceptedViewModel.updateAdapterEventLiveData.observe(this, Observer {

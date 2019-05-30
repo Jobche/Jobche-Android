@@ -17,7 +17,6 @@ import org.joda.time.Years
 
 class ProfileViewModel : BaseObservable() {
 
-
     @Bindable
     var userProfile: UserProfile = UserProfile()
         set(value) {
