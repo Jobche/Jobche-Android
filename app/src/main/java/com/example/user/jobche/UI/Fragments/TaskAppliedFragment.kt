@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +42,6 @@ class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCli
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
 
-
         val bundle = arguments
         if (bundle != null) {
             task = bundle.getParcelable("Task")!!
@@ -52,7 +52,6 @@ class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCli
         recyclerView = binding.listOfAppliers
         val layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
-
 
         taskAppliersViewModel.getTaskAppliers()
 

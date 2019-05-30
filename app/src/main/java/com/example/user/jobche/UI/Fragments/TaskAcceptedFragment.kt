@@ -110,8 +110,6 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
             activity!!.supportFragmentManager.beginTransaction().replace(
                 com.example.user.jobche.R.id.fragment_container, newFragment
             ).commit()
-
-
         })
 
         taskAcceptedViewModel.onStartEventLiveData.observe(this, Observer {
@@ -177,6 +175,7 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
         bundle.putLong("ApplicationId", taskAcceptedViewModel.acceptedApplications[position].id)
         bundle.putLong("ApplierId", appliers[position].id)
         bundle.putString("Name", appliers[position].firstName)
+        bundle.putParcelable("Task", taskAcceptedViewModel.task)
         newFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container, newFragment

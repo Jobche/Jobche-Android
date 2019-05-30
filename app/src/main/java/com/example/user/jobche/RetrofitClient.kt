@@ -8,7 +8,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import okhttp3.OkHttpClient
 
 
-const val BASE_URL: String = "http://84.238.140.141:8080/"
+const val BASE_URL: String = "https://api.jobche.net"
 
 class RetrofitClient {
 
