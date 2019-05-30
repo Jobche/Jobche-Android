@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+                name="task"
+                type="com.example.user.jobche.Task"/>
+        <variable
+                name="viewModel"
+                type="com.example.user.jobche.TaskAcceptedViewModel"/>
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{task.observedTitle}"
+                android:drawableEnd="@drawable/ic_keyboard_arrow_right_white_24dp"
+                android:background="@color/colorPrimary"
+                android:onClick="@{() -> viewModel.onTaskClick()}"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textAlignment="viewStart"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"/>
+
+        <Button
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"
+                android:text='@{viewModel.started ? "Край на работата" : "Начало на работата"}'
+                android:background='@{viewModel.started ? @android:color/holo_red_light : @color/colorAccent}'
+                android:onClick="@{() -> viewModel.onStart()}"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"/>
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/fragment_container">
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/listOfAppliers"
+                    android:layout_marginTop="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+    </LinearLayout>
+</layout>
+

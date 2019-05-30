@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="user"
+                type="com.example.user.jobche.RegisterUser"/>
+        <variable
+                name="viewModel"
+                type="com.example.user.jobche.SignupNameViewModel"/>
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".UI.SignupNameActivity"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/what_is_your_name"
+                    android:textSize="30sp"
+                    android:layout_marginTop="100dp"
+                    android:textColor="@android:color/white"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/firstname"
+                    android:layout_marginTop="50dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:maxLines="1"
+                    android:inputType="textCapSentences"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="10dp"
+                    android:text="@={user.firstName}"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/white"/>
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lastname"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:textColor="@android:color/white"
+                    android:maxLines="1"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="10dp"
+                    android:text="@={user.lastName}"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/white"/>
+
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:elevation="2dp"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/button_login"
+                    android:onClick="@{() -> viewModel.onClick()}"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

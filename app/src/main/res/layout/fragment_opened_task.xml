@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+                name="viewModel"
+                type="com.example.user.jobche.OpenedTaskViewModel"/>
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".UI.Fragments.OpenedTaskFragment">
+
+        <include
+                android:id="@+id/creator_info"
+                layout="@layout/user_opened_task"/>
+
+        <include
+                android:id="@+id/frame_opened_task"
+                layout="@layout/opened_task_information"/>
+
+        <Button
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/apply"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                android:visibility="@{viewModel.isVisible ? View.GONE : View.VISIBLE}"
+                android:onClick="@{() -> viewModel.onClick()}"/>
+    </LinearLayout>
+</layout>

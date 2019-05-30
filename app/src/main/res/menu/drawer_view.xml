@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="@string/home" />
+
+        <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_person_black_24dp"
+                android:title="@string/profile"/>
+        <item
+                android:id="@+id/nav_my_tasks"
+                android:icon="@drawable/ic_work_black_24dp"
+                android:title="@string/my_tasks" />
+        <item
+                android:id="@+id/nav_applied_for"
+                android:icon="@drawable/ic_send_black_24dp"
+                android:title="@string/applied" />
+        <item
+                android:id="@+id/nav_saved"
+                android:icon="@drawable/ic_loved_black_24dp"
+                android:title="@string/saved"/>
+    </group>
+    <group
+            android:id="@+id/menu_bottom"
+            android:checkableBehavior="none">
+
+        <item
+                android:id="@+id/nav_log_out"
+                android:icon="@drawable/ic_log_out_black_24dp"
+                android:title="@string/log_out" />
+    </group>
+</menu>

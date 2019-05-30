@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+                name="viewModel"
+                type="com.example.user.jobche.ProfileViewModel"/>
+    </data>
+    <FrameLayout
+            android:id="@+id/profile_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".UI.Fragments.ProfileFragment"
+                android:background="#FFF"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/ic_launcher"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.userProfile.firstName}"
+                        android:layout_marginStart="30dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.userProfile.lastName}"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                  android:background="@android:color/black"
+                  android:layout_marginTop="10dp"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.yearsOld}"
+                        android:layout_marginStart="30dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="years old"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                  android:background="@android:color/black"
+                  android:layout_marginTop="10dp"/>
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bio"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="15sp"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                  android:background="@android:color/black"
+                  android:layout_marginTop="10dp"/>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rating:"
+                        android:layout_marginStart="30dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"/>
+
+                <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/ic_star_black_24dp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.5"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(5)"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <Button
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center"
+                    android:text="Reviews"
+                    android:textAllCaps="false"/>
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>
