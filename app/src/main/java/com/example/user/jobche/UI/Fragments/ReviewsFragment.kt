@@ -24,22 +24,28 @@ import com.example.user.jobche.databinding.FragmentReviewsBinding
 import android.support.v7.app.AlertDialog
 import com.example.user.jobche.databinding.RatingDialogBinding
 import android.content.DialogInterface
+import android.support.v4.app.FragmentManager
+import android.support.v4.widget.DrawerLayout
 import android.widget.RatingBar
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.rating_dialog.view.*
 
 
 class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickListener {
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
     private var workId: Long = 0
     private lateinit var reviewsViewModel: ReviewsViewModel
+    private lateinit var newFragment:Fragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (activity is HomeActivity) {
             (activity as HomeActivity).supportActionBar!!.title = "Оценяване"
-            (activity as HomeActivity).showBackButton(true)
+            (activity as HomeActivity).showBackButton(false)
         }
 
         val sharedPreferences: SharedPreferences =
@@ -79,6 +85,14 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
             )
         })
 
+        reviewsViewModel.onClickEventLiveData.observe(this, Observer {
+//            Toast.makeText(activity, "GO to home", Toast.LENGTH_SHORT).show()
+            newFragment = HomeFragment()
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container, newFragment
+            ).addToBackStack(null).commit()
+        })
+
         return binding.root
     }
 
@@ -97,7 +111,7 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
         }
 
         builder.setNeutralButton("Cancel") { _, _ ->
-            // Do something when click the neutral button
+            // Do nothing when click the neutral button
         }
 
         builder.show()

@@ -21,6 +21,8 @@ import com.example.user.jobche.Task
 import com.example.user.jobche.databinding.FragmentTaskAcceptedBinding
 
 
+
+
 class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickListener {
 
 
@@ -42,7 +44,6 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
         savedInstanceState: Bundle?
     ): View? {
         super.onCreate(savedInstanceState)
-
 
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
@@ -109,7 +110,7 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
             newFragment.arguments = newBundle
             activity!!.supportFragmentManager.beginTransaction().replace(
                 com.example.user.jobche.R.id.fragment_container, newFragment
-            ).commit()
+            ).addToBackStack(null).commit()
         })
 
         taskAcceptedViewModel.onStartEventLiveData.observe(this, Observer {

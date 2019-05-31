@@ -20,9 +20,13 @@ class ReviewsViewModel : ViewModel(){
     var workId: Long = 0
     var workers = ArrayList<UserProfile>()
     private val _adapterEventLiveData = SingleLiveData<Any>()
+    private val _onClickEventLiveData = SingleLiveData<Any>()
 
     val adapterEventData: LiveData<Any>
         get() = _adapterEventLiveData
+
+    val onClickEventLiveData: LiveData<Any>
+        get() = _onClickEventLiveData
 
     fun getWork() {
         val call: Call<Work> = RetrofitClient().api
@@ -31,7 +35,6 @@ class ReviewsViewModel : ViewModel(){
         call.enqueue(object : Callback<Work> {
             override fun onFailure(call: Call<Work>, t: Throwable) {
                 Log.d("Get work onFailure ", t.message.toString())
-
             }
 
             override fun onResponse(call: Call<Work>, response: Response<Work>) {
@@ -65,5 +68,9 @@ class ReviewsViewModel : ViewModel(){
 
             }
         })
+    }
+
+    fun onClickNext() {
+        _onClickEventLiveData.call()
     }
 }

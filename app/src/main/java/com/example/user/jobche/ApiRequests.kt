@@ -17,6 +17,9 @@ interface ApiRequests {
     @POST("users/login")
     fun loginUser(@Body body: JsonObject): Call<User>
 
+    @GET("users/me")
+    fun checkUser(@Header("Authorization") auth: String): Call<UserProfile>
+
     @POST("tasks")
     fun createTask(@Header("Authorization") auth: String, @Body body: JsonObject): Call<Task>
 

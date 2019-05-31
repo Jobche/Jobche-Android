@@ -163,6 +163,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Моля, натиснете НАЗАД, за да излезете", Toast.LENGTH_SHORT).show()
 
-        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 }
