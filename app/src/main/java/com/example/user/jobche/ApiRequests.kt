@@ -2,6 +2,8 @@ package com.example.user.jobche
 
 import com.example.user.jobche.Model.*
 import com.google.gson.JsonObject
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import org.joda.time.DateTime
 import retrofit2.Call
 import retrofit2.http.*
@@ -92,4 +94,7 @@ interface ApiRequests {
     @POST("reviews")
     fun reviewUser(@Header("Authorization") auth: String, @Body body: JsonObject): Call<Review>
 
+    @Multipart
+    @POST("picture/profile")
+    fun uploadImage(@Header("Authorization") auth: String, @Part file: MultipartBody.Part): Call<ResponseBody>
 }
