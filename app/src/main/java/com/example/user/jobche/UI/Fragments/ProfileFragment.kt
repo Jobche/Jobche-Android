@@ -18,8 +18,8 @@ import com.example.user.jobche.ProfileViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentProfileBinding
-
-
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
 
@@ -28,7 +28,7 @@ class ProfileFragment : Fragment() {
     private lateinit var password: String
     private var userId: Int = 0
     private val profileViewModel = ProfileViewModel()
-    private  lateinit var binding: FragmentProfileBinding
+    private lateinit var binding: FragmentProfileBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
 
@@ -53,6 +53,10 @@ class ProfileFragment : Fragment() {
         profileViewModel.password = password
         profileViewModel.getUser()
 
+        profileViewModel.getImageEventLiveData.observe(this, Observer {
+            Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(400, 400).centerCrop().into(image_profile)
+        })
+
         profileViewModel.onClickImageEventLiveData.observe(this, Observer {
 
             val intent = Intent(Intent.ACTION_PICK)
@@ -68,8 +72,8 @@ class ProfileFragment : Fragment() {
     //is called when an image is selected
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
-            val selectedImage: Uri =  data.data!!
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
+            val selectedImage: Uri = data.data!!
 
             val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
             // Get the cursor
@@ -83,6 +87,7 @@ class ProfileFragment : Fragment() {
             cursor.close()
             binding.imageProfile.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString))
             profileViewModel.uploadImage(imgDecodableString)
+
 
         }
     }

@@ -8,6 +8,7 @@ import org.joda.time.DateTime
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.GET
+import java.io.File
 
 
 interface ApiRequests {
@@ -97,4 +98,7 @@ interface ApiRequests {
     @Multipart
     @POST("picture/profile")
     fun uploadImage(@Header("Authorization") auth: String, @Part file: MultipartBody.Part): Call<ResponseBody>
+
+    @GET("picture/profile")
+    fun getImage(@Header("Authorization") auth: String): Call<ResponseBody>
 }
