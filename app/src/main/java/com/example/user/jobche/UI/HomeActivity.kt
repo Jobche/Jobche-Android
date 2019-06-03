@@ -1,6 +1,7 @@
 package com.example.user.jobche.UI
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -18,6 +19,9 @@ import android.view.*
 import android.widget.Toast
 import com.example.user.jobche.UI.Fragments.*
 import com.example.user.jobche.databinding.HeaderBinding
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.header.*
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -56,6 +60,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         profileViewModel.password = password
         profileViewModel.userId = userId.toLong()
         profileViewModel.getUser()
+
+        profileViewModel.getImageEventLiveData.observe(this, Observer {
+            Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(400, 400).centerCrop().into(header_image)
+        })
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
