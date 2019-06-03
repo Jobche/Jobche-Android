@@ -17,6 +17,10 @@ import com.example.user.jobche.OpenedTaskViewModel
 import com.example.user.jobche.ProfileViewModel
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentOpenedTaskBinding
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.header.*
+import kotlinx.android.synthetic.main.user_opened_task.*
 
 class OpenedTaskFragment : Fragment() {
 
@@ -64,6 +68,11 @@ class OpenedTaskFragment : Fragment() {
         profileViewModel.email = email
         profileViewModel.password = password
         profileViewModel.getUser()
+
+        profileViewModel.getImageEventLiveData.observe(this, Observer {
+            Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(400, 400).centerCrop()
+                .into(image_person)
+        })
 
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {
             Toast.makeText(activity, "You Applied Successfully", Toast.LENGTH_LONG).show()

@@ -86,7 +86,6 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
         })
 
         reviewsViewModel.onClickEventLiveData.observe(this, Observer {
-//            Toast.makeText(activity, "GO to home", Toast.LENGTH_SHORT).show()
             newFragment = HomeFragment()
             activity!!.supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container, newFragment
@@ -97,7 +96,6 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
     }
 
     override fun onClick(position: Int) {
-        Toast.makeText(activity, "Shte go reitvam toz" + position.toString(), Toast.LENGTH_SHORT).show()
         val builder = AlertDialog.Builder(activity!!)
         val inflater = layoutInflater
         builder.setTitle("Оценете " + reviewsViewModel.workers[position].firstName + " " + reviewsViewModel.workers[position].lastName)
@@ -106,7 +104,6 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
         builder.setView(dialogLayout)
 
         builder.setPositiveButton("Избери") { _, _ ->
-            Toast.makeText(activity!!, "Rating is " + ratingBar.rating, Toast.LENGTH_SHORT).show()
             reviewsViewModel.reviewUser(ratingBar.rating.toInt(), reviewsViewModel.workers[position].id, workId)
         }
 

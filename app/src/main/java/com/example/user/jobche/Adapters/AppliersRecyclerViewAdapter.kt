@@ -7,15 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.view.LayoutInflater
+import android.widget.ImageButton
+import android.widget.ImageView
 import com.example.user.jobche.Model.DateOfBirth
 import com.example.user.jobche.R
 import org.joda.time.LocalDate
 import org.joda.time.Years
-import android.os.Bundle
-import android.support.v4.app.Fragment
-import com.example.user.jobche.Model.Application
+
 import com.example.user.jobche.Model.UserProfile
-import com.example.user.jobche.UI.Fragments.ApplierProfileFragment
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.header.*
 
 class AppliersRecyclerViewAdapter(
     private val appliers: ArrayList<UserProfile>,
@@ -45,9 +46,13 @@ class AppliersRecyclerViewAdapter(
         holder.firstname.text = appliers[position].firstName
         holder.lastname.text = appliers[position].lastName
         holder.years.text = dateTimeToYears(appliers[position].dateOfBirth!!)
+        if (appliers[position].profilePicture != null) {
+            Picasso.get().load(appliers[position].profilePicture).resize(400, 400).centerCrop().into(holder.image)
+        }
     }
 
-    class ViewHolder(itemView: View, val onАpplierClickListener: OnApplierClickListener) : RecyclerView.ViewHolder(itemView),
+    class ViewHolder(itemView: View, val onАpplierClickListener: OnApplierClickListener) :
+        RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         override fun onClick(v: View?) {
             onАpplierClickListener.onClick(adapterPosition)
@@ -57,9 +62,10 @@ class AppliersRecyclerViewAdapter(
             itemView.setOnClickListener(this)
         }
 
-        var firstname: TextView = itemView.findViewById(R.id.user_firstname)
-        var lastname: TextView = itemView.findViewById(R.id.user_lastname)
-        var years: TextView = itemView.findViewById(R.id.user_years)
+        val firstname: TextView = itemView.findViewById(R.id.user_firstname)
+        val lastname: TextView = itemView.findViewById(R.id.user_lastname)
+        val years: TextView = itemView.findViewById(R.id.user_years)
+        var image: ImageView = itemView.findViewById(R.id.image_person)
     }
 
     interface OnApplierClickListener {

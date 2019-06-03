@@ -14,6 +14,9 @@ import com.example.user.jobche.R
 import com.example.user.jobche.Task
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentApplierProfileBinding
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.header.*
 
 class ApplierProfileFragment : Fragment() {
 
@@ -60,6 +63,11 @@ class ApplierProfileFragment : Fragment() {
         profileViewModel.email = email
         profileViewModel.password = password
         profileViewModel.getUser()
+
+        profileViewModel.getImageEventLiveData.observe(this, Observer {
+            Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(400, 400).centerCrop()
+                .into(image_profile)
+        })
 
         profileViewModel.acceptUserEventLiveData.observe(this, Observer {
             newFragment = TaskWorkersFragment()
