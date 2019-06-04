@@ -78,11 +78,8 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
         taskAcceptedViewModel.getTaskAppliers()
 
         taskAcceptedViewModel.adapterEventData.observe(this, Observer {
-            for (application in taskAcceptedViewModel.acceptedApplications) {
-                appliers.add(application.applicant)
-            }
             recyclerView.adapter = AppliersRecyclerViewAdapter(
-                appliers,
+                taskAcceptedViewModel.acceptedAppliers,
                 this
             )
         })
@@ -122,7 +119,7 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
             }
             val builder = AlertDialog.Builder(activity!!)
 
-            if (taskAcceptedViewModel.acceptedApplications.isEmpty()) {
+            if (taskAcceptedViewModel.acceptedAppliers.isEmpty()) {
                 builder.setTitle("Няма одобрени кандидати за работата.")
                 builder.setNeutralButton("Cancel") { _, _ -> }
             } else {
@@ -173,7 +170,7 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
     override fun onClick(position: Int) {
         bundle = Bundle()
         newFragment = ApplierProfileFragment()
-        bundle.putLong("ApplicationId", taskAcceptedViewModel.acceptedApplications[position].id)
+        bundle.putLong("ApplicationId", taskAcceptedViewModel.acceptedAppliers[position].id)
         bundle.putLong("ApplierId", appliers[position].id)
         bundle.putString("Name", appliers[position].firstName)
         bundle.putParcelable("Task", taskAcceptedViewModel.task)

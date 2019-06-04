@@ -7,35 +7,35 @@
                 name="viewModel"
                 type="com.example.user.jobche.ReviewsViewModel"/>
     </data>
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                    android:orientation="vertical">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
         <Button
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:text="@string/next"
+                android:layout_marginTop="30dp"
                 android:layout_gravity="center"
+                android:text="Продължи"
                 android:background="@color/colorPrimary"
-                android:textColor="@android:color/white"
+                android:onClick="@{() -> viewModel.onClickNext()}"
                 android:textAllCaps="false"
-                android:layout_marginEnd="40dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="40dp"
-                android:onClick="@{() -> viewModel.onClickNext()}"/>
+                android:textColor="@android:color/white"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"/>
 
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/fragment_container"
-                tools:context=".UI.Fragments.ReviewsFragment">
-
+                android:id="@+id/fragment_container">
 
             <android.support.v7.widget.RecyclerView
                     android:id="@+id/listOfWorkers"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="50dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-        </FrameLayout>
 
+        </FrameLayout>
     </LinearLayout>
 </layout>

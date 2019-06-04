@@ -35,9 +35,13 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     var reviewWorkers = ArrayList<UserProfile>()
 
-    var applications = ArrayList<Application>()
+//    var applications = ArrayList<Application>()
 
-    var acceptedApplications = ArrayList<Application>()
+//    var acceptedApplications = ArrayList<Application>()
+
+    val appliers = ArrayList<UserProfile>()
+
+    val acceptedAppliers = ArrayList<UserProfile>()
 
     private val _adapterEventLiveData = SingleLiveData<Any>()
 
@@ -106,7 +110,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
         for (i in booleanArray.indices) {
             val checked = booleanArray[i]
             if (checked) {
-                startWorkersIds.add(acceptedApplications[i].applicant.id)
+                startWorkersIds.add(acceptedAppliers[i].id)
             }
         }
 
@@ -152,10 +156,10 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                 if (response.body() != null) {
                     for (application in response.body()!!.applications) {
                         if (application.accepted) {
-                            acceptedApplications.add(application)
+                            acceptedAppliers.add(application.applicant)
                             acceptedNames.add(application.applicant.firstName + " " + application.applicant.lastName)
                         }else {
-                            applications.add(application)
+                            appliers.add(application.applicant)
                         }
                     }
                     if (page == 0) {

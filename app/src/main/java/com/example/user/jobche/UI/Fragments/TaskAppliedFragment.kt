@@ -29,7 +29,7 @@ class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCli
     private var page = 0
     private var task: Task = Task()
     private var bundle: Bundle = Bundle()
-    private val appliers = ArrayList<UserProfile>()
+//    private lateinit var appliers : ArrayList<UserProfile>
     private lateinit var newFragment: Fragment
 
     override fun onCreateView(
@@ -56,11 +56,12 @@ class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCli
         taskAppliersViewModel.getTaskAppliers()
 
         taskAppliersViewModel.adapterEventData.observe(this, Observer {
-            for (application in taskAppliersViewModel.applications) {
-                appliers.add(application.applicant)
-            }
+//            val appliers = ArrayList<UserProfile>()
+//            for (application in taskAppliersViewModel.applications) {
+//                appliers.add(application.applicant)
+//            }
             recyclerView.adapter = AppliersRecyclerViewAdapter(
-               appliers,
+               taskAppliersViewModel.appliers,
                 this
             )
         })
@@ -96,9 +97,9 @@ class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCli
     override fun onClick(position: Int) {
         bundle = Bundle()
         newFragment = ApplierProfileFragment()
-        bundle.putLong("ApplicationId", taskAppliersViewModel.applications[position].id)
-        bundle.putLong("ApplierId", appliers[position].id)
-        bundle.putString("Name", appliers[position].firstName)
+        bundle.putLong("ApplicationId", taskAppliersViewModel.appliers[position].id)
+        bundle.putLong("ApplierId", taskAppliersViewModel.appliers[position].id)
+        bundle.putString("Name", taskAppliersViewModel.appliers[position].firstName)
         bundle.putParcelable("Task", task)
         newFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction().replace(
