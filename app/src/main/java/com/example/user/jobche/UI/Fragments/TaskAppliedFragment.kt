@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.example.user.jobche.R
 import com.example.user.jobche.Task
 import com.example.user.jobche.TaskAcceptedViewModel
 import com.example.user.jobche.Adapters.AppliersRecyclerViewAdapter
-import com.example.user.jobche.Model.UserProfile
 import com.example.user.jobche.databinding.FragmentTaskAppliedBinding
 
 
@@ -29,7 +27,6 @@ class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCli
     private var page = 0
     private var task: Task = Task()
     private var bundle: Bundle = Bundle()
-//    private lateinit var appliers : ArrayList<UserProfile>
     private lateinit var newFragment: Fragment
 
     override fun onCreateView(
@@ -50,16 +47,12 @@ class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCli
         val binding: FragmentTaskAppliedBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_task_applied, container, false)
         taskAppliersViewModel = TaskAcceptedViewModel(task, email, password)
         recyclerView = binding.listOfAppliers
-        val layoutManager = LinearLayoutManager(activity)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+
 
         taskAppliersViewModel.getTaskAppliers()
 
         taskAppliersViewModel.adapterEventData.observe(this, Observer {
-//            val appliers = ArrayList<UserProfile>()
-//            for (application in taskAppliersViewModel.applications) {
-//                appliers.add(application.applicant)
-//            }
             recyclerView.adapter = AppliersRecyclerViewAdapter(
                taskAppliersViewModel.appliers,
                 this
@@ -97,7 +90,7 @@ class TaskAppliedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCli
     override fun onClick(position: Int) {
         bundle = Bundle()
         newFragment = ApplierProfileFragment()
-        bundle.putLong("ApplicationId", taskAppliersViewModel.appliers[position].id)
+        bundle.putLong("ApplicationId", taskAppliersViewModel.applications[position].id)
         bundle.putLong("ApplierId", taskAppliersViewModel.appliers[position].id)
         bundle.putString("Name", taskAppliersViewModel.appliers[position].firstName)
         bundle.putParcelable("Task", task)

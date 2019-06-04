@@ -6,16 +6,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import com.example.user.jobche.Adapters.ApplicationsPagerAdapter
 import com.example.user.jobche.R
 import com.example.user.jobche.Task
 import com.example.user.jobche.UI.HomeActivity
-import com.example.user.jobche.Adapters.ViewPagerAdapter
 import com.example.user.jobche.databinding.FragmentViewpagerBinding
 
-class TaskWorkersFragment : Fragment() {
-
-    private var task: Task = Task()
+class ApplicationsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,18 +20,13 @@ class TaskWorkersFragment : Fragment() {
     ): View? {
 
         if (activity is HomeActivity) {
-            (activity as HomeActivity).supportActionBar!!.title = "Кандидатствали"
+            (activity as HomeActivity).supportActionBar!!.title = "Кандидатствaния"
             (activity as HomeActivity).showBackButton(true)
         }
         val binding: FragmentViewpagerBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_viewpager, container, false)
 
-        val bundle = arguments
-        if (bundle != null) {
-            task = bundle.getParcelable("Task")!!
-        }
-
-        binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager, task)
+        binding.viewPager.adapter = ApplicationsPagerAdapter(childFragmentManager)
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         return binding.root
     }

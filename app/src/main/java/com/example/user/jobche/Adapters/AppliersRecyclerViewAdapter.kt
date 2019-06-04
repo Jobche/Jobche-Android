@@ -7,16 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.view.LayoutInflater
-import android.widget.ImageButton
 import android.widget.ImageView
 import com.example.user.jobche.Model.DateOfBirth
 import com.example.user.jobche.R
 import org.joda.time.LocalDate
 import org.joda.time.Years
-
 import com.example.user.jobche.Model.UserProfile
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.header.*
 
 class AppliersRecyclerViewAdapter(
     private val appliers: ArrayList<UserProfile>,

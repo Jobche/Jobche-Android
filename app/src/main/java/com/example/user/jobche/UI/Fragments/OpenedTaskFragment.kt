@@ -18,8 +18,6 @@ import com.example.user.jobche.ProfileViewModel
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentOpenedTaskBinding
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.header.*
 import kotlinx.android.synthetic.main.user_opened_task.*
 
 class OpenedTaskFragment : Fragment() {

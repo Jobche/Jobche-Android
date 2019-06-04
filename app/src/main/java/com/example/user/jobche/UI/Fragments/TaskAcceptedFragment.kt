@@ -9,22 +9,17 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.Adapters.AppliersRecyclerViewAdapter
-import com.example.user.jobche.Model.UserProfile
 import com.example.user.jobche.TaskAcceptedViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.Task
 import com.example.user.jobche.databinding.FragmentTaskAcceptedBinding
 
 
-
-
 class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickListener {
-
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
@@ -35,7 +30,6 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
     private var page = 0
     private var task: Task = Task()
     private var bundle: Bundle = Bundle()
-    private val appliers = ArrayList<UserProfile>()
     private lateinit var newFragment: Fragment
     private lateinit var taskAcceptedViewModel: TaskAcceptedViewModel
 
@@ -170,9 +164,9 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
     override fun onClick(position: Int) {
         bundle = Bundle()
         newFragment = ApplierProfileFragment()
-        bundle.putLong("ApplicationId", taskAcceptedViewModel.acceptedAppliers[position].id)
-        bundle.putLong("ApplierId", appliers[position].id)
-        bundle.putString("Name", appliers[position].firstName)
+        bundle.putLong("ApplicationId", taskAcceptedViewModel.acceptedApplications[position].id)
+        bundle.putLong("ApplierId", taskAcceptedViewModel.acceptedAppliers[position].id)
+        bundle.putString("Name", taskAcceptedViewModel.acceptedAppliers[position].firstName)
         bundle.putParcelable("Task", taskAcceptedViewModel.task)
         newFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction().replace(

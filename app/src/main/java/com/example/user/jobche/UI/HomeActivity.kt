@@ -112,7 +112,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             R.id.nav_applied_for -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container,
-                MyApplicationsFragment()
+                ApplicationsFragment()
             ).addToBackStack(null).commit()
 
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))

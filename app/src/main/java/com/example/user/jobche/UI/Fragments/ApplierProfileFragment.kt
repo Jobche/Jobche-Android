@@ -16,7 +16,6 @@ import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentApplierProfileBinding
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.header.*
 
 class ApplierProfileFragment : Fragment() {
 

@@ -101,7 +101,9 @@ class ProfileViewModel : BaseObservable() {
 
             override fun onResponse(call: Call<Application>, response: Response<Application>) {
                 Log.d("Accept applier Success", response.body().toString())
-                _acceptUserEventLiveData.call()
+                if(response.body() != null) {
+                    _acceptUserEventLiveData.call()
+                }
             }
         })
     }

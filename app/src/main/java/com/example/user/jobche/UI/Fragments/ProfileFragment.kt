@@ -58,7 +58,6 @@ class ProfileFragment : Fragment() {
         })
 
         profileViewModel.onClickImageEventLiveData.observe(this, Observer {
-
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             val mimeTypes = arrayOf("image/jpeg", "image/png")
@@ -87,8 +86,6 @@ class ProfileFragment : Fragment() {
             cursor.close()
             binding.imageProfile.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString))
             profileViewModel.uploadImage(imgDecodableString)
-
-
         }
     }
 }

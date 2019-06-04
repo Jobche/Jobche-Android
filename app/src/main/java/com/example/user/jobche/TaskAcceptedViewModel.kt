@@ -35,9 +35,9 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     var reviewWorkers = ArrayList<UserProfile>()
 
-//    var applications = ArrayList<Application>()
+    var applications = ArrayList<Application>()
 
-//    var acceptedApplications = ArrayList<Application>()
+    var acceptedApplications = ArrayList<Application>()
 
     val appliers = ArrayList<UserProfile>()
 
@@ -157,9 +157,11 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                     for (application in response.body()!!.applications) {
                         if (application.accepted) {
                             acceptedAppliers.add(application.applicant)
+                            acceptedApplications.add(application)
                             acceptedNames.add(application.applicant.firstName + " " + application.applicant.lastName)
                         }else {
                             appliers.add(application.applicant)
+                            applications.add(application)
                         }
                     }
                     if (page == 0) {

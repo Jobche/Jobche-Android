@@ -8,7 +8,6 @@ import org.joda.time.DateTime
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.GET
-import java.io.File
 
 
 interface ApiRequests {
