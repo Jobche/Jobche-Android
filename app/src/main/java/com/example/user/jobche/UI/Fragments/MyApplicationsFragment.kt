@@ -16,11 +16,11 @@ import com.example.user.jobche.MyApplicationsViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.Adapters.TasksRecyclerViewAdapter
+import com.example.user.jobche.Task
 import com.example.user.jobche.databinding.FragmentMyApplicationsBinding
 
 
 class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
-
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
@@ -36,11 +36,6 @@ class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickL
         savedInstanceState: Bundle?
     ): View? {
 
-        if (activity is HomeActivity) {
-            (activity as HomeActivity).supportActionBar!!.title = "Кандидаствания"
-            (activity as HomeActivity).showBackButton(false)
-        }
-
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
@@ -53,8 +48,8 @@ class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickL
         myApplicationsViewModel = MyApplicationsViewModel()
         binding.viewModel = myApplicationsViewModel
 
-        myApplicationsViewModel.setEmail(email)
-        myApplicationsViewModel.setPassword(password)
+        myApplicationsViewModel.email = email
+        myApplicationsViewModel.password = password
 
         recyclerView = binding.listOfMyTasks
         val layoutManager = LinearLayoutManager(activity!!)
@@ -66,11 +61,10 @@ class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickL
         myApplicationsViewModel.adapterEventData.observe(this, Observer {
 
             recyclerView.adapter = TasksRecyclerViewAdapter(
-                myApplicationsViewModel.tasks,
+                myApplicationsViewModel.appliedTasks,
                 this
             )
         })
-
 
         myApplicationsViewModel.updateAdapterEventLiveData.observe(this, Observer {
             recyclerView.adapter!!.notifyDataSetChanged()
@@ -82,7 +76,7 @@ class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickL
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     page += 1
-                    myApplicationsViewModel.setPage(page)
+                    myApplicationsViewModel.page = page
                     myApplicationsViewModel.getAppliedTasks()
                 }
             }
@@ -92,7 +86,7 @@ class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickL
     }
     override fun onClick(position: Int) {
         newFragment = OpenedTaskFragment()
-        bundle.putParcelable("Task", myApplicationsViewModel.tasks[position])
+        bundle.putParcelable("Task", myApplicationsViewModel.appliedTasks[position])
         newFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container, newFragment

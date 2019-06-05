@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    fun saveData() {
+    private fun saveData() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 

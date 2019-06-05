@@ -86,7 +86,6 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
         })
 
         reviewsViewModel.onClickEventLiveData.observe(this, Observer {
-            Log.d("KLIKNATO", "PISNALOMIE")
             newFragment = HomeFragment()
             activity!!.supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container, newFragment

@@ -96,7 +96,6 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
-                    Log.d("Home", "Scrooll")
                     homeViewModel.page += 1
                     homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
                 }
@@ -110,6 +109,7 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
     override fun onClick(position: Int) {
         newFragment = OpenedTaskFragment()
         bundle.putParcelable("Task", homeViewModel.tasks[position])
+        Log.d("Task", homeViewModel.tasks[position].toString())
         newFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container, newFragment
