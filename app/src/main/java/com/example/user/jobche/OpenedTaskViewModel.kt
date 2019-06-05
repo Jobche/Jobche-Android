@@ -15,7 +15,7 @@ class OpenedTaskViewModel(val task: Task, private val email: String, private val
 
     val time: String = (task.dateTime).substring(11, 16)
 
-    val isVisible: Boolean = (task.creatorId == userId)
+    val isVisible: Boolean = (task.creator.id == userId)
 
     private val _onClickEventLiveData = SingleLiveData<Any>()
 

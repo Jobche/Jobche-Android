@@ -62,7 +62,7 @@ class OpenedTaskFragment : Fragment() {
         binding.frameOpenedTask.task = task
         binding.creatorInfo.viewModel = profileViewModel
 
-        profileViewModel.userId = task.creatorId
+        profileViewModel.userId = task.creator.id
         profileViewModel.email = email
         profileViewModel.password = password
         profileViewModel.getUser()
@@ -73,9 +73,7 @@ class OpenedTaskFragment : Fragment() {
         })
 
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {
-            Toast.makeText(activity, "You Applied Successfully", Toast.LENGTH_LONG).show()
             startActivity(Intent(activity, HomeActivity::class.java))
-
         })
 
         return binding.root

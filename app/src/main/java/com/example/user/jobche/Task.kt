@@ -3,6 +3,7 @@ package com.example.user.jobche
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.os.Parcelable
+import com.example.user.jobche.Model.UserProfile
 import kotlinx.android.parcel.Parcelize
 
 data class Tasks(val tasks: ArrayList<Task>)
@@ -16,7 +17,7 @@ data class Task(
     private var numberOfWorkers: String = "",
     val id: Long = 0,
     var dateTime: String = "",
-    val creatorId: Long = 0,
+    val creator: UserProfile = UserProfile(),
     private var acceptedWorkersCount: Int = 0
 ) : Parcelable, BaseObservable() {
 
