@@ -47,10 +47,10 @@ class ReviewsViewModel : ViewModel(){
         })
     }
 
-    fun reviewUser(ratingStars: Int, userId: Long, workId: Long) {
+    fun reviewUser(ratingStars: Int, comment: String, userId: Long, workId: Long) {
 
         val paramObject = JsonObject()
-        paramObject.addProperty("comment", "Справи се супер!")
+        paramObject.addProperty("comment", comment)
         paramObject.addProperty("reviewGrade", ReviewGrade.values()[ratingStars - 1].toString())
         paramObject.addProperty("userId", userId)
         paramObject.addProperty("workId", workId)

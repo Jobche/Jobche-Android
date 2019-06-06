@@ -18,7 +18,8 @@ data class UserProfile(
 data class Review(
     val id: Long,
     val reviewGrade: ReviewGrade,
-    val workId: Long
+    val workId: Long,
+    val comment: String
 ): Parcelable
 
 enum class ReviewGrade {

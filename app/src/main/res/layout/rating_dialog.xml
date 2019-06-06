@@ -6,12 +6,22 @@
             android:layout_height="match_parent">
 
         <RatingBar
-                android:id="@+id/ratingBar"
+                android:id="@+id/rating_bar"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
                 android:stepSize="1"/>
+
+        <EditText
+                android:id="@+id/review_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:hint="Напишете коментар относно оценката"/>
 
     </LinearLayout>
 </layout>

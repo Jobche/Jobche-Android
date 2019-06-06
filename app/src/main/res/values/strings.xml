@@ -30,6 +30,7 @@
     <string name="time">Час</string>
     <string name="description">Описание</string>
     <string name="date">Дата:</string>
+    <string name="date_input">Дата</string>
     <string name="search_tasks">Търсене</string>
     <string name="to_date">Крайна дата</string>
     <string name="from_date">Начална дата</string>
