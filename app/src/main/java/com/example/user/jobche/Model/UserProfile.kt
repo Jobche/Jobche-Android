@@ -9,6 +9,7 @@ data class UserProfile(
     var firstName: String = "",
     var lastName: String = "",
     var phoneNum: String = "",
+    var profilePicture: String? = "",
     var dateOfBirth: DateOfBirth? = null,
     val reviews: ArrayList<Review> = ArrayList()
 ): Parcelable

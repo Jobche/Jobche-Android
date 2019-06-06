@@ -39,6 +39,10 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     var acceptedApplications = ArrayList<Application>()
 
+    val appliers = ArrayList<UserProfile>()
+
+    val acceptedAppliers = ArrayList<UserProfile>()
+
     private val _adapterEventLiveData = SingleLiveData<Any>()
 
     private val _updateAdapterEventLiveData = SingleLiveData<Any>()
@@ -95,7 +99,6 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
             override fun onResponse(call: Call<Work>, response: Response<Work>) {
                 Log.d("End work onSuccess", response.body().toString())
-
             }
         })
         started = false
@@ -107,7 +110,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
         for (i in booleanArray.indices) {
             val checked = booleanArray[i]
             if (checked) {
-                startWorkersIds.add(acceptedApplications[i].applicant.id)
+                startWorkersIds.add(acceptedAppliers[i].id)
             }
         }
 
@@ -139,28 +142,26 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     }
 
-
     fun getTaskAppliers() {
         val call = RetrofitClient().api
             .getAppliers(Credentials.basic(email, password), task.id, page, size)
 
         call.enqueue(object : Callback<Applications> {
             override fun onFailure(call: retrofit2.Call<Applications>, t: Throwable) {
-                Log.d("My Apply onFailure ", t.message.toString())
+                Log.d("My Appliers onFailure ", t.message.toString())
             }
 
             override fun onResponse(call: retrofit2.Call<Applications>, response: Response<Applications>) {
-                Log.d("My Apply onSuccess", response.body().toString())
+                Log.d("My Appliers onSuccess", response.body().toString())
                 if (response.body() != null) {
-                    acceptedApplications.clear()
-                    applications.clear()
-                    acceptedNames.clear()
-                    for (appl in response.body()!!.applications) {
-                        if (appl.accepted) {
-                            acceptedApplications.add(appl)
-                            acceptedNames.add(appl.applicant.firstName + " " + appl.applicant.lastName)
+                    for (application in response.body()!!.applications) {
+                        if (application.accepted) {
+                            acceptedAppliers.add(application.applicant)
+                            acceptedApplications.add(application)
+                            acceptedNames.add(application.applicant.firstName + " " + application.applicant.lastName)
                         }else {
-                            applications.add(appl)
+                            appliers.add(application.applicant)
+                            applications.add(application)
                         }
                     }
                     if (page == 0) {
@@ -172,7 +173,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                     Log.d("RecylerView", "It's Empty!")
 
                 } else {
-                    Log.d("RecylerView", "No more tasks to show!")
+                    Log.d("RecylerView", "No more people to show!")
                     page--
                 }
             }

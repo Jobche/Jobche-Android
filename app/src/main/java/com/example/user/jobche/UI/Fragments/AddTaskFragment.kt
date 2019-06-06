@@ -45,7 +45,6 @@ class AddTaskFragment : Fragment() {
         if (activity is HomeActivity) {
             (activity as HomeActivity).supportActionBar!!.title = "Добавяни Обява"
             (activity as HomeActivity).showBackButton(true)
-
         }
 
         val sharedPreferences: SharedPreferences =

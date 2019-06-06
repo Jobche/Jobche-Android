@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.Credentials
 import org.joda.time.LocalDate

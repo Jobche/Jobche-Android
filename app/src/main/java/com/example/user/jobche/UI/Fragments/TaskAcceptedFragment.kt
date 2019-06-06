@@ -9,12 +9,10 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.user.jobche.Adapters.AppliersRecyclerViewAdapter
-import com.example.user.jobche.Model.UserProfile
 import com.example.user.jobche.TaskAcceptedViewModel
 import com.example.user.jobche.R
 import com.example.user.jobche.Task
@@ -22,7 +20,6 @@ import com.example.user.jobche.databinding.FragmentTaskAcceptedBinding
 
 
 class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickListener {
-
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
@@ -33,7 +30,6 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
     private var page = 0
     private var task: Task = Task()
     private var bundle: Bundle = Bundle()
-    private val appliers = ArrayList<UserProfile>()
     private lateinit var newFragment: Fragment
     private lateinit var taskAcceptedViewModel: TaskAcceptedViewModel
 
@@ -42,7 +38,6 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
         savedInstanceState: Bundle?
     ): View? {
         super.onCreate(savedInstanceState)
-
 
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
@@ -77,11 +72,8 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
         taskAcceptedViewModel.getTaskAppliers()
 
         taskAcceptedViewModel.adapterEventData.observe(this, Observer {
-            for (application in taskAcceptedViewModel.acceptedApplications) {
-                appliers.add(application.applicant)
-            }
             recyclerView.adapter = AppliersRecyclerViewAdapter(
-                appliers,
+                taskAcceptedViewModel.acceptedAppliers,
                 this
             )
         })
@@ -109,9 +101,7 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
             newFragment.arguments = newBundle
             activity!!.supportFragmentManager.beginTransaction().replace(
                 com.example.user.jobche.R.id.fragment_container, newFragment
-            ).commit()
-
-
+            ).addToBackStack(null).commit()
         })
 
         taskAcceptedViewModel.onStartEventLiveData.observe(this, Observer {
@@ -123,27 +113,33 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
             }
             val builder = AlertDialog.Builder(activity!!)
 
-            builder.setTitle("Отбележете хората, които са дошли и ще работят.")
+            if (taskAcceptedViewModel.acceptedAppliers.isEmpty()) {
+                builder.setTitle("Няма одобрени кандидати за работата.")
+                builder.setNeutralButton("Cancel") { _, _ -> }
+            } else {
 
-            builder.setMultiChoiceItems(stringArray, booleanArray) { _, which, isChecked ->
-                booleanArray[which] = isChecked
+                builder.setTitle("Отбележете хората, които са дошли и ще работят.")
+
+                builder.setMultiChoiceItems(stringArray, booleanArray) { _, which, isChecked ->
+                    booleanArray[which] = isChecked
+                }
+
+                builder.setPositiveButton("Start") { _, _ ->
+                    // Do something when click positive button
+                    taskAcceptedViewModel.startWork(booleanArray)
+                    editor.putLong("TASK_STARTED_ID", task.id)
+
+                }
+
+
+                builder.setNeutralButton("Cancel") { _, _ ->
+                    // Do nothing when click the neutral button
+                }
+
             }
-
-            builder.setPositiveButton("Start") { _, _ ->
-                // Do something when click positive button
-                taskAcceptedViewModel.startWork(booleanArray)
-                editor.putLong("TASK_STARTED_ID", task.id)
-
-            }
-
-
-            builder.setNeutralButton("Cancel") { _, _ ->
-                // Do something when click the neutral button
-            }
-
-            val dialog = builder.create()
-            // Display the alert dialog on interface
-            dialog.show()
+                val dialog = builder.create()
+                // Display the alert dialog on interface
+                dialog.show()
         })
 
         taskAcceptedViewModel.updateAdapterEventLiveData.observe(this, Observer {
@@ -169,8 +165,9 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
         bundle = Bundle()
         newFragment = ApplierProfileFragment()
         bundle.putLong("ApplicationId", taskAcceptedViewModel.acceptedApplications[position].id)
-        bundle.putLong("ApplierId", appliers[position].id)
-        bundle.putString("Name", appliers[position].firstName)
+        bundle.putLong("ApplierId", taskAcceptedViewModel.acceptedAppliers[position].id)
+        bundle.putString("Name", taskAcceptedViewModel.acceptedAppliers[position].firstName)
+        bundle.putParcelable("Task", taskAcceptedViewModel.task)
         newFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container, newFragment

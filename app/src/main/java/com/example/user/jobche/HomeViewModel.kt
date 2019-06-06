@@ -2,8 +2,6 @@ package com.example.user.jobche
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import android.databinding.BaseObservable
-import android.databinding.Bindable
 import android.util.Log
 import okhttp3.Credentials
 import retrofit2.Call

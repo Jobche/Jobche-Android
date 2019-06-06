@@ -1,6 +1,7 @@
 package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -16,6 +17,8 @@ import com.example.user.jobche.OpenedTaskViewModel
 import com.example.user.jobche.ProfileViewModel
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentOpenedTaskBinding
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.user_opened_task.*
 
 class OpenedTaskFragment : Fragment() {
 
@@ -59,13 +62,18 @@ class OpenedTaskFragment : Fragment() {
         binding.frameOpenedTask.task = task
         binding.creatorInfo.viewModel = profileViewModel
 
-        profileViewModel.userId = task.creatorId
+        profileViewModel.userId = task.creator.id
         profileViewModel.email = email
         profileViewModel.password = password
         profileViewModel.getUser()
 
+        profileViewModel.getImageEventLiveData.observe(this, Observer {
+            Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(400, 400).centerCrop()
+                .into(image_person)
+        })
+
         openedTaskViewModel.onClickEventLiveData.observe(this, Observer {
-            Toast.makeText(activity, "You Applied Successfully", Toast.LENGTH_LONG).show()
+            startActivity(Intent(activity, HomeActivity::class.java))
         })
 
         return binding.root

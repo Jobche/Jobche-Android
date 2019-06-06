@@ -8,24 +8,21 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.user.jobche.MyApplicationsViewModel
-import com.example.user.jobche.R
-import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.Adapters.TasksRecyclerViewAdapter
-import com.example.user.jobche.Task
+import com.example.user.jobche.MyApplicationsViewModel
+
+import com.example.user.jobche.R
 import com.example.user.jobche.databinding.FragmentMyApplicationsBinding
 
-
-class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
+class MyAcceptedFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var email: String
     private lateinit var password: String
-    private lateinit var myApplicationsViewModel:MyApplicationsViewModel
+    private lateinit var myApplicationsViewModel: MyApplicationsViewModel
     private val bundle: Bundle = Bundle()
     private lateinit var newFragment: Fragment
 
@@ -61,7 +58,7 @@ class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickL
         myApplicationsViewModel.adapterEventData.observe(this, Observer {
 
             recyclerView.adapter = TasksRecyclerViewAdapter(
-                myApplicationsViewModel.appliedTasks,
+                myApplicationsViewModel.acceptedTasks,
                 this
             )
         })
@@ -86,7 +83,7 @@ class MyApplicationsFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickL
     }
     override fun onClick(position: Int) {
         newFragment = OpenedTaskFragment()
-        bundle.putParcelable("Task", myApplicationsViewModel.appliedTasks[position])
+        bundle.putParcelable("Task", myApplicationsViewModel.acceptedTasks[position])
         newFragment.arguments = bundle
         activity!!.supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container, newFragment

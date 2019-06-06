@@ -1,7 +1,6 @@
 package com.example.user.jobche.Model
 
 import com.example.user.jobche.Task
-import org.joda.time.DateTime
 
 data class Work(val createdAt: String,
                 val id: Long,
