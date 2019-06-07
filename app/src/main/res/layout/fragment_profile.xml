@@ -5,7 +5,7 @@
         <variable
                 name="viewModel"
                 type="com.example.user.jobche.ProfileViewModel"/>
-            <import type="android.view.View"/>
+
     </data>
     <FrameLayout
             android:id="@+id/profile_info"
@@ -155,7 +155,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4.5"
+                        android:text='@{"" + viewModel.userProfile.averageReview}'
                         android:layout_marginStart="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"/>
@@ -163,7 +163,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="(5)"
+                        android:text='@{"(" + viewModel.userProfile.reviews.size() + ")"}'
                         android:layout_marginStart="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"/>

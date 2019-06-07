@@ -42,14 +42,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="7dp"
                             android:textColor="@android:color/black"
-                            android:textSize="12sp"/>
+                            android:textSize="15sp"/>
                     <TextView
                             android:id="@+id/user_lastname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="7dp"
                             android:textColor="@android:color/black"
-                            android:textSize="12sp"/>
+                            android:textSize="15sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -64,20 +64,20 @@
                             android:layout_marginStart="7dp"
                             android:text="Оценка:"
                             android:textColor="@android:color/black"
-                            android:textSize="12sp"/>
+                            android:textSize="15sp"/>
                     <TextView
                         android:id="@+id/review_element_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="7dp"
                         android:textColor="@android:color/black"
-                        android:textSize="12sp"/>
+                        android:textSize="15sp"/>
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=".0"
                             android:textColor="@android:color/black"
-                            android:textSize="12sp"/>
+                            android:textSize="15sp"/>
                     <ImageView
                             android:layout_marginStart="5dp"
                             android:layout_width="18dp"
@@ -93,14 +93,16 @@
                         android:layout_marginTop="5dp"
                         android:text="Коментар:"
                         android:textColor="@android:color/black"
-                        android:textSize="12sp"/>
+                        android:textSize="15sp"/>
                 <TextView
                         android:id="@+id/review_element_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="10dp"
                         android:textColor="@android:color/black"
-                        android:textSize="12sp"/>
+                        android:textSize="14sp"/>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
