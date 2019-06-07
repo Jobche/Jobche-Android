@@ -50,6 +50,9 @@ class ProfileViewModel : BaseObservable() {
 
     private val _getImageEventLiveData = SingleLiveData<Any>()
 
+    private val _onClickReviewsLiveData = SingleLiveData<Any>()
+
+
     val acceptUserEventLiveData: LiveData<Any>
         get() = _acceptUserEventLiveData
 
@@ -58,6 +61,9 @@ class ProfileViewModel : BaseObservable() {
 
     val getImageEventLiveData: LiveData<Any>
         get() = _getImageEventLiveData
+
+    val onClickReviewsLiveData: LiveData<Any>
+        get() = _onClickReviewsLiveData
 
     fun dateTimeToYears(dateOfBirth: DateOfBirth): String {
         val now = LocalDate()
@@ -88,6 +94,10 @@ class ProfileViewModel : BaseObservable() {
                 }
             }
         })
+    }
+
+    fun onClickReviews() {
+        _onClickReviewsLiveData.call()
     }
 
     fun onAccept() {

@@ -29,6 +29,10 @@ class ProfileFragment : Fragment() {
     private var userId: Int = 0
     private val profileViewModel = ProfileViewModel()
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var newFragment: Fragment
+    private val bundle: Bundle = Bundle()
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
 
@@ -52,6 +56,15 @@ class ProfileFragment : Fragment() {
         profileViewModel.email = email
         profileViewModel.password = password
         profileViewModel.getUser()
+
+        profileViewModel.onClickReviewsLiveData.observe(this, Observer {
+            newFragment = ReviewsHistoryFragment()
+            bundle.putParcelableArrayList("Reviews", profileViewModel.userProfile.reviews)
+            newFragment.arguments = bundle
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container, newFragment
+            ).commit()
+        })
 
         profileViewModel.getImageEventLiveData.observe(this, Observer {
             Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(400, 400).centerCrop().into(image_profile)
