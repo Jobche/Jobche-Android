@@ -10,7 +10,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,8 @@ import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.databinding.FragmentProfileBinding
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.rating_dialog.view.*
+
 
 class ProfileFragment : Fragment() {
 
@@ -32,25 +36,26 @@ class ProfileFragment : Fragment() {
     private lateinit var newFragment: Fragment
     private val bundle: Bundle = Bundle()
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         if (activity is HomeActivity) {
             (activity as HomeActivity).supportActionBar!!.title = "Профил"
             (activity as HomeActivity).showBackButton(false)
         }
-
         val sharedPreferences: SharedPreferences =
             activity!!.getSharedPreferences("SHARED_PREFS", AppCompatActivity.MODE_PRIVATE)
 
         userId = sharedPreferences.getInt("ID", 0)
         email = sharedPreferences.getString("EMAIL", "")!!
         password = sharedPreferences.getString("PASSWORD", "")!!
+    }
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
-        val view: View = binding.root
         binding.viewModel = profileViewModel
         profileViewModel.userId = userId.toLong()
         profileViewModel.email = email
@@ -63,8 +68,9 @@ class ProfileFragment : Fragment() {
             newFragment.arguments = bundle
             activity!!.supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container, newFragment
-            ).commit()
+            ).addToBackStack(null).commit()
         })
+
 
         profileViewModel.getImageEventLiveData.observe(this, Observer {
             Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(400, 400).centerCrop().into(image_profile)
@@ -78,7 +84,7 @@ class ProfileFragment : Fragment() {
             startActivityForResult(intent, RESULT_LOAD_IMAGE)
         })
 
-        return view
+        return binding.root
     }
 
     //is called when an image is selected

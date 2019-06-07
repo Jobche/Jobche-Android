@@ -18,6 +18,7 @@
     <string name="title">Заглавие</string>
     <string name="leva">лв</string>
     <string name="price">Заплащане(лв.)</string>
+    <string name="priceTag">Заплащане</string>
     <string name="start">Начало</string>
     <string name="no_ratings">Без оценка</string>
     <string name="accepted">Приети</string>

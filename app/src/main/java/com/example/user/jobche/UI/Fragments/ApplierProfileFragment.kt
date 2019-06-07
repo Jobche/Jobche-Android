@@ -1,11 +1,15 @@
 package com.example.user.jobche.UI.Fragments
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.content.SharedPreferences
 import android.databinding.DataBindingUtil
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +25,13 @@ class ApplierProfileFragment : Fragment() {
 
     private lateinit var email: String
     private lateinit var password: String
+    private var userId: Int = 0
     private var applicationId: Long = 0
     private var applierId: Long = 0
     private lateinit var name: String
     private lateinit var task: Task
     private lateinit var newFragment: Fragment
-    private var bundle: Bundle = Bundle()
+    private val bundleFragment: Bundle = Bundle()
 
 
     override fun onCreateView(
@@ -38,6 +43,7 @@ class ApplierProfileFragment : Fragment() {
 
         val bundle = arguments
         if (bundle != null) {
+            userId = sharedPreferences.getInt("ID", 0)
             applicationId = bundle.getLong("ApplicationId")
             applierId = bundle.getLong("ApplierId")
             name = bundle.getString("Name")!!
@@ -63,15 +69,46 @@ class ApplierProfileFragment : Fragment() {
         profileViewModel.password = password
         profileViewModel.getUser()
 
+        if(userId != applierId.toInt()) {
+            binding.profileInfo.callButton.visibility = View.VISIBLE
+        }
+
         profileViewModel.getImageEventLiveData.observe(this, Observer {
             Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(400, 400).centerCrop()
                 .into(image_profile)
         })
 
+        profileViewModel.onClickReviewsLiveData.observe(this, Observer {
+            newFragment = ReviewsHistoryFragment()
+            bundleFragment.putParcelableArrayList("Reviews", profileViewModel.userProfile.reviews)
+            newFragment.arguments = bundleFragment
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                R.id.fragment_container, newFragment
+            ).addToBackStack(null).commit()
+        })
+
+        profileViewModel.onCallEventLiveData.observe(this, Observer {
+            val builder = AlertDialog.Builder(activity!!)
+            builder.setTitle("Потвъртеде, че искате да позвъните на " + profileViewModel.userProfile.firstName)
+
+            builder.setPositiveButton("Потвърди") { _, _ ->
+                val callIntent = Intent(Intent.ACTION_CALL)
+                callIntent.data = Uri.parse("tel:" + profileViewModel.userProfile.phoneNum)
+                startActivity(callIntent)
+            }
+
+            builder.setNeutralButton("Назад") { _, _ ->
+                // Do nothing when click the neutral button
+            }
+
+            builder.show()
+
+        })
+
         profileViewModel.acceptUserEventLiveData.observe(this, Observer {
             newFragment = TaskWorkersFragment()
-            bundle!!.putParcelable("Task", task)
-            newFragment.arguments = bundle
+            bundleFragment.putParcelable("Task", task)
+            newFragment.arguments = bundleFragment
             activity!!.supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container, newFragment
             ).addToBackStack(null).commit()

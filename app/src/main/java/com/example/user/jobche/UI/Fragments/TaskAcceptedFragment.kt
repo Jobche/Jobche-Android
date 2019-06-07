@@ -101,7 +101,7 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
             newFragment.arguments = newBundle
             activity!!.supportFragmentManager.beginTransaction().replace(
                 com.example.user.jobche.R.id.fragment_container, newFragment
-            ).addToBackStack(null).commit()
+            ).commit()
         })
 
         taskAcceptedViewModel.onStartEventLiveData.observe(this, Observer {
