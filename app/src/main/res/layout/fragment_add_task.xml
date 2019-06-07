@@ -77,7 +77,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:hint="@string/payment"
+                        android:hint="@string/price"
                         android:inputType="number"
                         android:text='@={task.observedPayment}'/>
 

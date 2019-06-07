@@ -26,9 +26,12 @@
                     layout="@layout/fragment_profile"/>
 
             <Button
-                    android:layout_width="200dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:text="Accept"
+                    android:text="Приемане"
+                    android:textAllCaps="false"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white"
                     android:layout_marginTop="40dp"
                     android:layout_gravity="center"
                     android:onClick="@{() -> viewModel.onAccept()}"/>
