@@ -24,16 +24,9 @@ class MyApplicationsViewModel : ViewModel() {
 
     val acceptedTasks = ArrayList<Task>()
 
-    private val _adapterEventLiveData = SingleLiveData<Any>()
+    val adapterEventLiveData = SingleLiveData<Any>()
 
-    private val _updateAdapterEventLiveData = SingleLiveData<Any>()
-
-    val adapterEventData: LiveData<Any>
-        get() = _adapterEventLiveData
-
-    val updateAdapterEventLiveData: LiveData<Any>
-        get() = _updateAdapterEventLiveData
-
+    val updateAdapterEventLiveData = SingleLiveData<Any>()
 
     fun getAppliedTasks() {
         val call: Call<Applications> = RetrofitClient().api
@@ -55,9 +48,9 @@ class MyApplicationsViewModel : ViewModel() {
                         }
                     }
                     if (page == 0) {
-                        _adapterEventLiveData.call()
+                        adapterEventLiveData.call()
                     } else {
-                        _updateAdapterEventLiveData.call()
+                        updateAdapterEventLiveData.call()
                     }
                 } else if (page == 0) {
                     Log.d("RecylerView", "It's Empty!")

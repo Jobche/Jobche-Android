@@ -7,16 +7,9 @@ class SignupPasswordViewModel(val registerUser: RegisterUser) {
 
     var toastMsg: String = ""
 
-    private val _nextEventLiveData = SingleLiveData<Any>()
+    val nextEventLiveData = SingleLiveData<Any>()
 
-    private val _toastEventLiveData = SingleLiveData<Any>()
-
-    val toastEventLiveData: LiveData<Any>
-        get() = _toastEventLiveData
-
-    val nextEventLiveData: LiveData<Any>
-        get() = _nextEventLiveData
-
+    val toastEventLiveData = SingleLiveData<Any>()
 
     fun onClick() {
         if (registerUser.password != registerUser.confPassword) {
@@ -28,11 +21,11 @@ class SignupPasswordViewModel(val registerUser: RegisterUser) {
         }
 
         if (toastMsg != "") {
-            _toastEventLiveData.call()
+            toastEventLiveData.call()
             registerUser.password = ""
             registerUser.confPassword = ""
         } else {
-            _nextEventLiveData.call()
+            nextEventLiveData.call()
         }
     }
 }

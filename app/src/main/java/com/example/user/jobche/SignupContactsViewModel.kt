@@ -15,15 +15,9 @@ class SignupContactsViewModel(val registerUser: RegisterUser) {
 
     var toastMsg: String = ""
 
-    private val _nextEventLiveData = SingleLiveData<Any>()
+    val nextEventLiveData = SingleLiveData<Any>()
 
-    private val _toastEventLiveData = SingleLiveData<Any>()
-
-    val toastEventLiveData: LiveData<Any>
-        get() = _toastEventLiveData
-
-    val nextEventLiveData: LiveData<Any>
-        get() = _nextEventLiveData
+    val toastEventLiveData = SingleLiveData<Any>()
 
 
     fun onClick() {
@@ -40,7 +34,7 @@ class SignupContactsViewModel(val registerUser: RegisterUser) {
         }
 
         if (toastMsg != "") {
-            _toastEventLiveData.call()
+            toastEventLiveData.call()
         } else {
 
             val paramObject = JsonObject()
@@ -71,7 +65,7 @@ class SignupContactsViewModel(val registerUser: RegisterUser) {
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     Log.d("Sign up onSuccess:", response.body().toString())
-                    _nextEventLiveData.call()
+                    nextEventLiveData.call()
                 }
 
             })

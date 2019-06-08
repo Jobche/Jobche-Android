@@ -14,16 +14,12 @@ class SignupBirthViewModel(val registerUser: RegisterUser) : BaseObservable() {
 
     var toastMsg: String = ""
 
-    private val _nextEventLiveData = SingleLiveData<Any>()
+    val nextEventLiveData = SingleLiveData<Any>()
 
-    private val _toastEventLiveData = SingleLiveData<Any>()
+    val toastEventLiveData = SingleLiveData<Any>()
 
-    private val _birthDateEventLiveData = SingleLiveData<Any>()
+    val birthDateEventLiveData = SingleLiveData<Any>()
 
-
-    fun getBirthDate(): LocalDate? {
-        return this.birthDate
-    }
 
     fun setBirthDate(birthDate: LocalDate) {
         this.birthDate = birthDate
@@ -53,31 +49,22 @@ class SignupBirthViewModel(val registerUser: RegisterUser) : BaseObservable() {
         return (age.substring(1, age.length - 1)).toInt()
     }
 
-    val toastEventLiveData: LiveData<Any>
-        get() = _toastEventLiveData
-
-    val birthDateEventLiveData: LiveData<Any>
-        get() = _birthDateEventLiveData
-
-    val nextEventLiveData: LiveData<Any>
-        get() = _nextEventLiveData
-
     fun onClickBirthDate() {
-        _birthDateEventLiveData.call()
+        birthDateEventLiveData.call()
     }
 
     fun onClick() {
-        if (getBirthDate() == null) {
+        if (birthDate == null) {
             toastMsg = "Попълнете празните полета."
-            _toastEventLiveData.call()
+            toastEventLiveData.call()
         }
         else if(getYearsOld() < 18) {
             toastMsg = "Трябва да си поне 18 годишен."
-            _toastEventLiveData.call()
+            toastEventLiveData.call()
         }
         else {
-            registerUser.dateOfBirth = getBirthDate()!!
-            _nextEventLiveData.call()
+            registerUser.dateOfBirth = birthDate!!
+            nextEventLiveData.call()
         }
     }
 }

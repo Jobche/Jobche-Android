@@ -9,59 +9,29 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class FilteredTasksViewModel : ViewModel() {
-    private lateinit var email:String
+    lateinit var email:String
 
-    private lateinit var password:String
+    lateinit var password:String
 
-    private var page: Int = 0
+    var page: Int = 0
 
     private val size: Int = 20
 
     var tasks =  ArrayList<Task>()
 
-    private val _adapterEventLiveData = SingleLiveData<Any>()
+     val adapterEventLiveData = SingleLiveData<Any>()
 
-    private val _updateAdapterEventLiveData = SingleLiveData<Any>()
+    val updateAdapterEventLiveData = SingleLiveData<Any>()
 
-    fun getPage(): Int {
-        return this.page
-    }
-
-    fun setPage(page: Int) {
-        this.page = page
-    }
-
-
-    fun getSize(): Int {
-        return this.size
-    }
-
-    fun getEmail(): String {
-        return this.email
-    }
-
-    fun setEmail(email: String) {
-        this.email = email
-    }
-
-
-    fun getPassword(): String {
-        return this.password
-    }
-
-    fun setPassword(password: String) {
-        this.password = password
-    }
-
-    val adapterEventLiveData: LiveData<Any>
-        get() = _adapterEventLiveData
-
-    val updateAdapterEventLiveData: LiveData<Any>
-        get() = _updateAdapterEventLiveData
+//    val adapterEventLiveData: LiveData<Any>
+//        get() = _adapterEventLiveData
+//
+//    val updateAdapterEventLiveData: LiveData<Any>
+//        get() = _updateAdapterEventLiveData
 
 
     fun getAuthToken(): String {
-        return Credentials.basic(getEmail(), getPassword())
+        return Credentials.basic(email, password)
     }
 
     fun filterTasks(filter: Filter) {
@@ -69,7 +39,7 @@ class FilteredTasksViewModel : ViewModel() {
         val call: Call<Tasks> = RetrofitClient().api
             .getFilteredTasks(
                 getAuthToken(), filter.title, filter.city, filter.dateStart, filter.dateEnd,
-                filter.numWStart?.toIntOrNull() , filter.pStart?.toIntOrNull(), getPage(), getSize()
+                filter.numWStart?.toIntOrNull() , filter.pStart?.toIntOrNull(), page, size
             )
 
         call.enqueue(object : Callback<Tasks> {
@@ -81,17 +51,17 @@ class FilteredTasksViewModel : ViewModel() {
                 Log.d("Search Task onSuccess:", response.body().toString())
                 if (response.body() != null) {
                     tasks = (response.body()!!.tasks)
-                    if (getPage() == 0) {
-                        _adapterEventLiveData.call()
+                    if (page == 0) {
+                        adapterEventLiveData.call()
                     } else {
-                        _updateAdapterEventLiveData.call()
+                        updateAdapterEventLiveData.call()
                     }
-                } else if (getPage() == 0) {
+                } else if (page == 0) {
                     Log.d("RecylerView", "It's Empty!")
 
                 } else {
                     Log.d("RecylerView", "No more tasks to show!")
-                    setPage(getPage() - 1)
+                    page--
                 }
             }
 

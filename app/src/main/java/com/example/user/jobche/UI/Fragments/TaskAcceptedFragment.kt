@@ -71,7 +71,7 @@ class TaskAcceptedFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierCl
 
         taskAcceptedViewModel.getTaskAppliers()
 
-        taskAcceptedViewModel.adapterEventData.observe(this, Observer {
+        taskAcceptedViewModel.adapterEventLiveData.observe(this, Observer {
             recyclerView.adapter = AppliersRecyclerViewAdapter(
                 taskAcceptedViewModel.acceptedAppliers,
                 this

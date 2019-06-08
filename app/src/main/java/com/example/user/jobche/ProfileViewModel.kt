@@ -44,31 +44,11 @@ class ProfileViewModel : BaseObservable() {
             notifyPropertyChanged(BR.yearsOld)
         }
 
-    private val _acceptUserEventLiveData = SingleLiveData<Any>()
-
-    private val _onClickImageEventLiveData = SingleLiveData<Any>()
-
-    private val _getImageEventLiveData = SingleLiveData<Any>()
-
-    private val _onClickReviewsLiveData = SingleLiveData<Any>()
-
-    private val _onCallEventLiveData = SingleLiveData<Any>()
-
-
-    val acceptUserEventLiveData: LiveData<Any>
-        get() = _acceptUserEventLiveData
-
-    val onClickImageEventLiveData: LiveData<Any>
-        get() = _onClickImageEventLiveData
-
-    val getImageEventLiveData: LiveData<Any>
-        get() = _getImageEventLiveData
-
-    val onClickReviewsLiveData: LiveData<Any>
-        get() = _onClickReviewsLiveData
-
-    val onCallEventLiveData: LiveData<Any>
-        get() = _onCallEventLiveData
+    val acceptUserEventLiveData = SingleLiveData<Any>()
+    val onClickImageEventLiveData = SingleLiveData<Any>()
+    val getImageEventLiveData = SingleLiveData<Any>()
+    val onClickReviewsLiveData = SingleLiveData<Any>()
+    val onCallEventLiveData = SingleLiveData<Any>()
 
     fun dateTimeToYears(dateOfBirth: DateOfBirth): String {
         val now = LocalDate()
@@ -92,7 +72,7 @@ class ProfileViewModel : BaseObservable() {
                     userProfile = response.body()!!
                     yearsOld = dateTimeToYears(userProfile.dateOfBirth!!)
                     if(userProfile.profilePicture != null) {
-                        _getImageEventLiveData.call()
+                        getImageEventLiveData.call()
                     }
                 }
             }
@@ -100,11 +80,11 @@ class ProfileViewModel : BaseObservable() {
     }
 
     fun onClickReviews() {
-        _onClickReviewsLiveData.call()
+        onClickReviewsLiveData.call()
     }
 
     fun onCall() {
-        _onCallEventLiveData.call()
+        onCallEventLiveData.call()
     }
 
     fun onAccept() {
@@ -118,13 +98,13 @@ class ProfileViewModel : BaseObservable() {
 
             override fun onResponse(call: Call<Application>, response: Response<Application>) {
                 Log.d("Accept applier Success", response.body().toString())
-                    _acceptUserEventLiveData.call()
+                    acceptUserEventLiveData.call()
             }
         })
     }
 
     fun onClickImage() {
-        _onClickImageEventLiveData.call()
+        onClickImageEventLiveData.call()
     }
 
     fun uploadImage(selectedImagePath: String) {

@@ -17,21 +17,13 @@ class LoginViewModel: ViewModel() {
     var isLogged: Boolean = false
     var toastMsg: String? = null
 
-    private val _signUpEventLiveData = SingleLiveData<Any>()
-    private val _loginEventLiveData = SingleLiveData<Any>()
-    private val _failEventLiveData = SingleLiveData<Any>()
+    val signUpEventLiveData = SingleLiveData<Any>()
+    val loginEventLiveData = SingleLiveData<Any>()
+    val failEventLiveData = SingleLiveData<Any>()
 
-    val loginEventLiveData: LiveData<Any>
-        get() = _loginEventLiveData
-
-    val signUpEventLiveData: LiveData<Any>
-        get() = _signUpEventLiveData
-
-    val failEventLiveData: LiveData<Any>
-        get() = _failEventLiveData
 
     fun onSignup() {
-        _signUpEventLiveData.call()
+        signUpEventLiveData.call()
     }
 
     fun onClick() {
@@ -43,19 +35,19 @@ class LoginViewModel: ViewModel() {
             override fun onFailure(call: Call<UserProfile>, t: Throwable) {
                 Log.d("Login user failure:", t.message.toString())
                 toastMsg = t.cause.toString()
-                _failEventLiveData.call()
+                failEventLiveData.call()
             }
 
             override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
                 Log.d("Login user Success:", response.body().toString())
                 if (response.body() == null) {
                     toastMsg = "Невалидно въведени данни! Опитайте пак."
-                    _failEventLiveData.call()
+                    failEventLiveData.call()
 
                 } else {
                     user.id = response.body()!!.id
                     isLogged = true
-                    _loginEventLiveData.call()
+                    loginEventLiveData.call()
 
                 }
             }

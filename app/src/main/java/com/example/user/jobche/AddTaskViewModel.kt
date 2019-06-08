@@ -51,11 +51,11 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
             field = value
             notifyPropertyChanged(BR.time)
         }
-    private val _dateEventLiveData = SingleLiveData<Any>()
+    val dateEventLiveData = SingleLiveData<Any>()
 
-    private val _timeEventLiveData = SingleLiveData<Any>()
+    val timeEventLiveData = SingleLiveData<Any>()
 
-    private val _addTaskEventLiveData = SingleLiveData<Any>()
+    val addTaskEventLiveData = SingleLiveData<Any>()
 
     private fun formatDate(localDate: LocalDate): String {
         return String.format("%02d", localDate.dayOfMonth) + "." + String.format(
@@ -78,24 +78,13 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
         )
     }
 
-    val dateEventLiveData: LiveData<Any>
-        get() = _dateEventLiveData
-
-    val timeEventLiveData: LiveData<Any>
-        get() = _timeEventLiveData
-
-    val addTaskEventLiveData: LiveData<Any>
-        get() = _addTaskEventLiveData
-
     fun onClickDate() {
-        _dateEventLiveData.call()
+        dateEventLiveData.call()
     }
 
     fun onClickTime() {
-        _timeEventLiveData.call()
-
+        timeEventLiveData.call()
     }
-
 
     fun onClickAddTask() {
 
@@ -123,7 +112,7 @@ class AddTaskViewModel(val task: Task, private val email: String, private val pa
 
                 override fun onResponse(call: Call<Task>, response: Response<Task>) {
                     Log.d("Add Task onSuccess:", response.body().toString())
-                    _addTaskEventLiveData.call()
+                    addTaskEventLiveData.call()
                 }
 
             })

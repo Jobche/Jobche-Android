@@ -17,11 +17,7 @@ class OpenedTaskViewModel(val task: Task, private val email: String, private val
 
     val isVisible: Boolean = (task.creator.id == userId)
 
-    private val _onClickEventLiveData = SingleLiveData<Any>()
-
-    val onClickEventLiveData: LiveData<Any>
-        get() = _onClickEventLiveData
-
+    val onClickEventLiveData = SingleLiveData<Any>()
 
     fun onClick() {
         val paramObject = JsonObject()
@@ -37,7 +33,7 @@ class OpenedTaskViewModel(val task: Task, private val email: String, private val
 
             override fun onResponse(call: Call<Application>, response: Response<Application>) {
                 Log.d("Apply Task onSuccess", response.body().toString())
-                _onClickEventLiveData.call()
+                onClickEventLiveData.call()
             }
 
         })

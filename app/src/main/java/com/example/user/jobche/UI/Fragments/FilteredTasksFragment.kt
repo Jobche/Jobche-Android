@@ -49,8 +49,8 @@ class FilteredTasksFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickLi
         filteredTasksViewModel = FilteredTasksViewModel()
         binding.viewModel = filteredTasksViewModel
 
-        filteredTasksViewModel.setEmail(sharedPreferences.getString("EMAIL", "")!!)
-        filteredTasksViewModel.setPassword(sharedPreferences.getString("PASSWORD", "")!!)
+        filteredTasksViewModel.email = (sharedPreferences.getString("EMAIL", "")!!)
+        filteredTasksViewModel.password = (sharedPreferences.getString("PASSWORD", "")!!)
 
         recyclerView = binding.listOfFilteredTasks
         val layoutManager = LinearLayoutManager(activity!!)
@@ -75,7 +75,7 @@ class FilteredTasksFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickLi
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {
                     page += 1
-                    filteredTasksViewModel.setPage(page)
+                    filteredTasksViewModel.page = page
                     filteredTasksViewModel.filterTasks(filter)
                 }
             }

@@ -25,7 +25,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
     var started = false
         set(value) {
             field = value
-            _hasStartedEventLiveData.call()
+            hasStartedEventLiveData.call()
             notifyPropertyChanged(BR.started)
         }
 
@@ -43,45 +43,26 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
 
     val acceptedAppliers = ArrayList<UserProfile>()
 
-    private val _adapterEventLiveData = SingleLiveData<Any>()
+    val adapterEventLiveData = SingleLiveData<Any>()
 
-    private val _updateAdapterEventLiveData = SingleLiveData<Any>()
+    val updateAdapterEventLiveData = SingleLiveData<Any>()
 
-    private val _onClickEventLiveData = SingleLiveData<Any>()
+    val onClickEventLiveData = SingleLiveData<Any>()
 
-    private val _onStartEventLiveData = SingleLiveData<Any>()
+    val onStartEventLiveData = SingleLiveData<Any>()
 
-    private val _hasStartedEventLiveData = SingleLiveData<Any>()
+    val hasStartedEventLiveData = SingleLiveData<Any>()
 
-    private val _onReviewsEventLiveData = SingleLiveData<Any>()
-
-
-    val adapterEventData: LiveData<Any>
-        get() = _adapterEventLiveData
-
-    val updateAdapterEventLiveData: LiveData<Any>
-        get() = _updateAdapterEventLiveData
-
-    val onClickEventLiveData: LiveData<Any>
-        get() = _onClickEventLiveData
-
-    val onStartEventLiveData: LiveData<Any>
-        get() = _onStartEventLiveData
-
-    val hasStartedEventLiveData: LiveData<Any>
-        get() = _hasStartedEventLiveData
-
-    val onReviewsEventLiveData: LiveData<Any>
-        get() = _onReviewsEventLiveData
+    val onReviewsEventLiveData = SingleLiveData<Any>()
 
 
     fun onTaskClick() {
-        _onClickEventLiveData.call()
+        onClickEventLiveData.call()
     }
 
     fun onStart() {
         if (!started) {
-            _onStartEventLiveData.call()
+            onStartEventLiveData.call()
         } else {
             endWork()
         }
@@ -102,7 +83,7 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
             }
         })
         started = false
-        _onReviewsEventLiveData.call()
+        onReviewsEventLiveData.call()
     }
 
     fun startWork(booleanArray: BooleanArray) {
@@ -165,9 +146,9 @@ class TaskAcceptedViewModel(val task: Task, private val email: String, private v
                         }
                     }
                     if (page == 0) {
-                        _adapterEventLiveData.call()
+                        adapterEventLiveData.call()
                     } else {
-                        _updateAdapterEventLiveData.call()
+                        updateAdapterEventLiveData.call()
                     }
                 } else if (page == 0) {
                     Log.d("RecylerView", "It's Empty!")

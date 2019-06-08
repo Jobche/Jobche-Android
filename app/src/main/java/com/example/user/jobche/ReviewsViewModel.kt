@@ -19,14 +19,7 @@ class ReviewsViewModel : ViewModel(){
     lateinit var password: String
     var workId: Long = 0
     var workers = ArrayList<UserProfile>()
-    private val _adapterEventLiveData = SingleLiveData<Any>()
-    private val _onClickEventLiveData = SingleLiveData<Any>()
-
-    val adapterEventData: LiveData<Any>
-        get() = _adapterEventLiveData
-
-    val onClickEventLiveData: LiveData<Any>
-        get() = _onClickEventLiveData
+    val adapterEventLiveData = SingleLiveData<Any>()
 
     fun getWork() {
         val call: Call<Work> = RetrofitClient().api
@@ -41,7 +34,7 @@ class ReviewsViewModel : ViewModel(){
                 Log.d("Get work onSuccess", response.body().toString())
                 if (response.body() != null) {
                     workers = response.body()!!.workers
-                    _adapterEventLiveData.call()
+                    adapterEventLiveData.call()
                 }
             }
         })

@@ -20,11 +20,11 @@ class HomeViewModel : ViewModel() {
 
     var tasks = ArrayList<Task>()
 
-    private val _fabEventLiveData = SingleLiveData<Any>()
+    val fabEventLiveData = SingleLiveData<Any>()
 
-    private val _adapterEventLiveData = SingleLiveData<Any>()
+    val adapterEventLiveData = SingleLiveData<Any>()
 
-    private val _updateAdapterEventLiveData = SingleLiveData<Any>()
+    val updateAdapterEventLiveData = SingleLiveData<Any>()
 
 
     fun getAuthToken(): String {
@@ -39,17 +39,8 @@ class HomeViewModel : ViewModel() {
         return RetrofitClient().api.getMyTasks(getAuthToken(), page, size)
     }
 
-    val fabEventLiveData: LiveData<Any>
-        get() = _fabEventLiveData
-
-    val adapterEventLiveData: LiveData<Any>
-        get() = _adapterEventLiveData
-
-    val updateAdapterEventLiveData: LiveData<Any>
-        get() = _updateAdapterEventLiveData
-
     fun onClickFab() {
-        _fabEventLiveData.call()
+        fabEventLiveData.call()
     }
 
     fun generateTasks(call: Call<Tasks>) {
@@ -64,9 +55,9 @@ class HomeViewModel : ViewModel() {
                     if (response.body()!!.tasks.isNotEmpty()) {
                         tasks = (response.body()!!.tasks)
                         if (page == 0) {
-                            _adapterEventLiveData.call()
+                            adapterEventLiveData.call()
                         } else {
-                            _updateAdapterEventLiveData.call()
+                            updateAdapterEventLiveData.call()
                         }
 
                     } else if (page == 0) {

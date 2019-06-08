@@ -34,42 +34,42 @@ class FilterViewModel(val filter: Filter) : BaseObservable() {
         }
 
 
-    private val _beginDateEventLiveData = SingleLiveData<Any>()
+    val beginDateEventLiveData = SingleLiveData<Any>()
 
-    private val _endDateEventLiveData = SingleLiveData<Any>()
+    val endDateEventLiveData = SingleLiveData<Any>()
 
-    private val _searchTasksEventLiveData = SingleLiveData<Any>()
+    val searchTasksEventLiveData = SingleLiveData<Any>()
 
-    val beginDateEventLiveData: LiveData<Any>
-        get() = _beginDateEventLiveData
-
-    val endDateEventLiveData: LiveData<Any>
-        get() = _endDateEventLiveData
-
-    val searchTasksEventLiveData: LiveData<Any>
-        get() = _searchTasksEventLiveData
+//    val beginDateEventLiveData: LiveData<Any>
+//        get() = _beginDateEventLiveData
+//
+//    val endDateEventLiveData: LiveData<Any>
+//        get() = _endDateEventLiveData
+//
+//    val searchTasksEventLiveData: LiveData<Any>
+//        get() = _searchTasksEventLiveData
 
     fun formatDate(dateTime: DateTime?): String {
 
-        return if(dateTime == null) {
+        return if (dateTime == null) {
             ""
-        }else {
-                String.format("%02d", dateTime.dayOfMonth) + "." +
-                        String.format("%02d", dateTime.monthOfYear) + "." +
-                        dateTime.year.toString()
-            }
+        } else {
+            String.format("%02d", dateTime.dayOfMonth) + "." +
+                    String.format("%02d", dateTime.monthOfYear) + "." +
+                    dateTime.year.toString()
+        }
     }
 
     fun onBeginDate() {
-        _beginDateEventLiveData.call()
+        beginDateEventLiveData.call()
     }
 
     fun onEndDate() {
-        _endDateEventLiveData.call()
+        endDateEventLiveData.call()
     }
 
     fun onClickSearch() {
-        _searchTasksEventLiveData.call()
+        searchTasksEventLiveData.call()
     }
 
 }
