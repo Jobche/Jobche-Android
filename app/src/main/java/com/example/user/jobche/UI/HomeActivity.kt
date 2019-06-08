@@ -62,7 +62,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         profileViewModel.getUser()
 
         profileViewModel.getImageEventLiveData.observe(this, Observer {
-            Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(400, 400).centerCrop().into(header_image)
+            Picasso.get().load(profileViewModel.userProfile.profilePicture).resize(200, 200).centerCrop().into(header_image)
         })
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -93,27 +93,26 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.nav_home -> supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container,
-                HomeFragment()
-            ).commit()
-
+            R.id.nav_home ->{
+                startActivity(Intent(this, HomeActivity::class.java))
+                overridePendingTransition(0, 0)
+            }
 
             R.id.nav_profile -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container,
                 ProfileFragment()
-            ).addToBackStack(null).commit()
+            ).commit()
 
             R.id.nav_my_tasks -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container,
                 MyTasksFragment()
-            ).addToBackStack(null).commit()
+            ).commit()
 
 
             R.id.nav_applied_for -> supportFragmentManager.beginTransaction().replace(
                 R.id.fragment_container,
                 ApplicationsFragment()
-            ).addToBackStack(null).commit()
+            ).commit()
 
             R.id.nav_log_out -> startActivity(Intent(this, LoginActivity::class.java))
         }
@@ -140,10 +139,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             if (!mToolBarNavigationListenerIsRegistered) {
                 toggle.toolbarNavigationClickListener = View.OnClickListener {
-                    // Doesn't have to be onBackPressed
                     onBackPressed()
                 }
-
                 mToolBarNavigationListenerIsRegistered = true
             }
 

@@ -52,7 +52,6 @@ class HomeViewModel : ViewModel() {
         _fabEventLiveData.call()
     }
 
-
     fun generateTasks(call: Call<Tasks>) {
         call.enqueue(object : Callback<Tasks> {
             override fun onFailure(call: Call<Tasks>, t: Throwable) {

@@ -70,8 +70,4 @@ class ReviewsViewModel : ViewModel(){
             }
         })
     }
-
-    fun onClickNext() {
-        _onClickEventLiveData.call()
-    }
 }

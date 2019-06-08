@@ -1,5 +1,6 @@
 package com.example.user.jobche.Adapters
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -38,11 +39,14 @@ class AppliersRecyclerViewAdapter(
         return appliers.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: called.")
         holder.firstname.text = appliers[position].firstName
         holder.lastname.text = appliers[position].lastName
         holder.years.text = dateTimeToYears(appliers[position].dateOfBirth!!)
+        holder.rating.text = appliers[position].averageReview.toString()
+        holder.reviews.text = "(" + appliers[position].reviews.size.toString() + ")"
         if (appliers[position].profilePicture != null) {
             Picasso.get().load(appliers[position].profilePicture).resize(400, 400).centerCrop().into(holder.image)
         }
@@ -62,7 +66,10 @@ class AppliersRecyclerViewAdapter(
         val firstname: TextView = itemView.findViewById(R.id.user_firstname)
         val lastname: TextView = itemView.findViewById(R.id.user_lastname)
         val years: TextView = itemView.findViewById(R.id.user_years)
-        var image: ImageView = itemView.findViewById(R.id.image_person)
+        val image: ImageView = itemView.findViewById(R.id.image_person)
+        val rating: TextView = itemView.findViewById(R.id.rating_applier)
+        val reviews: TextView = itemView.findViewById(R.id.reviews_size)
+
     }
 
     interface OnApplierClickListener {

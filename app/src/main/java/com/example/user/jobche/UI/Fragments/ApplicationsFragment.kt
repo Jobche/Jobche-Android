@@ -21,7 +21,7 @@ class ApplicationsFragment : Fragment() {
 
         if (activity is HomeActivity) {
             (activity as HomeActivity).supportActionBar!!.title = "Кандидатствaния"
-            (activity as HomeActivity).showBackButton(true)
+            (activity as HomeActivity).showBackButton(false)
         }
         val binding: FragmentViewpagerBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_viewpager, container, false)

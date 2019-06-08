@@ -86,13 +86,6 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
             )
         })
 
-        reviewsViewModel.onClickEventLiveData.observe(this, Observer {
-            newFragment = HomeFragment()
-            activity!!.supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container, newFragment
-            ).addToBackStack(null).commit()
-        })
-
         return binding.root
     }
 
