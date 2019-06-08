@@ -28,6 +28,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.widget.DrawerLayout
 import android.widget.RatingBar
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.rating_dialog.*
 import kotlinx.android.synthetic.main.rating_dialog.view.*
 
 
@@ -85,13 +86,6 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
             )
         })
 
-        reviewsViewModel.onClickEventLiveData.observe(this, Observer {
-            newFragment = HomeFragment()
-            activity!!.supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container, newFragment
-            ).addToBackStack(null).commit()
-        })
-
         return binding.root
     }
 
@@ -100,11 +94,12 @@ class ReviewsFragment : Fragment(), AppliersRecyclerViewAdapter.OnApplierClickLi
         val inflater = layoutInflater
         builder.setTitle("Оценете " + reviewsViewModel.workers[position].firstName + " " + reviewsViewModel.workers[position].lastName)
         val dialogLayout = inflater.inflate(R.layout.rating_dialog, null)
-        val ratingBar = dialogLayout.ratingBar
+        val ratingBar = dialogLayout.rating_bar
+        val reviewComment = dialogLayout.review_comment
         builder.setView(dialogLayout)
 
         builder.setPositiveButton("Избери") { _, _ ->
-            reviewsViewModel.reviewUser(ratingBar.rating.toInt(), reviewsViewModel.workers[position].id, workId)
+            reviewsViewModel.reviewUser(ratingBar.rating.toInt(), reviewComment.text.toString(), reviewsViewModel.workers[position].id, workId)
         }
 
         builder.setNeutralButton("Cancel") { _, _ ->

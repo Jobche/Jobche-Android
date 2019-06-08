@@ -17,7 +17,8 @@
     <string name="home">Обяви</string>
     <string name="title">Заглавие</string>
     <string name="leva">лв</string>
-    <string name="price">Заплащане</string>
+    <string name="price">Заплащане(лв.)</string>
+    <string name="priceTag">Заплащане</string>
     <string name="start">Начало</string>
     <string name="no_ratings">Без оценка</string>
     <string name="accepted">Приети</string>
@@ -30,6 +31,7 @@
     <string name="time">Час</string>
     <string name="description">Описание</string>
     <string name="date">Дата:</string>
+    <string name="date_input">Дата</string>
     <string name="search_tasks">Търсене</string>
     <string name="to_date">Крайна дата</string>
     <string name="from_date">Начална дата</string>

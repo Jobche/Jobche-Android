@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-                name="viewModel"
-                type="com.example.user.jobche.ProfileViewModel"/>
-    </data>
+    <!--<data>-->
+    <!--<variable-->
+    <!--name="viewModel"-->
+    <!--type="com.example.user.jobche.ProfileViewModel"/>-->
+    <!--</data>-->
     <FrameLayout
-            android:id="@+id/user_info"
+            android:id="@+id/review_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp">
@@ -26,7 +26,7 @@
                     android:src="@mipmap/ic_launcher"/>
 
             <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginStart="10dp">
@@ -40,18 +40,16 @@
                             android:id="@+id/user_firstname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewModel.userProfile.firstName}"
                             android:layout_marginStart="7dp"
                             android:textColor="@android:color/black"
-                            android:textSize="13sp"/>
+                            android:textSize="15sp"/>
                     <TextView
                             android:id="@+id/user_lastname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewModel.userProfile.lastName}"
                             android:layout_marginStart="7dp"
                             android:textColor="@android:color/black"
-                            android:textSize="13sp"/>
+                            android:textSize="15sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -61,53 +59,50 @@
                         android:layout_marginTop="5dp">
 
                     <TextView
-                            android:id="@+id/user_years"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{viewModel.yearsOld}"
                             android:layout_marginStart="7dp"
+                            android:text="Оценка:"
                             android:textColor="@android:color/black"
-                            android:textSize="13sp"/>
+                            android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/review_element_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"/>
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="years old"
-                            android:layout_marginStart="7dp"
+                            android:text=".0"
                             android:textColor="@android:color/black"
-                            android:textSize="13sp"/>
-                </LinearLayout>
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
+                            android:textSize="15sp"/>
                     <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
                             android:layout_marginStart="5dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:src="@drawable/ic_star_black_24dp"/>
 
-                    <TextView
-                            android:id="@+id/rating_applier"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text='@{"" + viewModel.userProfile.averageReview}'
-                            android:layout_marginStart="5dp"
-                            android:textColor="@android:color/black"
-                            android:textSize="13sp"/>
-
-                    <TextView
-                            android:id="@+id/reviews_size"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text='@{"(" + viewModel.userProfile.reviews.size() + ")"}'
-                            android:layout_marginStart="5dp"
-                            android:textColor="@android:color/black"
-                            android:textSize="13sp"/>
-
                 </LinearLayout>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Коментар:"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp"/>
+                <TextView
+                        android:id="@+id/review_element_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"/>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

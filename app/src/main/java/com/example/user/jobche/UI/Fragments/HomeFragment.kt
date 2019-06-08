@@ -17,6 +17,7 @@ import com.example.user.jobche.R
 import com.example.user.jobche.UI.HomeActivity
 import com.example.user.jobche.Adapters.TasksRecyclerViewAdapter
 import com.example.user.jobche.databinding.FragmentHomeBinding
+import net.danlew.android.joda.JodaTimeAndroid
 
 class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
 
@@ -27,6 +28,12 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
     private lateinit var homeViewModel: HomeViewModel
     private val bundle: Bundle = Bundle()
     private lateinit var newFragment: Fragment
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        JodaTimeAndroid.init(activity)
+
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         //protects from duplicating buttons
@@ -55,13 +62,12 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
         }
 
         //clear all backStacks
-        fragmentManager!!.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
+        fragmentManager!!.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         val binding: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         binding.viewModel = homeViewModel
-
 
         homeViewModel.email = email
         homeViewModel.password = password
@@ -71,6 +77,7 @@ class HomeFragment : Fragment(), TasksRecyclerViewAdapter.OnTaskClickListener {
         recyclerView.layoutManager = layoutManager
 
         homeViewModel.generateTasks(homeViewModel.getCallAllTasks())
+
 
         homeViewModel.adapterEventLiveData.observe(this, Observer {
             recyclerView.adapter = TasksRecyclerViewAdapter(

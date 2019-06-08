@@ -50,6 +50,11 @@ class ProfileViewModel : BaseObservable() {
 
     private val _getImageEventLiveData = SingleLiveData<Any>()
 
+    private val _onClickReviewsLiveData = SingleLiveData<Any>()
+
+    private val _onCallEventLiveData = SingleLiveData<Any>()
+
+
     val acceptUserEventLiveData: LiveData<Any>
         get() = _acceptUserEventLiveData
 
@@ -58,6 +63,12 @@ class ProfileViewModel : BaseObservable() {
 
     val getImageEventLiveData: LiveData<Any>
         get() = _getImageEventLiveData
+
+    val onClickReviewsLiveData: LiveData<Any>
+        get() = _onClickReviewsLiveData
+
+    val onCallEventLiveData: LiveData<Any>
+        get() = _onCallEventLiveData
 
     fun dateTimeToYears(dateOfBirth: DateOfBirth): String {
         val now = LocalDate()
@@ -73,8 +84,6 @@ class ProfileViewModel : BaseObservable() {
         call.enqueue(object : Callback<UserProfile> {
             override fun onFailure(call: Call<UserProfile>, t: Throwable) {
                 Log.d("Get user onFailure ", t.message.toString())
-                userProfile = UserProfile()
-
             }
 
             override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
@@ -88,6 +97,14 @@ class ProfileViewModel : BaseObservable() {
                 }
             }
         })
+    }
+
+    fun onClickReviews() {
+        _onClickReviewsLiveData.call()
+    }
+
+    fun onCall() {
+        _onCallEventLiveData.call()
     }
 
     fun onAccept() {

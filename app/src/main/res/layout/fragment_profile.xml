@@ -5,6 +5,7 @@
         <variable
                 name="viewModel"
                 type="com.example.user.jobche.ProfileViewModel"/>
+
     </data>
     <FrameLayout
             android:id="@+id/profile_info"
@@ -71,7 +72,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="years old"
+                        android:text="годишен"
                         android:layout_marginStart="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"/>
@@ -83,24 +84,48 @@
                   android:layout_marginTop="10dp"/>
 
 
-            <TextView
+            <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bio"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="17sp"/>
+                    android:orientation="horizontal">
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="30dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="15sp"/>
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Телефон:"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="17sp"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.userProfile.phoneNum}"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="30dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="17sp"/>
+                </LinearLayout>
+
+                <ImageButton
+                        android:id="@+id/call_button"
+                        android:layout_width="70dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="100dp"
+                        android:background="@color/colorAccent"
+                        android:src="@drawable/ic_call_white_24dp"
+                        android:onClick="@{() -> viewModel.onCall()}"
+                        android:visibility="invisible"
+                        android:textAllCaps="false"/>
+            </LinearLayout>
 
             <View android:layout_width="match_parent" android:layout_height="1dp"
                   android:background="@android:color/black"
@@ -116,7 +141,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rating:"
+                        android:text="Оценка:"
                         android:layout_marginStart="30dp"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"/>
@@ -130,7 +155,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4.5"
+                        android:text='@{"" + viewModel.userProfile.averageReview}'
                         android:layout_marginStart="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"/>
@@ -138,7 +163,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="(5)"
+                        android:text='@{"(" + viewModel.userProfile.reviews.size() + ")"}'
                         android:layout_marginStart="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"/>
@@ -150,7 +175,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center"
-                    android:text="Reviews"
+                    android:text="Оценики"
+                    android:onClick="@{() -> viewModel.onClickReviews()}"
                     android:textAllCaps="false"/>
 
         </LinearLayout>
